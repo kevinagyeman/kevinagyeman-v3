@@ -1,0 +1,24 @@
+---
+import { fetchProject, fetchProjects } from '@/services/projects';
+
+export async function getStaticPaths() {
+  // Optionally pre-fetch project IDs to generate static pages
+  const projects = await fetchProjects(); // Fetch all projects
+  return projects.map((project: any) => ({ params: { id: project.id.toString() } }));
+}
+
+const { id } = Astro.params;
+const project = await fetchProject(id);
+---
+
+<html lang="en">
+  <head>
+    <title>{project.title} - Project Details</title>
+  </head>
+  <body>
+    <h1>{project.title}</h1>
+    <p>Start Date: {project.start_date}</p>
+    <p>Description: {project.description}</p>
+    <!-- etc -->
+  </body>
+</html>

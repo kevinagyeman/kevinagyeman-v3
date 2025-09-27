@@ -1,0 +1,8 @@
+---
+import LoginWrapper from '@/components/LoginWrapper';
+import MainLayout from '@/layouts/main.astro';
+---
+
+<MainLayout content={{ title: 'Home' }}>
+  <LoginWrapper client:visible />
+</MainLayout>

@@ -1,0 +1,13 @@
+---
+import '@/styles/global.css';
+// Component Imports
+import MainLayout from '@/layouts/main.astro';
+import { fetchProjects } from '@/services/projects';
+
+const projects = await fetchProjects();
+---
+
+<MainLayout content={{ title: 'Dahsboard' }}>
+  Dashboard
+  <a href='/admin/project/new'>new project</a>
+</MainLayout>

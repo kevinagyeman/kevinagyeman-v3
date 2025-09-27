@@ -1,0 +1,137 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+
+# Django migrations
+*/migrations/*.py
+*/migrations/*.pyc
+*/migrations/__pycache__/
+
+# Ignore environment variables file
+.env
+
+# Ignore virtual environment directory
+backend/.venv/
+
+# VSCode settings and workspace files (if you use VSCode)
+.vscode/
+*.code-workspace
+
+# Mac OS metadata files
+.DS_Store
+
+# Python profiler files
+.prof
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Unit test / coverage reports:
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+
+# Pytest
+.pytest_cache/
+
+# PyCharm
+.idea/
+
+# Celery beat schedule file
+celerybeat-schedule
+
+# Spyder project settings
+.spyproj
+.spyproject
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Sphinx documentation build dirs
+docs/_build/
+
+# dotenv environment variables file
+.env
+
+# Local settings file if any
+local_settings.py
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Spyder IDE project files
+.spyderproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# Pyre type checker
+.pyre/
+
+# pyenv
+.python-version
+
+# celerybeat db & pid file
+celerybeat.pid
+celerybeat.db
+
+# dotenv files (already covered, optional multiple env files)
+.env.*
+
+# Test coverage report
+.coverage
+
+# local settings file
+local_settings.py

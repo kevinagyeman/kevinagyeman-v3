@@ -1,0 +1,24 @@
+---
+import '../styles/global.css';
+import { fetchProjects } from '@/services/projects';
+import MainLayout from '@/layouts/main.astro';
+
+const projects = await fetchProjects();
+---
+
+<MainLayout content={{ title: 'Home' }}>
+  <div>
+    <div>
+      <h2>Projects List:</h2>
+      <ul>
+        {
+          projects.map((project: any, number: any) => (
+            <>
+              <li>{project.title}</li>
+            </>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</MainLayout>
