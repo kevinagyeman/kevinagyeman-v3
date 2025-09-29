@@ -1,6 +1,3 @@
-from authentication.authentication import (
-    CookieJWTAuthentication,
-)  # import personalizzato
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,7 +7,7 @@ from .serializers import ProjectSerializer
 
 
 class ProjectListCreateAPIView(APIView):
-    authentication_classes = [CookieJWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_permissions(self):
         if self.request.method == "GET":
@@ -31,7 +28,7 @@ class ProjectListCreateAPIView(APIView):
 
 
 class ProjectDetailAPIView(APIView):
-    authentication_classes = [CookieJWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_permissions(self):
         if self.request.method == "GET":

@@ -1,11 +1,7 @@
 import { login } from '@/services/auth';
 import React, { useState } from 'react';
 
-export default function Auth({
-  onLogin,
-}: {
-  onLogin: (token: string) => void;
-}) {
+export default function Auth() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -15,7 +11,8 @@ export default function Auth({
     setError(null);
     try {
       const data = await login(username, password);
-      onLogin(data.access);
+      localStorage.setItem('isAuthenticated', 'true');
+      window.location.href = '/admin/dashboard';
     } catch (e) {
       setError('Invalid credentials');
     }

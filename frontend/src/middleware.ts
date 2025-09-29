@@ -33,41 +33,27 @@ const verifyAuth = async (token?: string) => {
 };
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  // Ignore auth validation for public routes
-  if (PUBLIC_ROUTES.includes(context.url.pathname)) {
-    // Respond as usual
-    return next();
-  }
-
-  // Get the token from cookies
   const token = context.cookies.get(TOKEN_COOKIE_NAME)?.value;
-  console.log('token', token);
-
-  // Verify the token
   const validationResult = await verifyAuth(token);
+  const path = context.url.pathname;
 
-  console.log(validationResult);
-
-  // Handle the validation result
-  switch (validationResult.status) {
-    case 'authorized':
-      // Respond as usual if the user is authorised
+  if (path === '/login' && validationResult.status === 'authorized') {
+    return Response.redirect(new URL('/', context.url));
+  }
+  if (path.startsWith('/admin')) {
+    if (validationResult.status === 'authorized') {
       return next();
-
-    case 'error':
-    case 'unauthorized':
-      // If an API endpoint, return a JSON response
-      if (context.url.pathname.startsWith('/api/')) {
-        return new Response(JSON.stringify({ message: validationResult.msg }), {
+    } else {
+      const loginUrl = new URL('/login', context.url);
+      loginUrl.searchParams.set('next', path + context.url.search); // conserva query params originali
+      if (path.startsWith('/api/')) {
+        return new Response(JSON.stringify({ message: 'Unauthorized' }), {
           status: 401,
         });
       }
-      // Otherwise, this is a standard page. Redirect to the root page for the user to login
-      else {
-        return Response.redirect(new URL('/login', context.url));
-      }
-
-    default:
-      return Response.redirect(new URL('/login', context.url));
+      return Response.redirect(loginUrl);
+    }
   }
+
+  return next();
 });

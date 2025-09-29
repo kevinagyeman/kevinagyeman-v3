@@ -12,8 +12,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(DEBUG=(bool, False))
 
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
-print("SECRET_KEY from env:", env("SECRET_KEY", default="NOT SET"))
-
 
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
@@ -23,16 +21,26 @@ CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "authentication.authentication.CookieJWTAuthentication",
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=30),
-    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=2),
-    "ROTATE_REFRESH_TOKENS": True,
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
+
+REST_AUTH = {
+    "USE_JWT": True,
+    "JWT_AUTH_COOKIE": "access_token",  # Name of access token cookie
+    "JWT_AUTH_REFRESH_COOKIE": "refresh_token",  # Name of refresh token cookie
+    "JWT_AUTH_HTTPONLY": False,  # Makes sure refresh token is sent
+}
+
 CORS_ALLOW_CREDENTIALS = True
 
 # Applicazioni installate e middleware rimangono invariati
@@ -45,10 +53,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "rest_framework_simplejwt",
-    "project",
+    "rest_framework.authtoken",
+    "dj_rest_auth",
     "corsheaders",
-    "rest_framework_simplejwt.token_blacklist",
+    "project",
 ]
 
 MIDDLEWARE = [

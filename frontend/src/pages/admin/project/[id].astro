@@ -1,18 +1,8 @@
 ---
-import ProjectForm from '@/components/projectForm';
-import { fetchProject, fetchProjects } from '@/services/projects';
+import ProjectForm from '@/components/ProjectForm';
 import MainLayout from '@/layouts/main.astro';
 
-export async function getStaticPaths() {
-  // Optionally pre-fetch project IDs to generate static pages
-  const projects = await fetchProjects(); // Fetch all projects
-  return projects.map((project: any) => ({
-    params: { id: project.id.toString() },
-  }));
-}
-
 const { id } = Astro.params;
-const project = await fetchProject(id);
 ---
 
 <MainLayout content={{ title: 'Project id' }}>

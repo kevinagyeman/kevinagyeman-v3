@@ -1,110 +1,175 @@
+import { projectSchema, type ProjectSchema } from '@/schemas/project-schema';
 import {
   createProject,
+  deleteProject,
   fetchProject,
   updateProject,
-  deleteProject,
-  fetchProjects,
-} from '@/services/projects';
-import React, { useState, useEffect } from 'react';
+} from '@/services/project';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
+import CustomInput from './form/CustomInput';
+import CustomTextArea from './form/CustomTextArea';
+import { Button } from './ui/button';
+import { Label } from './ui/label';
+import { Input } from './ui/input';
 
 interface ProjectFormProps {
-  projectId?: number | string;
+  projectId?: string;
 }
 
 export default function ProjectForm({ projectId }: ProjectFormProps) {
-  const [title, setTitle] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [projects, setProjects] = useState([]);
+  const [projectImage, setProjectImage] = useState<string>('');
+  const form = useForm<ProjectSchema>({
+    resolver: zodResolver(projectSchema),
+  });
 
-  // Fetch projects list on mount
+  const errors = form.formState.errors;
+
   useEffect(() => {
-    async function loadProjects() {
-      const data = await fetchProjects();
-      setProjects(data);
-    }
-    loadProjects();
-  }, []);
+    console.log('errors: ', errors);
+  }, [errors, form.watch()]);
 
-  // When projectId changes, fetch project data and fill form
   useEffect(() => {
     if (!projectId) return;
-
-    async function loadProject() {
-      const project = await fetchProject(projectId);
-      setTitle(project.title);
-      setStartDate(project.start_date);
-    }
-    loadProject();
+    loadProject(projectId);
   }, [projectId]);
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleDelete = async (id: string) => {
     try {
-      if (projectId) {
-        // Update existing project
-        await updateProject(projectId, { title, start_date: startDate });
-        console.log('Project updated!');
-      } else {
-        // Create new project
-        await createProject({ title, start_date: startDate });
-        console.log('Project created!');
-      }
-      setTitle('');
-      setStartDate('');
-      // Refresh projects
-      const data = await fetchProjects();
-      setProjects(data);
-    } catch {
-      console.log('Error saving project.');
+      const data = await deleteProject(id);
+      window.location.href = '/admin/dashboard';
+    } catch (error) {
+      console.log('Error: ', error);
     }
   };
 
-  const handleDelete = async (id: any) => {
+  const BACKEND_URL = 'http://localhost:8000';
+
+  const loadProject = async (id: string) => {
     try {
-      await deleteProject(id);
-      const data = await fetchProjects();
-      setProjects(data);
-    } catch {
-      console.log('Error deleting project.');
+      const data = await fetchProject(id);
+      if (data.image) {
+        // Se data.image è percorso relativo, concatena l'URL del backend
+        const imageUrl = data.image.startsWith('http')
+          ? data.image
+          : `${BACKEND_URL}${data.image}`;
+        setProjectImage(imageUrl);
+      }
+      if (typeof data.image === 'string') {
+        delete data.image;
+        // Salva URL in uno stato separato
+      }
+      form.reset(data);
+    } catch (error) {
+      console.log('Error: ', error);
+      window.location.href = '/404';
+    }
+  };
+  const submitProject: SubmitHandler<ProjectSchema> = async (data) => {
+    try {
+      const filteredData = Object.fromEntries(
+        Object.entries(data).filter(([_, v]) => v !== '')
+      );
+      if (projectId) {
+        await updateProject(projectId, filteredData);
+      } else {
+        await createProject(filteredData);
+      }
+      window.location.href = '/admin/dashboard';
+    } catch (error) {
+      console.error('Error: ', error);
     }
   };
 
   return (
     <>
-      <h2>Projects List:</h2>
-      <ul>
-        {projects.map((project: any) => (
-          <li key={project.id}>
-            {project.title}
-            <button>edit</button>
-            <button onClick={() => handleDelete(project.id)}>
-              {' '}
-              --- delete ---{' '}
-            </button>
-          </li>
-        ))}
-      </ul>
+      {projectId && (
+        <button onClick={() => handleDelete(projectId)}>delete project</button>
+      )}
+      <form
+        onSubmit={form.handleSubmit(submitProject)}
+        className='space-y-4'
+        encType='multipart/form-data'
+      >
+        <div className='flex items-center space-x-2'>
+          <input type='checkbox' {...form.register('is_published')} />
+          <Label>Is Published</Label>
+        </div>
+        <Controller
+          name='image'
+          control={form.control}
+          render={({ field }) => (
+            <>
+              {projectImage && !field.value && (
+                <img src={projectImage} alt='Preview' />
+              )}
+              <input
+                type='file'
+                onChange={(e) => field.onChange(e.target.files?.[0])}
+              />
+              <small>{errors.image?.message}</small>
+            </>
+          )}
+        />
 
-      <form onSubmit={handleSubmit} id='project-form'>
-        <label>
-          Title:
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Start Date:
-          <input
-            type='date'
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            required
-          />
-        </label>
-
-        <button type='submit'>{projectId ? 'Update' : 'Submit'}</button>
+        <CustomInput
+          inputType='text'
+          placeholder='Title'
+          labelText='Title'
+          inputProps={form.register('title')}
+          error={errors.title?.message}
+        />
+        <CustomInput
+          inputType='date'
+          labelText='Start Date'
+          placeholder='Start Date'
+          inputProps={form.register('start_date')}
+          error={errors.start_date?.message}
+        />
+        <CustomInput
+          inputType='date'
+          labelText='End Date'
+          placeholder='End Date'
+          inputProps={form.register('end_date')}
+          error={errors.end_date?.message}
+        />
+        <div className='flex items-center space-x-2'>
+          <input type='checkbox' {...form.register('is_present_date')} />
+          <Label>Is Present</Label>
+        </div>
+        <CustomTextArea
+          labelText='Short Description'
+          placeholder='Short Description'
+          textAreaProps={form.register('short_description')}
+          error={errors.short_description?.message}
+        />
+        <CustomTextArea
+          labelText='Description'
+          placeholder='Description'
+          textAreaProps={form.register('description')}
+          error={errors.description?.message}
+        />
+        <CustomTextArea
+          labelText='Skills'
+          placeholder='Skills'
+          textAreaProps={form.register('skills')}
+          error={errors.skills?.message}
+        />
+        <CustomTextArea
+          labelText='Links'
+          placeholder='Links'
+          textAreaProps={form.register('links')}
+          error={errors.links?.message}
+        />
+        <Button type='submit' className='cursor-pointer'>
+          {form.formState.isSubmitting ? (
+            <Loader2 className='animate-spin' />
+          ) : (
+            'Confirm'
+          )}
+        </Button>
       </form>
     </>
   );
