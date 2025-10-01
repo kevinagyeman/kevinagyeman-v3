@@ -30,7 +30,7 @@ function CustomInput({
         pattern={pattern}
         {...inputProps}
       />
-      {hint && <small>{hint}</small>}
+      {hint && <small className='text-sm text-muted-foreground'>{hint}</small>}
       {error && <small className='text-sm text-red'>{error}</small>}
     </div>
   );

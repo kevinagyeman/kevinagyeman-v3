@@ -5,34 +5,42 @@ import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Button } from './ui/button';
 import Logo from './Logo';
+import { fetchInformation } from '@/services/information';
+import { DASHBOARD_URL } from '@/constants';
 
 function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [information, setInformation] = useState<any>();
 
   useEffect(() => {
     const storedAuth = localStorage.getItem('isAuthenticated');
     setIsAuthenticated(storedAuth === 'true');
+    loadInformation();
   }, []);
 
   const handleLogout = async () => {
-    try {
-      const data = await logout();
-      localStorage.setItem('isAuthenticated', 'false');
-      window.location.href = '/';
-    } catch (e) {
-      console.log(e);
-    }
+    await logout();
+    localStorage.setItem('isAuthenticated', 'false');
+    window.location.href = '/';
   };
+
+  const loadInformation = async () => {
+    const data = await fetchInformation();
+    setInformation(data);
+  };
+
+  const resumeUrl = `${import.meta.env.PUBLIC_BACKEND_URL}${
+    information?.resume
+  }`;
+  const profileUrl = `${import.meta.env.PUBLIC_BACKEND_URL}${
+    information?.image
+  }`;
+
   const navigation = [
     { name: `Home`, href: '/' },
     { name: `About`, href: '/about' },
     { name: `Contact`, href: '/contact' },
-    {
-      name: `Resume`,
-      href: isAuthenticated
-        ? '/admin/resume'
-        : '/assets/kevin_agyeman_resume.pdf',
-    },
+    { name: `Resume`, href: resumeUrl },
     ...(isAuthenticated
       ? [
           { name: `Dashboard`, href: '/admin/dashboard' },
@@ -53,7 +61,7 @@ function Navbar() {
       >
         {({ open }: any) => (
           <>
-            <div className='mx-auto container'>
+            <div className='mx-auto container px-4 sm:px-0'>
               <div className='relative flex h-16 items-center justify-between'>
                 <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
                   <Disclosure.Button className='relative inline-flex items-center justify-center rounded-md pr-2 text-black hover:text-black   dark:text-white  dark:hover:text-white '>
@@ -88,8 +96,23 @@ function Navbar() {
                   <div className='hidden sm:block'>
                     <ModeToggle />
                   </div>
-                  {/* <LanguageSelector /> */}
-                  <div>user</div>
+                  {isAuthenticated ? (
+                    <Button
+                      onClick={handleLogout}
+                      variant={'outline'}
+                      size={'sm'}
+                    >
+                      Logout
+                    </Button>
+                  ) : (
+                    <img
+                      src={profileUrl}
+                      alt='profile'
+                      className='w-[30px] h-auto object-cover rounded-full border cursor-pointer'
+                      style={{ aspectRatio: '1/1' }}
+                      onClick={() => (window.location.href = DASHBOARD_URL)}
+                    />
+                  )}
                 </div>
               </div>
             </div>

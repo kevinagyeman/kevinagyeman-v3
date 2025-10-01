@@ -4,17 +4,19 @@ import {
   type InformationSchema,
 } from '@/schemas/information-schema';
 import { fetchInformation, updateInformation } from '@/services/information';
+import { filterData, handleFilePreview } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import CustomInput from './form/CustomInput';
 import CustomTextArea from './form/CustomTextArea';
+import CustomUpload from './form/CustomUpload';
 import { Button } from './ui/button';
 
 export default function InformationForm() {
   const [imagePreview, setImagePreview] = useState<string>('');
-  const [resumePreview, setResumePreview] = useState<string>(''); // Se vuoi mostrare preview file resume (es. nome o icona)
+  const [resumePreview, setResumePreview] = useState<string>('');
 
   const form = useForm<InformationSchema>({
     resolver: zodResolver(informationSchema),
@@ -28,125 +30,76 @@ export default function InformationForm() {
 
   const loadInformation = async () => {
     const data = await fetchInformation();
-
-    // Gestione preview immagine
-    if (data.image) {
-      const imageUrl = data.image.startsWith('http')
-        ? data.image
-        : `${import.meta.env.PUBLIC_BACKEND_URL}${data.image}`;
-      setImagePreview(imageUrl);
-    }
-
-    // Gestione preview resume se serve, qui esempio generico del nome file
-    if (data.resume) {
-      const resumeUrl = data.resume.startsWith('http')
-        ? data.resume
-        : `${import.meta.env.PUBLIC_BACKEND_URL}${data.resume}`;
-      setResumePreview(resumeUrl);
-    }
-
-    // Non passare stringa URL come valore di input file
-    if (typeof data.image === 'string') {
-      delete data.image;
-    }
-    if (typeof data.resume === 'string') {
-      delete data.resume;
-    }
-
+    handleFilePreview(data, setImagePreview, 'image');
+    handleFilePreview(data, setResumePreview, 'resume');
     form.reset(data);
   };
 
   const submitInformation: SubmitHandler<InformationSchema> = async (data) => {
-    // Filtra chiavi con valori ''
-    const filteredData = Object.fromEntries(
-      Object.entries(data).filter(([_, v]) => v !== '')
-    );
-
-    await updateInformation(filteredData);
-
+    await updateInformation(filterData(data));
     window.location.href = DASHBOARD_URL;
   };
 
   return (
     <form
       onSubmit={form.handleSubmit(submitInformation)}
-      className='space-y-4'
+      className='space-y-6'
       encType='multipart/form-data'
     >
-      <Controller
-        name='image'
-        control={form.control}
-        render={({ field }) => (
-          <>
-            <label>Profile pic</label>
-            {imagePreview && !field.value && (
-              <img src={imagePreview} alt='Information Image Preview' />
-            )}
-            <input
-              type='file'
-              accept='image/*'
-              onChange={(e) => field.onChange(e.target.files?.[0])}
-            />
-            <small>{errors.image?.message}</small>
-          </>
-        )}
+      <CustomUpload
+        preview={imagePreview}
+        typeOfFile={'image'}
+        fieldName='image'
+        formControl={form.control}
+        error={errors.image?.message}
+        labelText='Profile Image'
+        aspectRatio='1/1'
       />
 
-      <Controller
-        name='resume'
-        control={form.control}
-        render={({ field }) => (
-          <>
-            <label>Resume</label>
-            {resumePreview && !field.value && (
-              <a href={resumePreview} target='_blank' rel='noopener noreferrer'>
-                View current resume
-              </a>
-            )}
-            <input
-              type='file'
-              accept='application/pdf'
-              onChange={(e) => field.onChange(e.target.files?.[0])}
-            />
-            <small>{errors.resume?.message}</small>
-          </>
-        )}
+      <CustomUpload
+        preview={resumePreview}
+        typeOfFile={'file'}
+        fieldName='resume'
+        formControl={form.control}
+        error={errors.resume?.message}
+        labelText='Resume'
       />
-
-      <CustomInput
-        inputType='text'
-        placeholder='First Name'
-        labelText='First Name'
-        inputProps={form.register('first_name')}
-        error={errors.first_name?.message}
-      />
-      <CustomInput
-        inputType='text'
-        placeholder='Last Name'
-        labelText='Last Name'
-        inputProps={form.register('last_name')}
-        error={errors.last_name?.message}
-      />
-      <CustomInput
-        inputType='text'
-        placeholder='Role'
-        labelText='Role'
-        inputProps={form.register('role')}
-        error={errors.role?.message}
-      />
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
+        <CustomInput
+          inputType='text'
+          placeholder='First Name'
+          labelText='First Name'
+          inputProps={form.register('first_name')}
+          error={errors.first_name?.message}
+        />
+        <CustomInput
+          inputType='text'
+          placeholder='Last Name'
+          labelText='Last Name'
+          inputProps={form.register('last_name')}
+          error={errors.last_name?.message}
+        />
+        <CustomInput
+          inputType='email'
+          placeholder='Email'
+          labelText='Email'
+          inputProps={form.register('email')}
+          error={errors.email?.message}
+        />
+        <CustomInput
+          inputType='text'
+          placeholder='Role'
+          labelText='Role'
+          inputProps={form.register('role')}
+          error={errors.role?.message}
+        />
+      </div>
       <CustomInput
         inputType='text'
         placeholder='Main Link'
         labelText='Main Link'
         inputProps={form.register('main_link')}
         error={errors.main_link?.message}
-      />
-      <CustomInput
-        inputType='email'
-        placeholder='Email'
-        labelText='Email'
-        inputProps={form.register('email')}
-        error={errors.email?.message}
       />
       <CustomTextArea
         labelText='Summary'
@@ -165,15 +118,17 @@ export default function InformationForm() {
         placeholder='Skills'
         textAreaProps={form.register('skills')}
         error={errors.skills?.message}
+        hint='Separate with ; e.g, React;Python;Java'
       />
       <CustomTextArea
         labelText='Links'
         placeholder='Links'
         textAreaProps={form.register('links')}
         error={errors.links?.message}
+        hint='Separate with ; e.g, Example;https://ex.com;Google;https://gg.com'
       />
 
-      <Button type='submit' className='cursor-pointer'>
+      <Button type='submit'>
         {form.formState.isSubmitting ? (
           <Loader2 className='animate-spin' />
         ) : (

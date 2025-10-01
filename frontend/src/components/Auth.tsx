@@ -1,48 +1,52 @@
+import { DASHBOARD_URL } from '@/constants';
 import { login } from '@/services/auth';
 import React, { useState } from 'react';
+import CustomInput from './form/CustomInput';
+import { authSchema, type AuthSchema } from '@/schemas/auth-schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import { Button } from './ui/button';
+import { Loader2 } from 'lucide-react';
 
 export default function Auth() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const form = useForm<AuthSchema>({
+    resolver: zodResolver(authSchema),
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    try {
-      const data = await login(username, password);
-      localStorage.setItem('isAuthenticated', 'true');
-      window.location.href = '/admin/dashboard';
-    } catch (e) {
-      setError('Invalid credentials');
-    }
+  const errors = form.formState.errors;
+
+  const submitAuth: SubmitHandler<AuthSchema> = async (data) => {
+    await login(data.username, data.password);
+    localStorage.setItem('isAuthenticated', 'true');
+    window.location.href = DASHBOARD_URL;
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <label>
-        Username:
-        <input
-          type='text'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input
-          type='password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <br />
-      <button type='submit'>Log In</button>
+    <form onSubmit={form.handleSubmit(submitAuth)} className='space-y-6'>
+      <CustomInput
+        labelText='Username'
+        inputType='text'
+        placeholder='Username'
+        inputProps={form.register('username')}
+        error={errors.username?.message}
+      />
+      <CustomInput
+        labelText='Password'
+        inputType='password'
+        placeholder='Password'
+        inputProps={form.register('password')}
+        error={errors.password?.message}
+      />
+      <Button type='submit' className='w-full'>
+        {form.formState.isSubmitting ? (
+          <Loader2 className='animate-spin' />
+        ) : (
+          'Login'
+        )}
+      </Button>
+      <Button type='button' className='w-full' variant={'ghost'}>
+        <a href='/'>Homepage</a>
+      </Button>
     </form>
   );
 }

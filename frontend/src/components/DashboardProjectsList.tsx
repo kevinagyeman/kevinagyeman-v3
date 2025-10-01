@@ -45,16 +45,11 @@ function DashboardProjectsList() {
               <h4 className='text-lg font-semibold'>{project.title}</h4>
             </div>
             <div className='flex gap-2'>
-              <Button
-                className='cursor-pointer'
-                size={'sm'}
-                variant={'outline'}
-              >
+              <Button size={'sm'} variant={'outline'}>
                 <a href={`/admin/project/${project.id}`}>Edit</a>
               </Button>
               <Button
                 onClick={() => handleDelete(project.id)}
-                className='cursor-pointer'
                 size={'sm'}
                 variant={'destructive'}
               >

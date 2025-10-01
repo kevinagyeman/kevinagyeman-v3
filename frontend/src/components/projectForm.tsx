@@ -15,13 +15,17 @@ import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { DASHBOARD_URL } from '@/constants';
 import { Input } from './ui/input';
+import CustomUpload from './form/CustomUpload';
+import { filterData, handleFilePreview } from '@/utils/utils';
+import { updateInformation } from '@/services/information';
+import CustomCheckbox from './form/CustomCheckbox';
 
 interface ProjectFormProps {
   projectId?: string;
 }
 
 export default function ProjectForm({ projectId }: ProjectFormProps) {
-  const [projectImage, setProjectImage] = useState<string>('');
+  const [imagePreview, setImagePreview] = useState<string>('');
 
   const form = useForm<ProjectSchema>({
     resolver: zodResolver(projectSchema),
@@ -40,55 +44,35 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
     loadProject(projectId);
   }, [projectId]);
 
-  const handleDelete = async (id: string) => {
-    const data = await deleteProject(id);
-    window.location.href = DASHBOARD_URL;
-  };
-
   const loadProject = async (id: string) => {
     const data = await fetchProject(id);
-
-    if (!data) {
-      window.location.href = '/404';
-      return;
-    }
-
-    if (data.image) {
-      const imageUrl = data.image.startsWith('http')
-        ? data.image
-        : `${import.meta.env.PUBLIC_BACKEND_URL}${data.image}`;
-      setProjectImage(imageUrl);
-    }
-
-    if (typeof data.image === 'string') {
-      delete data.image;
-    }
-
+    handleFilePreview(data, setImagePreview, 'image');
     form.reset(data);
   };
 
   const submitProject: SubmitHandler<ProjectSchema> = async (data) => {
-    const filteredData = Object.fromEntries(
-      Object.entries(data).filter(([_, v]) => v !== '')
-    );
     if (projectId) {
-      await updateProject(projectId, filteredData);
+      await updateProject(projectId, filterData(data));
     } else {
-      await createProject(filteredData);
+      await createProject(filterData(data));
     }
+    window.location.href = DASHBOARD_URL;
+  };
+
+  const handleDelete = async (id: string) => {
+    await deleteProject(id);
     window.location.href = DASHBOARD_URL;
   };
 
   return (
     <>
       <div className='flex gap-2 my-5 justify-between'>
-        <Button className='cursor-pointer' size={'sm'} variant={'outline'}>
+        <Button size={'sm'} variant={'outline'}>
           <a href={DASHBOARD_URL}>Dashboard</a>
         </Button>
         {projectId && (
           <Button
             onClick={() => handleDelete(projectId)}
-            className='cursor-pointer'
             size={'sm'}
             variant={'destructive'}
           >
@@ -98,56 +82,57 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
       </div>
       <form
         onSubmit={form.handleSubmit(submitProject)}
-        className='space-y-4'
+        className='space-y-6'
         encType='multipart/form-data'
       >
-        <div className='flex items-center space-x-2'>
-          <input type='checkbox' {...form.register('is_published')} />
-          <Label>Is Published</Label>
-        </div>
-        <Controller
-          name='image'
-          control={form.control}
-          render={({ field }) => (
-            <>
-              {projectImage && !field.value && (
-                <img src={projectImage} alt='Preview' />
-              )}
-              <Input
-                type='file'
-                accept='image/*'
-                onChange={(e) => field.onChange(e.target.files?.[0])}
-              />
-              <small>{errors.image?.message}</small>
-            </>
-          )}
+        <CustomCheckbox
+          inputProps={form.register('is_published')}
+          label='Published'
         />
+        <CustomUpload
+          preview={imagePreview}
+          typeOfFile={'image'}
+          fieldName='image'
+          formControl={form.control}
+          error={errors.image?.message}
+          labelText='Project Image'
+        />
+        <div className='flex flex-wrap gap-4 items-end'>
+          <div className='flex-1 min-w-full sm:min-w-0'>
+            <CustomInput
+              inputType='text'
+              placeholder='Title'
+              labelText='Title'
+              inputProps={form.register('title')}
+              error={errors.title?.message}
+            />
+          </div>
+          <div className='w-full sm:w-auto'>
+            <CustomInput
+              inputType='date'
+              labelText='Start Date'
+              placeholder='Start Date'
+              inputProps={form.register('start_date')}
+              error={errors.start_date?.message}
+            />
+          </div>
+          <div className='w-full sm:w-auto'>
+            <CustomInput
+              inputType='date'
+              labelText='End Date'
+              placeholder='End Date'
+              inputProps={form.register('end_date')}
+              error={errors.end_date?.message}
+            />
+          </div>
+          <div className='w-full sm:w-auto'>
+            <CustomCheckbox
+              inputProps={form.register('is_present_date')}
+              label='Present'
+            />
+          </div>
+        </div>
 
-        <CustomInput
-          inputType='text'
-          placeholder='Title'
-          labelText='Title'
-          inputProps={form.register('title')}
-          error={errors.title?.message}
-        />
-        <CustomInput
-          inputType='date'
-          labelText='Start Date'
-          placeholder='Start Date'
-          inputProps={form.register('start_date')}
-          error={errors.start_date?.message}
-        />
-        <CustomInput
-          inputType='date'
-          labelText='End Date'
-          placeholder='End Date'
-          inputProps={form.register('end_date')}
-          error={errors.end_date?.message}
-        />
-        <div className='flex items-center space-x-2'>
-          <input type='checkbox' {...form.register('is_present_date')} />
-          <Label>Is Present</Label>
-        </div>
         <CustomTextArea
           labelText='Short Description'
           placeholder='Short Description'
@@ -165,14 +150,20 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
           placeholder='Skills'
           textAreaProps={form.register('skills')}
           error={errors.skills?.message}
+          hint='Separate with ; e.g, React;Python;Java'
         />
         <CustomTextArea
           labelText='Links'
           placeholder='Links'
           textAreaProps={form.register('links')}
           error={errors.links?.message}
+          hint='Separate with ; e.g, Example;https://ex.com;Google;https://gg.com'
         />
-        <Button type='submit' className='cursor-pointer'>
+        <Button
+          type='submit'
+          disabled={form.formState.isSubmitting}
+          className='w-full'
+        >
           {form.formState.isSubmitting ? (
             <Loader2 className='animate-spin' />
           ) : (

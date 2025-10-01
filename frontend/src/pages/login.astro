@@ -3,6 +3,13 @@ import Auth from '@/components/Auth';
 import MainLayout from '@/layouts/main.astro';
 ---
 
-<MainLayout content={{ title: 'Home' }}>
-  <Auth client:visible />
+<MainLayout content={{ title: 'Login' }}>
+  <div
+    class='flex items-center justify-center min-h-screen px-4'
+    style='min-height: calc(100vh - 65px);'
+  >
+    <div class='w-full max-w-xs'>
+      <Auth client:visible />
+    </div>
+  </div>
 </MainLayout>

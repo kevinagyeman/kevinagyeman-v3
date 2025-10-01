@@ -1,12 +1,12 @@
 import React from 'react';
 import { Textarea } from '../ui/textarea';
+import { Label } from '../ui/label';
 
 type CustomTextAreaProps = {
-  labelText?: string;
-  placeholder?: string;
+  labelText: string;
+  placeholder: string;
   hint?: string;
   rows?: number;
-  cols?: number;
   textAreaProps?: React.TextareaHTMLAttributes<HTMLTextAreaElement>;
   error?: string;
 };
@@ -15,22 +15,16 @@ function CustomTextArea({
   labelText,
   placeholder,
   hint,
-  rows = 3,
-  cols,
+  rows = 1,
   textAreaProps,
   error,
 }: CustomTextAreaProps) {
   return (
     <div>
-      {labelText && <label>{labelText}</label>}
-      <Textarea
-        placeholder={placeholder}
-        rows={rows}
-        cols={cols}
-        {...textAreaProps}
-      />
-      {hint && <small>{hint}</small>}
-      {error && <small className='text-sm text-red'>{error}</small>}
+      <Label className='mb-2'>{labelText}</Label>
+      <Textarea placeholder={placeholder} rows={rows} {...textAreaProps} />
+      {hint && <small className='text-xs text-muted-foreground'>{hint}</small>}
+      {error && <small className='text-xs text-red'>{error}</small>}
     </div>
   );
 }
