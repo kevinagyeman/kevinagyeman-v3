@@ -15,7 +15,10 @@ class ProjectListCreateAPIView(APIView):
         return [IsAuthenticated()]
 
     def get(self, request):
-        projects = Project.objects.all()
+        if request.user.is_authenticated:
+            projects = Project.objects.all().order_by("-start_date")
+        else:
+            projects = Project.objects.filter(is_published=True).order_by("-start_date")
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
 

@@ -1,13 +1,8 @@
 ---
-import '@/styles/global.css';
-// Component Imports
 import MainLayout from '@/layouts/main.astro';
-import { fetchProjects } from '@/services/project.ts';
 import ProjectForm from '../../../components/ProjectForm.tsx';
-
-const projects = await fetchProjects();
 ---
 
-<MainLayout content={{ title: 'Project id' }}>
-  <ProjectForm client:only />
+<MainLayout content={{ title: 'New Project' }}>
+  <ProjectForm client:visible />
 </MainLayout>

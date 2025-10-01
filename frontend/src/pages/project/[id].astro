@@ -1,26 +1,14 @@
 ---
-import { fetchProject, fetchProjects } from '@/services/project';
-
-export async function getStaticPaths() {
-  // Optionally pre-fetch project IDs to generate static pages
-  const projects = await fetchProjects(); // Fetch all projects
-  return projects.map((project: any) => ({
-    params: { id: project.id.toString() },
-  }));
-}
+import MainLayout from '@/layouts/main.astro';
+import { fetchProject } from '@/services/project';
 
 const { id } = Astro.params;
 const project = await fetchProject(id);
+if (!project) {
+  return Astro.redirect('/404');
+}
 ---
 
-<html lang='en'>
-  <head>
-    <title>{project.title} - Project Details</title>
-  </head>
-  <body>
-    <h1>{project.title}</h1>
-    <p>Start Date: {project.start_date}</p>
-    <p>Description: {project.description}</p>
-    <!-- etc -->
-  </body>
-</html>
+<MainLayout content={{ title: 'Project Info' }}>
+  <pre>{JSON.stringify(project, null, 2)}</pre>
+</MainLayout>

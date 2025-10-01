@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { logout } from '../services/auth';
 import { ModeToggle } from './ModeToggle';
+import { Disclosure } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Button } from './ui/button';
+import Logo from './Logo';
 
 function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    console.log('Navbar mounted');
-
     const storedAuth = localStorage.getItem('isAuthenticated');
     setIsAuthenticated(storedAuth === 'true');
   }, []);
@@ -21,26 +23,96 @@ function Navbar() {
       console.log(e);
     }
   };
+  const navigation = [
+    { name: `Home`, href: '/' },
+    { name: `About`, href: '/about' },
+    { name: `Contact`, href: '/contact' },
+    {
+      name: `Resume`,
+      href: isAuthenticated
+        ? '/admin/resume'
+        : '/assets/kevin_agyeman_resume.pdf',
+    },
+    ...(isAuthenticated
+      ? [
+          { name: `Dashboard`, href: '/admin/dashboard' },
+          { name: `New Project`, href: '/admin/project/new' },
+          {
+            name: `Edit Profile`,
+            href: '/admin/information',
+          },
+        ]
+      : []),
+  ];
 
   return (
-    <div className='mb-5'>
-      <a href='/' className='mx-5 underline text-blue-700'>
-        {isAuthenticated ? 'logged in ' : 'Logged out'} - Home
-      </a>
-      <a href='/admin/project/new' className='mx-5 underline text-blue-700'>
-        new project
-      </a>
-      <a href='/admin/dashboard' className='mx-5 underline text-blue-700'>
-        dashboard
-      </a>
-      <a href='/login' className='mx-5 underline text-blue-700'>
-        Login
-      </a>
-      <button onClick={handleLogout} className='mx-5 underline text-blue-700'>
-        logout
-      </button>
-      <ModeToggle />
-    </div>
+    <>
+      <Disclosure
+        as='nav'
+        className='sticky top-0 z-50 border-b bg-background/80 backdrop-blur-sm'
+      >
+        {({ open }: any) => (
+          <>
+            <div className='mx-auto container'>
+              <div className='relative flex h-16 items-center justify-between'>
+                <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
+                  <Disclosure.Button className='relative inline-flex items-center justify-center rounded-md pr-2 text-black hover:text-black   dark:text-white  dark:hover:text-white '>
+                    <span className='absolute' />
+                    <span className='sr-only'>Open main menu</span>
+                    {open ? (
+                      <XMarkIcon className='block h-6 w-6' aria-hidden='true' />
+                    ) : (
+                      <Bars3Icon className='block h-6 w-6' aria-hidden='true' />
+                    )}
+                  </Disclosure.Button>
+                  <ModeToggle />
+                </div>
+                <div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
+                  <div className='flex flex-shrink-0 items-center'>
+                    <a href='/'>
+                      <Logo />
+                    </a>
+                  </div>
+                  <div className='hidden sm:ml-6 sm:block w-full'>
+                    <div className='flex space-x-4 flex-wrap'>
+                      {/* DESKTOP MENU */}
+                      {navigation.map((item) => (
+                        <Button asChild variant={'ghost'} key={item.name}>
+                          <a href={item.href}>{item.name}</a>
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className='absolute inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
+                  <div className='hidden sm:block'>
+                    <ModeToggle />
+                  </div>
+                  {/* <LanguageSelector /> */}
+                  <div>user</div>
+                </div>
+              </div>
+            </div>
+            <Disclosure.Panel className='sm:hidden'>
+              <div className='space-y-1 pb-2 container'>
+                {/* MOBILE MENU */}
+                {navigation.map((item, index: number) => (
+                  <a
+                    href={item.href}
+                    key={index}
+                    className={
+                      'text-light hover:text-light block rounded-md py-2 text-base font-medium'
+                    }
+                  >
+                    <Disclosure.Button>{item.name}</Disclosure.Button>
+                  </a>
+                ))}
+              </div>
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+    </>
   );
 }
 

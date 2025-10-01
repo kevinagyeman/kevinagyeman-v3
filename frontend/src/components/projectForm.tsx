@@ -6,13 +6,14 @@ import {
   updateProject,
 } from '@/services/project';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2 } from 'lucide-react';
+import { Loader2, TrashIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
 import CustomInput from './form/CustomInput';
 import CustomTextArea from './form/CustomTextArea';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
+import { DASHBOARD_URL } from '@/constants';
 import { Input } from './ui/input';
 
 interface ProjectFormProps {
@@ -21,6 +22,7 @@ interface ProjectFormProps {
 
 export default function ProjectForm({ projectId }: ProjectFormProps) {
   const [projectImage, setProjectImage] = useState<string>('');
+
   const form = useForm<ProjectSchema>({
     resolver: zodResolver(projectSchema),
   });
@@ -33,61 +35,67 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 
   useEffect(() => {
     if (!projectId) return;
+    if (projectId === 'new') return;
+
     loadProject(projectId);
   }, [projectId]);
 
   const handleDelete = async (id: string) => {
-    try {
-      const data = await deleteProject(id);
-      window.location.href = '/admin/dashboard';
-    } catch (error) {
-      console.log('Error: ', error);
-    }
+    const data = await deleteProject(id);
+    window.location.href = DASHBOARD_URL;
   };
-
-  const BACKEND_URL = 'http://localhost:8000';
 
   const loadProject = async (id: string) => {
-    try {
-      const data = await fetchProject(id);
-      if (data.image) {
-        // Se data.image è percorso relativo, concatena l'URL del backend
-        const imageUrl = data.image.startsWith('http')
-          ? data.image
-          : `${BACKEND_URL}${data.image}`;
-        setProjectImage(imageUrl);
-      }
-      if (typeof data.image === 'string') {
-        delete data.image;
-        // Salva URL in uno stato separato
-      }
-      form.reset(data);
-    } catch (error) {
-      console.log('Error: ', error);
+    const data = await fetchProject(id);
+
+    if (!data) {
       window.location.href = '/404';
+      return;
     }
+
+    if (data.image) {
+      const imageUrl = data.image.startsWith('http')
+        ? data.image
+        : `${import.meta.env.PUBLIC_BACKEND_URL}${data.image}`;
+      setProjectImage(imageUrl);
+    }
+
+    if (typeof data.image === 'string') {
+      delete data.image;
+    }
+
+    form.reset(data);
   };
+
   const submitProject: SubmitHandler<ProjectSchema> = async (data) => {
-    try {
-      const filteredData = Object.fromEntries(
-        Object.entries(data).filter(([_, v]) => v !== '')
-      );
-      if (projectId) {
-        await updateProject(projectId, filteredData);
-      } else {
-        await createProject(filteredData);
-      }
-      window.location.href = '/admin/dashboard';
-    } catch (error) {
-      console.error('Error: ', error);
+    const filteredData = Object.fromEntries(
+      Object.entries(data).filter(([_, v]) => v !== '')
+    );
+    if (projectId) {
+      await updateProject(projectId, filteredData);
+    } else {
+      await createProject(filteredData);
     }
+    window.location.href = DASHBOARD_URL;
   };
 
   return (
     <>
-      {projectId && (
-        <button onClick={() => handleDelete(projectId)}>delete project</button>
-      )}
+      <div className='flex gap-2 my-5 justify-between'>
+        <Button className='cursor-pointer' size={'sm'} variant={'outline'}>
+          <a href={DASHBOARD_URL}>Dashboard</a>
+        </Button>
+        {projectId && (
+          <Button
+            onClick={() => handleDelete(projectId)}
+            className='cursor-pointer'
+            size={'sm'}
+            variant={'destructive'}
+          >
+            <TrashIcon className='size-4' />
+          </Button>
+        )}
+      </div>
       <form
         onSubmit={form.handleSubmit(submitProject)}
         className='space-y-4'
@@ -105,8 +113,9 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
               {projectImage && !field.value && (
                 <img src={projectImage} alt='Preview' />
               )}
-              <input
+              <Input
                 type='file'
+                accept='image/*'
                 onChange={(e) => field.onChange(e.target.files?.[0])}
               />
               <small>{errors.image?.message}</small>

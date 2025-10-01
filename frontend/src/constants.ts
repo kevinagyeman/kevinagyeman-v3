@@ -1,5 +1,12 @@
-export const API_BASE_URL =
-  import.meta.env.PUBLIC_API_BASE_URL || 'http://localhost:8000/api';
-export const APP_NAME = 'My Awesome App';
 export const TOKEN_COOKIE_NAME = 'access_token';
-export const ITEMS_PER_PAGE = 20;
+export const PROJECT_API_BASE_URL = `${
+  import.meta.env.PUBLIC_BACKEND_URL
+}/api/projects`;
+export const AUTH_API_BASE_URL = `${
+  import.meta.env.PUBLIC_BACKEND_URL
+}/api/v1/auth`;
+export const INFORMATION_API_BASE_URL = `${
+  import.meta.env.PUBLIC_BACKEND_URL
+}/api/information`;
+export const DASHBOARD_URL = '/admin/dashboard';
+export const MAX_FILE_SIZE = 1 * 1024 * 1024;

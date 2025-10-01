@@ -5,6 +5,6 @@ import MainLayout from '@/layouts/main.astro';
 const { id } = Astro.params;
 ---
 
-<MainLayout content={{ title: 'Project id' }}>
-  <ProjectForm projectId={id} client:only />
+<MainLayout content={{ title: 'Edit Project' }}>
+  <ProjectForm projectId={id} client:visible />
 </MainLayout>

@@ -1,26 +1,5 @@
 import { z } from 'zod';
-
-const dateFormat = z
-  .string()
-  .regex(/^\d{4}-\d{2}-\d{2}$/, 'Must be YYYY-MM-DD format');
-
-const textFormat = z.string().optional().nullable();
-
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
-
-const imageSchema = z
-  .instanceof(File)
-  .refine(
-    (file) =>
-      ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'].includes(file.type),
-    {
-      message:
-        'Formato immagine non valido. Sono consentiti solo PNG, JPEG, JPG, GIF.',
-    }
-  )
-  .refine((file) => file.size <= MAX_FILE_SIZE, {
-    message: "La dimensione dell'immagine non deve superare i 5MB.",
-  });
+import { dateFormat, imageFormat, textFormat } from './custom-formats';
 
 export const projectSchema = z.object({
   id: z.number().optional(),
@@ -36,7 +15,7 @@ export const projectSchema = z.object({
   short_description: textFormat,
   skills: textFormat,
   links: textFormat,
-  image: imageSchema.optional(),
+  image: imageFormat.optional(),
 });
 
 export type ProjectSchema = z.infer<typeof projectSchema>;

@@ -1,0 +1,12 @@
+---
+import MainLayout from '@/layouts/main.astro';
+import { fetchInformation } from '@/services/information';
+
+const information = await fetchInformation();
+---
+
+<MainLayout content={{ title: 'About' }}>
+  <div>
+    <pre>{JSON.stringify(information, null, 2)}</pre>
+  </div>
+</MainLayout>
