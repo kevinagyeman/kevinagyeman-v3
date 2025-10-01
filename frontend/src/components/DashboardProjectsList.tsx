@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Trash, TrashIcon } from 'lucide-react';
 import { formatDate } from '@/utils/utils';
+import DateDisplay from './DateDisplay';
 
 function DashboardProjectsList() {
   const [projects, setProjects] = useState<any>();
@@ -31,18 +32,15 @@ function DashboardProjectsList() {
             key={number}
           >
             <div className='flex gap-4 items-center'>
-              <div
-                className={`w-[10px] h-[10px] rounded-full ${
+              <span
+                className={`w-[10px] h-[10px] flex-shrink-0 rounded-full ${
                   project.is_published ? 'bg-green-500' : 'bg-yellow-500'
                 }`}
-              />
-              <p className='text-sm text-muted-foreground'>
-                {formatDate(project.start_date)} -{' '}
-                {project.is_present_date || project.end_date === null
-                  ? 'Present'
-                  : formatDate(project.end_date)}
-              </p>
-              <h4 className='text-lg font-semibold'>{project.title}</h4>
+              ></span>
+              <DateDisplay period={project} />
+              <h4 className='text-lg font-semibold line-clamp-1'>
+                {project.title}
+              </h4>
             </div>
             <div className='flex gap-2'>
               <Button size={'sm'} variant={'outline'}>

@@ -1,4 +1,5 @@
 import { PROJECT_API_BASE_URL } from '@/constants';
+import type { Project } from '@/types/project-type';
 
 export async function fetchProjects() {
   const response = await fetch(`${PROJECT_API_BASE_URL}/`, {
@@ -8,7 +9,7 @@ export async function fetchProjects() {
   return response.json();
 }
 
-export async function fetchProject(id: any) {
+export async function fetchProject(id: any): Promise<Project | null> {
   const response = await fetch(`${PROJECT_API_BASE_URL}/${id}/`, {
     credentials: 'include',
   });

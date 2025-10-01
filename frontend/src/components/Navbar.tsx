@@ -7,6 +7,7 @@ import { Button } from './ui/button';
 import Logo from './Logo';
 import { fetchInformation } from '@/services/information';
 import { DASHBOARD_URL } from '@/constants';
+import { getResourceUrl } from '@/utils/utils';
 
 function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,12 +30,8 @@ function Navbar() {
     setInformation(data);
   };
 
-  const resumeUrl = `${import.meta.env.PUBLIC_BACKEND_URL}${
-    information?.resume
-  }`;
-  const profileUrl = `${import.meta.env.PUBLIC_BACKEND_URL}${
-    information?.image
-  }`;
+  const resumeUrl = getResourceUrl(information?.resume);
+  const imageUrl = getResourceUrl(information?.image);
 
   const navigation = [
     { name: `Home`, href: '/' },
@@ -106,7 +103,7 @@ function Navbar() {
                     </Button>
                   ) : (
                     <img
-                      src={profileUrl}
+                      src={imageUrl}
                       alt='profile'
                       className='w-[30px] h-auto object-cover rounded-full border cursor-pointer'
                       style={{ aspectRatio: '1/1' }}

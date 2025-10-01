@@ -1,0 +1,83 @@
+---
+import { fetchInformation } from '@/services/information';
+import { Button } from '@/components/ui/button';
+import Skills from '@/components/Skills';
+import { ArrowRight, LinkedinIcon, Link, Github } from 'lucide-react';
+import { getResourceUrl } from '@/utils/utils';
+
+const information = await fetchInformation();
+---
+
+
+ <div
+    class='flex gap-0 sm:gap-12 py-12 md:py-24 lg:py-32 flex-col md:flex-row'
+  >
+    <div class='flex gap-4 items-center'>
+      <img
+        src={getResourceUrl(information?.image)}
+        alt='profile image'
+        class='rounded-lg object-cover aspect-square w-[80px] md:h-full md:w-full'
+      />
+      <div class='block sm:hidden'>
+        <code
+          class='bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold'
+        >
+          {information.role}
+        </code>
+        <h1
+          class='text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mt-2'
+        >
+          {information.first_name}
+          {information.last_name}
+        </h1>
+      </div>
+    </div>
+    <div class='space-y-6 my-auto'>
+      <div class='hidden sm:block'>
+        <code
+          class='bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold'
+        >
+          {information.role}
+        </code>
+        <h1
+          class='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mt-6'
+        >
+          {information.first_name}
+          {information.last_name}
+        </h1>
+      </div>
+      <p
+        class='text-base sm:text-lg md:text-xl text-muted-foreground font-light'
+      >
+        {information.about}
+      </p>
+      {
+        information.skills && (
+          <Skills
+            skillsString={information.skills}
+            limit={4}
+            variant={'secondary'}
+          />
+          <div />
+        )
+      }
+      <div class='flex gap-4 flex-wrap'>
+        <Button variant='default'>
+          <a href={`/about`}> Read More </a>
+        </Button>
+        <Button variant='secondary'>
+          <a href={getResourceUrl(information.resume)}> Read my CV </a>
+        </Button>
+        <Button variant='outline' size='icon' className='rounded-full'>
+          <a href={'https://www.linkedin.com/in/kevinagyeman/'} target='_blank'>
+            <LinkedinIcon className='w-4 h-4' />
+          </a>
+        </Button>
+        <Button variant='outline' size='icon' className='rounded-full'>
+          <a href={'https://github.com/kevinagyeman'} target='_blank'>
+            <Github className='w-4 h-4' />
+          </a>
+        </Button>
+      </div>
+    </div>
+  </div>

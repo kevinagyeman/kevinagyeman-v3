@@ -8,7 +8,7 @@ class Information(models.Model):
     main_link = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     summary = models.TextField(null=True, blank=True)
-    about = models.CharField(max_length=160, null=True, blank=True)
+    about = models.CharField(null=True, blank=True)
     skills = models.TextField(null=True, blank=True)
     links = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to="information/", null=True, blank=True)

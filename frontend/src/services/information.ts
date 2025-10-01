@@ -1,6 +1,7 @@
 import { INFORMATION_API_BASE_URL } from '@/constants';
+import type { Information } from '@/types/information-type';
 
-export async function fetchInformation() {
+export async function fetchInformation(): Promise<Information> {
   const response = await fetch(`${INFORMATION_API_BASE_URL}/`, {
     credentials: 'include',
   });

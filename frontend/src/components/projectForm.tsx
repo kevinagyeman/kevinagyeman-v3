@@ -1,3 +1,4 @@
+import { DASHBOARD_URL } from '@/constants';
 import { projectSchema, type ProjectSchema } from '@/schemas/project-schema';
 import {
   createProject,
@@ -5,20 +6,16 @@ import {
   fetchProject,
   updateProject,
 } from '@/services/project';
+import { filterData, handleFilePreview } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2, TrashIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import CustomCheckbox from './form/CustomCheckbox';
 import CustomInput from './form/CustomInput';
 import CustomTextArea from './form/CustomTextArea';
-import { Button } from './ui/button';
-import { Label } from './ui/label';
-import { DASHBOARD_URL } from '@/constants';
-import { Input } from './ui/input';
 import CustomUpload from './form/CustomUpload';
-import { filterData, handleFilePreview } from '@/utils/utils';
-import { updateInformation } from '@/services/information';
-import CustomCheckbox from './form/CustomCheckbox';
+import { Button } from './ui/button';
 
 interface ProjectFormProps {
   projectId?: string;
@@ -34,10 +31,6 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
   const errors = form.formState.errors;
 
   useEffect(() => {
-    console.log('errors: ', errors);
-  }, [errors, form.watch()]);
-
-  useEffect(() => {
     if (!projectId) return;
     if (projectId === 'new') return;
 
@@ -45,7 +38,7 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
   }, [projectId]);
 
   const loadProject = async (id: string) => {
-    const data = await fetchProject(id);
+    const data: any = await fetchProject(id);
     handleFilePreview(data, setImagePreview, 'image');
     form.reset(data);
   };
@@ -96,6 +89,7 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
           formControl={form.control}
           error={errors.image?.message}
           labelText='Project Image'
+          aspectRatio='16/9'
         />
         <div className='flex flex-wrap gap-4 items-end'>
           <div className='flex-1 min-w-full sm:min-w-0'>

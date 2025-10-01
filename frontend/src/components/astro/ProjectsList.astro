@@ -1,0 +1,49 @@
+---
+import { fetchProjects } from '@/services/project';
+import MainLayout from '@/layouts/main.astro';
+import { fetchInformation } from '@/services/information';
+import { Button } from '@/components/ui/button';
+import Skills from '@/components/Skills';
+import { ArrowRight, LinkedinIcon, Link, Github } from 'lucide-react';
+import { getResourceUrl } from '@/utils/utils';
+import type { Project } from '@/types/project-type';
+import EditAsAdmin from '../EditAsAdmin';
+
+const projects = await fetchProjects();
+---
+
+<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+  {
+    projects.map((project: Project, index: number) => (
+      <div class='border rounded-lg'>
+        <img
+          src={getResourceUrl(project?.image)}
+          alt='profile image'
+          class='w-full h-auto object-cover rounded-tr-xl rounded-tl-xl border-b'
+          style={{ aspectRatio: '16/9' }}
+        />
+        <div class='p-6'>
+          <h3 class='line-clamp-1 font-bold mb-1 lg:text-2xl md:text-xl sm:text-lg'>
+            {project.title}
+          </h3>
+          <p class='line-clamp-2 text-muted-foreground mt-0 lg:text-base md:text-sm sm:text-sm'>
+            {project.short_description}
+          </p>
+          {project.skills && (
+            <div class='mt-4'>
+              <Skills
+                skillsString={project.skills}
+                limit={4}
+                variant={'outline'}
+              />
+            </div>
+          )}
+          <Button variant='secondary' size='sm' className='mt-4'>
+            <a href={`/project/${project.id}`}>Read more</a>
+          </Button>
+          <EditAsAdmin href={'/admin/project/' + project.id} />
+        </div>
+      </div>
+    ))
+  }
+</div>

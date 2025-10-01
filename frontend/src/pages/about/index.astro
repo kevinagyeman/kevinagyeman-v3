@@ -1,12 +1,64 @@
 ---
+import EditAsAdmin from '@/components/EditAsAdmin';
+import Links from '@/components/Links';
+import Skills from '@/components/Skills';
+import { DASHBOARD_URL } from '@/constants';
 import MainLayout from '@/layouts/main.astro';
 import { fetchInformation } from '@/services/information';
+import { getResourceUrl } from '@/utils/utils';
 
 const information = await fetchInformation();
 ---
 
 <MainLayout content={{ title: 'About' }}>
-  <div>
-    <pre>{JSON.stringify(information, null, 2)}</pre>
-  </div>
+  <>
+    <div
+      class='grid gap-6
+          grid-cols-1
+          md:grid-cols-4
+          lg:grid-cols-6
+          mt-6'
+    >
+      <div class='md:col-span-1 lg:col-span-2'>
+        <EditAsAdmin href={'/admin/information'} />
+        <img
+          src={getResourceUrl(information?.image)}
+          alt='profile image'
+          class='rounded-lg object-cover aspect-square w-[80px] md:h-full md:w-full'
+        />
+
+        <div class='hidden md:block lg:hidden mt-4'>
+          {information.skills && <Skills skillsString={information.skills} />}
+        </div>
+      </div>
+
+      <div class='space-y-4 md:col-span-3 lg:col-span-3'>
+        <h1 class='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold'>
+          {information.first_name}
+          {information.last_name}
+        </h1>
+        <p
+          class='text-base sm:text-lg md:text-xl text-muted-foreground font-light'
+        >
+          {information.summary}
+        </p>
+        <p class='text-base sm:text-lg md:text-xl font-light'>
+          {information.about}
+        </p>
+
+        <div class='md:hidden'>
+          {information.skills && <Skills skillsString={information.skills} />}
+        </div>
+        {information.links && <Links linksString={information.links} />}
+      </div>
+
+      <div class='hidden lg:block lg:col-span-1'>
+        {
+          information.skills && (
+            <Skills skillsString={information.skills} variant={'secondary'} />
+          )
+        }
+      </div>
+    </div>
+  </>
 </MainLayout>

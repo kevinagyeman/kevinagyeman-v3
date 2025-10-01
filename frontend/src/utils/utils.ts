@@ -1,7 +1,6 @@
 export function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
   const options: Intl.DateTimeFormatOptions = {
-    day: '2-digit',
     month: 'short',
     year: 'numeric',
   };
@@ -26,5 +25,13 @@ export function handleFilePreview(
 
   if (typeof data[fieldName] === 'string') {
     delete data[fieldName];
+  }
+}
+
+export function getResourceUrl(path?: string): string {
+  if (path?.startsWith('/media/')) {
+    return import.meta.env.PUBLIC_BACKEND_URL + path;
+  } else {
+    return 'https://placehold.co/600x400?text=Hello+World';
   }
 }

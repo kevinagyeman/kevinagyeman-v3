@@ -1,27 +1,10 @@
 ---
-import { fetchProjects } from '@/services/project';
+import Hero from '@/components/astro/Hero.astro';
+import ProjectsList from '@/components/astro/ProjectsList.astro';
 import MainLayout from '@/layouts/main.astro';
-import { fetchInformation } from '@/services/information';
-
-const projects = await fetchProjects();
-const information = await fetchInformation();
 ---
 
 <MainLayout content={{ title: 'Kevin Agyeman' }}>
-  <div>
-    <div>
-      <h2>Projects List:</h2>
-      <ul>
-        {
-          projects.map((project: any, number: any) => (
-            <>
-              <li>{project.title}</li>
-              <a href={`/project/${project.id}`}>View</a>
-            </>
-          ))
-        }
-      </ul>
-      <pre>{JSON.stringify(information, null, 2)}</pre>
-    </div>
-  </div>
+  <Hero />
+  <ProjectsList />
 </MainLayout>
