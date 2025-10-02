@@ -24,7 +24,8 @@ const information = await fetchInformation();
         <img
           src={getResourceUrl(information?.image)}
           alt='profile image'
-          class='rounded-lg object-cover aspect-square w-[80px] md:h-full md:w-full'
+          class='w-full h-auto object-cover rounded-xl border'
+          style={{ aspectRatio: '1/1' }}
         />
 
         <div class='hidden md:block lg:hidden mt-4'>
@@ -33,7 +34,7 @@ const information = await fetchInformation();
       </div>
 
       <div class='space-y-4 md:col-span-3 lg:col-span-3'>
-        <h1 class='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold'>
+        <h1 class='text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold'>
           {information.first_name}
           {information.last_name}
         </h1>
