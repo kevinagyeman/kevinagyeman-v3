@@ -1,1 +1,0 @@
-import{j as r,B as a}from"./button.Ddx2-vE6.js";import"./index.BmnMO-Wv.js";function i(){return r.jsxs("div",{className:"flex gap-2 mt-5",children:[r.jsx(a,{variant:"secondary",children:r.jsx("a",{href:"/admin/project/new",children:"New Project"})}),r.jsx(a,{variant:"secondary",children:r.jsx("a",{href:"/admin/information",children:"Edit Profile"})})]})}export{i as default};

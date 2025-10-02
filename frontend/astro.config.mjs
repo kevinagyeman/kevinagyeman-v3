@@ -9,7 +9,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  output: 'static',
+  output: 'server',
   adapter: vercel(),
   integrations: [react()],
 });
