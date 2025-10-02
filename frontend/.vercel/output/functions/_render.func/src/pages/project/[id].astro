@@ -1,0 +1,67 @@
+---
+import DateDisplay from '@/components/DateDisplay';
+import EditAsAdmin from '@/components/EditAsAdmin';
+import Links from '@/components/Links';
+import Skills from '@/components/Skills';
+import MainLayout from '@/layouts/main.astro';
+import { fetchProject } from '@/services/project';
+import { getResourceUrl } from '@/utils/utils';
+
+const { id } = Astro.params;
+const project = await fetchProject(id);
+if (!project) {
+  return Astro.redirect('/404');
+}
+---
+
+<MainLayout content={{ title: 'Project Info' }}>
+  <div
+    class='grid gap-6
+          grid-cols-1
+          md:grid-cols-4
+          lg:grid-cols-6
+          mt-6'
+  >
+    <div class='md:col-span-1 lg:col-span-2'>
+      <EditAsAdmin href={`/admin/project/${project.id}`} />
+      <img
+        src={getResourceUrl(project?.image)}
+        alt='project image'
+        class='w-full h-auto object-cover rounded-xl border'
+        style={{ aspectRatio: '16/9' }}
+      />
+
+      <div class='hidden md:block lg:hidden mt-4'>
+        {project.skills && <Skills skillsString={project.skills} />}
+      </div>
+    </div>
+
+    <div class='space-y-4 md:col-span-3 lg:col-span-3'>
+      <h1 class='text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold'>
+        {project.title}
+      </h1>
+      <DateDisplay period={project} />
+      <p
+        class='text-base sm:text-lg md:text-xl text-muted-foreground font-light'
+      >
+        {project.short_description}
+      </p>
+      <p class='text-base sm:text-lg md:text-xl font-light'>
+        {project.description}
+      </p>
+
+      <div class='md:hidden'>
+        {project.skills && <Skills skillsString={project.skills} />}
+      </div>
+      {project.links && <Links linksString={project.links} />}
+    </div>
+
+    <div class='hidden lg:block lg:col-span-1'>
+      {
+        project.skills && (
+          <Skills skillsString={project.skills} variant={'secondary'} />
+        )
+      }
+    </div>
+  </div>
+</MainLayout>
