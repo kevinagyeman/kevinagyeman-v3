@@ -2,8 +2,6 @@ import { errors, jwtVerify } from 'jose';
 import { defineMiddleware } from 'astro/middleware';
 import { TOKEN_COOKIE_NAME } from './constants';
 
-const PUBLIC_ROUTES = ['/login'];
-
 const secret = new TextEncoder().encode(import.meta.env.JWT_SECRET);
 
 const verifyAuth = async (token?: string) => {
