@@ -1,9 +1,9 @@
-import { e as createComponent, f as createAstro, k as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute } from '../../chunks/astro/server_ZlmUJ9I2.mjs';
+import { e as createComponent, f as createAstro, k as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute } from '../../chunks/astro/server_D-S52Jbh.mjs';
 import 'kleur/colors';
-import { D as DateDisplay } from '../../chunks/DateDisplay_Bgl3UKLK.mjs';
-import { E as EditAsAdmin, S as Skills } from '../../chunks/Skills_Cfd1DpBP.mjs';
-import { L as Links } from '../../chunks/Links_CPils8MG.mjs';
-import { $ as $$Main, g as getResourceUrl } from '../../chunks/main_BQk79EPp.mjs';
+import { D as DateDisplay } from '../../chunks/DateDisplay_BQZP4bOi.mjs';
+import { E as EditAsAdmin, S as Skills } from '../../chunks/Skills_CYnOUBwl.mjs';
+import { L as Links } from '../../chunks/Links_BDm4fQmV.mjs';
+import { $ as $$Main, g as getResourceUrl } from '../../chunks/main_DK1f-WSd.mjs';
 import { a as fetchProject } from '../../chunks/project_CwyuZAJv.mjs';
 export { renderers } from '../../renderers.mjs';
 

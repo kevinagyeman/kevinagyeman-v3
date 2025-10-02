@@ -10,6 +10,11 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    imageService: true,
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   integrations: [react()],
 });

@@ -1,11 +1,11 @@
-import { e as createComponent, k as renderComponent, r as renderTemplate } from '../../chunks/astro/server_ZlmUJ9I2.mjs';
+import { e as createComponent, k as renderComponent, r as renderTemplate } from '../../chunks/astro/server_D-S52Jbh.mjs';
 import 'kleur/colors';
 import { jsxs, jsx } from 'react/jsx-runtime';
 import { useState, useEffect } from 'react';
-import { B as Button, $ as $$Main } from '../../chunks/main_BQk79EPp.mjs';
+import { B as Button, $ as $$Main } from '../../chunks/main_DK1f-WSd.mjs';
 import { f as fetchProjects, d as deleteProject } from '../../chunks/project_CwyuZAJv.mjs';
 import { TrashIcon } from 'lucide-react';
-import { D as DateDisplay } from '../../chunks/DateDisplay_Bgl3UKLK.mjs';
+import { D as DateDisplay } from '../../chunks/DateDisplay_BQZP4bOi.mjs';
 export { renderers } from '../../renderers.mjs';
 
 function DashboardActions() {

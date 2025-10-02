@@ -1,7 +1,7 @@
-import { e as createComponent, m as maybeRenderHead, h as addAttribute, k as renderComponent, r as renderTemplate } from '../chunks/astro/server_ZlmUJ9I2.mjs';
+import { e as createComponent, m as maybeRenderHead, h as addAttribute, k as renderComponent, r as renderTemplate } from '../chunks/astro/server_D-S52Jbh.mjs';
 import 'kleur/colors';
-import { f as fetchInformation, g as getResourceUrl, B as Button, $ as $$Main } from '../chunks/main_BQk79EPp.mjs';
-import { S as Skills, E as EditAsAdmin } from '../chunks/Skills_Cfd1DpBP.mjs';
+import { f as fetchInformation, g as getResourceUrl, B as Button, $ as $$Main } from '../chunks/main_DK1f-WSd.mjs';
+import { S as Skills, E as EditAsAdmin } from '../chunks/Skills_CYnOUBwl.mjs';
 import { LinkedinIcon, Github } from 'lucide-react';
 import { f as fetchProjects } from '../chunks/project_CwyuZAJv.mjs';
 export { renderers } from '../renderers.mjs';

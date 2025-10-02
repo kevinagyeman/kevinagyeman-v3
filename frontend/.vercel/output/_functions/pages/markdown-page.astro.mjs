@@ -1,6 +1,6 @@
-import { e as createComponent, k as renderComponent, r as renderTemplate, u as unescapeHTML } from '../chunks/astro/server_ZlmUJ9I2.mjs';
+import { e as createComponent, k as renderComponent, r as renderTemplate, u as unescapeHTML } from '../chunks/astro/server_D-S52Jbh.mjs';
 import 'kleur/colors';
-import { $ as $$Main } from '../chunks/main_BQk79EPp.mjs';
+import { $ as $$Main } from '../chunks/main_DK1f-WSd.mjs';
 export { renderers } from '../renderers.mjs';
 
 const html = () => "<div class=\"grid place-items-center h-screen content-center\">\n <div class=\"py-2 px-4 bg-purple-500 text-white font-semibold rounded-lg shadow-md\">\n  Tailwind classes also work in Markdown!\n </div>\n <a href=\"/\" class=\"p-4 underline hover:text-purple-500 transition-colors ease-in-out duration-200\">\n  Go home\n </a>\n</div>";
