@@ -1,7 +1,5 @@
 ---
-import ProjectForm from '@/components/ProjectForm';
 import MainLayout from '@/layouts/main.astro';
-import { fetchProjects } from '@/services/project';
 
 // export async function getStaticPaths() {
 //   const projects = await fetchProjects();
@@ -12,5 +10,6 @@ const { id } = Astro.params;
 ---
 
 <MainLayout content={{ title: 'Edit Project' }}>
-  <ProjectForm projectId={id} client:visible />
+  <!-- <ProjectForm projectId={id} client:visible /> -->
+  aa
 </MainLayout>
