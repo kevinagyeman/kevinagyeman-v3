@@ -1,9 +1,8 @@
 import { deleteProject, fetchProjects } from '@/services/project';
+import { TrashIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Button } from './ui/button';
-import { Trash, TrashIcon } from 'lucide-react';
-import { formatDate } from '@/utils/utils';
 import DateDisplay from './DateDisplay';
+import { Button } from './ui/button';
 
 function DashboardProjectsList() {
   const [projects, setProjects] = useState<any>();

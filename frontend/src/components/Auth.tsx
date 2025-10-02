@@ -1,12 +1,11 @@
 import { DASHBOARD_URL } from '@/constants';
-import { login } from '@/services/auth';
-import React, { useState } from 'react';
-import CustomInput from './form/CustomInput';
 import { authSchema, type AuthSchema } from '@/schemas/auth-schema';
+import { login } from '@/services/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, type SubmitHandler } from 'react-hook-form';
-import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import CustomInput from './form/CustomInput';
+import { Button } from './ui/button';
 
 export default function Auth() {
   const form = useForm<AuthSchema>({

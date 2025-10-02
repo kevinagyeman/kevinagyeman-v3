@@ -29,7 +29,7 @@ export default function InformationForm() {
   }, []);
 
   const loadInformation = async () => {
-    const data = await fetchInformation();
+    const data: any = await fetchInformation();
     handleFilePreview(data, setImagePreview, 'image');
     handleFilePreview(data, setResumePreview, 'resume');
     form.reset(data);
