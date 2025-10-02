@@ -1,6 +1,12 @@
 ---
 import ProjectForm from '@/components/ProjectForm';
 import MainLayout from '@/layouts/main.astro';
+import { fetchProjects } from '@/services/project';
+
+export async function getStaticPaths() {
+  const projects = await fetchProjects();
+  return projects.map((project: any) => ({ params: { id: project.id } }));
+}
 
 const { id } = Astro.params;
 ---
