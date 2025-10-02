@@ -1,3 +1,4 @@
+import React from 'react';
 import { DASHBOARD_URL } from '@/constants';
 import { projectSchema, type ProjectSchema } from '@/schemas/project-schema';
 import {
