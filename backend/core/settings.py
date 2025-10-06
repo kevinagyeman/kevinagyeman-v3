@@ -16,10 +16,12 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+
 CSRF_TRUSTED_ORIGINS = [
     "https://kevinagyeman-v3.onrender.com",
     "https://www.kevinagyeman.com",
     "https://kevinagyeman.com",
+    "http://192.168.1.115:4321",
 ]
 CORS_ALLOW_HEADERS = [
     "accept",
@@ -34,7 +36,12 @@ CORS_ALLOW_HEADERS = [
     "x-sessionid",
     "x-requested-with",
 ]
+
 CORS_EXPOSE_HEADERS = ["Set-Cookie"]
+
+CORS_ALLOWED_HOSTS = [
+    "192.168.1.115",
+]
 
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
 
@@ -55,17 +62,14 @@ SIMPLE_JWT = {
 
 REST_AUTH = {
     "USE_JWT": True,
-    "JWT_AUTH_COOKIE": "access_token",  # Name of access token cookie
-    "JWT_AUTH_REFRESH_COOKIE": "refresh_token",  # Name of refresh token cookie
-    "JWT_AUTH_HTTPONLY": False,  # Makes sure refresh token is sent
+    "JWT_AUTH_COOKIE": "access_token",
+    "JWT_AUTH_REFRESH_COOKIE": "refresh_token",
+    "JWT_AUTH_HTTPONLY": False,
     "JWT_AUTH_SAMESITE": "None",
     "JWT_AUTH_SECURE": True,
 }
 
-
 CORS_ALLOW_CREDENTIALS = True
-
-# Applicazioni installate e middleware rimangono invariati
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -84,15 +88,14 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
 ]
-
 ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [

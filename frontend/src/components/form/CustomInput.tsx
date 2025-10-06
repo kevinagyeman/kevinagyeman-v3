@@ -29,6 +29,7 @@ function CustomInput({
         placeholder={placeholder}
         pattern={pattern}
         {...inputProps}
+        autoComplete='true'
       />
       {hint && <small className='text-sm text-muted-foreground'>{hint}</small>}
       {error && <small className='text-sm text-red'>{error}</small>}
