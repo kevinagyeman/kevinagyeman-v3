@@ -16,6 +16,25 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+CSRF_TRUSTED_ORIGINS = [
+    "https://kevinagyeman-v3.onrender.com",
+    "https://www.kevinagyeman.com",
+    "https://kevinagyeman.com",
+]
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "referer",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-sessionid",
+    "x-requested-with",
+]
+CORS_EXPOSE_HEADERS = ["Set-Cookie"]
 
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
 
@@ -43,11 +62,6 @@ REST_AUTH = {
     "JWT_AUTH_SECURE": True,
 }
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://kevinagyeman-v3.onrender.com",
-    "https://www.kevinagyeman.com",
-    "https://kevinagyeman.com",
-]
 
 CORS_ALLOW_CREDENTIALS = True
 
