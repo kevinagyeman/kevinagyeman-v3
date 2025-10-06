@@ -43,6 +43,12 @@ REST_AUTH = {
     "JWT_AUTH_SECURE": True,
 }
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://kevinagyeman-v3.onrender.com",
+    "https://www.kevinagyeman.com",
+    "https://kevinagyeman.com",
+]
+
 CORS_ALLOW_CREDENTIALS = True
 
 # Applicazioni installate e middleware rimangono invariati

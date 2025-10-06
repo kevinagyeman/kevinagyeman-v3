@@ -32,7 +32,9 @@ const verifyAuth = async (token?: string) => {
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const token = context.cookies.get(TOKEN_COOKIE_NAME)?.value;
+  console.log('Token cookie:', token);
   const validationResult = await verifyAuth(token);
+  console.log('Validation result:', validationResult);
   const path = context.url.pathname;
 
   if (path === '/login' && validationResult.status === 'authorized') {
