@@ -17,7 +17,7 @@ export default function Auth() {
   const submitAuth: SubmitHandler<AuthSchema> = async (data) => {
     await login(data.username, data.password);
     localStorage.setItem('isAuthenticated', 'true');
-    window.location.href = DASHBOARD_URL;
+    //window.location.href = DASHBOARD_URL;
   };
 
   return (

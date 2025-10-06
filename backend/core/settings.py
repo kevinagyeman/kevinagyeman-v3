@@ -37,11 +37,21 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 
+
 CORS_EXPOSE_HEADERS = ["Set-Cookie"]
 
 CORS_ALLOWED_HOSTS = [
-    "192.168.1.115",
+    "kevinagyeman.com",
 ]
+
+SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_DOMAIN = ".kevinagyeman.com"  # oppure il tuo IP per test locale
+CSRF_COOKIE_DOMAIN = ".kevinagyeman.com"
+
 
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
 
