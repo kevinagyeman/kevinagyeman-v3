@@ -13,7 +13,9 @@ schema_view = get_schema_view(
         description="Test description",
     ),
     public=True,
-    permission_classes=[permissions.AllowAny],
+    permission_classes=[
+        permissions.AllowAny
+    ],  # puoi cambiare in IsAdminUser per protezione
 )
 
 urlpatterns = [
@@ -26,7 +28,7 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += [
         path(
-            "",
+            "swagger/",
             schema_view.with_ui("swagger", cache_timeout=0),
             name="schema-swagger-ui",
         ),
