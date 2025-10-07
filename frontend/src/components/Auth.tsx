@@ -43,9 +43,6 @@ export default function Auth() {
           'Login'
         )}
       </Button>
-      <Button type='button' className='w-full' variant={'ghost'}>
-        <a href='/'>Homepage</a>
-      </Button>
     </form>
   );
 }

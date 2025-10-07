@@ -2,7 +2,7 @@ import { errors, jwtVerify } from 'jose';
 import { defineMiddleware } from 'astro/middleware';
 import { TOKEN_COOKIE_NAME } from './constants';
 
-const secret = new TextEncoder().encode(import.meta.env.JWT_SECRET);
+const secret = new TextEncoder().encode(import.meta.env.SECRET_KEY);
 
 const verifyAuth = async (token?: string) => {
   if (!token) {
@@ -31,6 +31,7 @@ const verifyAuth = async (token?: string) => {
 };
 
 export const onRequest = defineMiddleware(async (context, next) => {
+  console.log('context.cookies', context.cookies);
   const token = context.cookies.get(TOKEN_COOKIE_NAME)?.value;
   console.log('Token cookie:', token);
   const validationResult = await verifyAuth(token);

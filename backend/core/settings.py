@@ -17,43 +17,19 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://kevinagyeman-v3.onrender.com",
-    "https://www.kevinagyeman.com",
-    "https://kevinagyeman.com",
-    "http://192.168.1.115:4321",
-]
-CORS_ALLOW_HEADERS = [
-    "accept",
-    "referer",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-sessionid",
-    "x-requested-with",
-]
+CSRF_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_DOMAIN = env.list("ALLOWED_ORIGINS")
+CSRF_TRUSTED_ORIGINS = env.list("ALLOWED_ORIGINS")
 
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_HOSTS = env.list("ALLOWED_ORIGINS")
 
-CORS_EXPOSE_HEADERS = ["Set-Cookie"]
-
-CORS_ALLOWED_HOSTS = [
-    "kevinagyeman.com",
-]
+CORS_ALLOWED_ORIGINS = env.list("ALLOWED_ORIGINS")
 
 SESSION_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SAMESITE = "None"
-CSRF_COOKIE_SECURE = True
-
-SESSION_COOKIE_DOMAIN = ".kevinagyeman.com"  # oppure il tuo IP per test locale
-CSRF_COOKIE_DOMAIN = ".kevinagyeman.com"
-
-
-CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
+SESSION_COOKIE_DOMAIN = env.list("ALLOWED_ORIGINS")
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -79,8 +55,6 @@ REST_AUTH = {
     "JWT_AUTH_SECURE": True,
 }
 
-CORS_ALLOW_CREDENTIALS = True
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -99,14 +73,15 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
 ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [

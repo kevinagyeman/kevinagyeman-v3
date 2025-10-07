@@ -1,13 +1,11 @@
 ---
+import FullScreenWrapper from '@/components/FullScreenWrapper';
 import { Button } from '@/components/ui/button';
 import MainLayout from '@/layouts/main.astro';
 ---
 
 <MainLayout content={{ title: 'Page not found' }}>
-  <div
-    class='flex items-center justify-center min-h-screen px-4'
-    style='min-height: calc(100vh - 65px);'
-  >
+  <FullScreenWrapper client:visible>
     <div class='w-full max-w-xs text-center space-y-4'>
       <h1 class='text-9xl'>404</h1>
       <p class='text-muted-foreground'>
@@ -18,5 +16,5 @@ import MainLayout from '@/layouts/main.astro';
         <Button client:visible><a href='/'>Homepage</a></Button>
       </div>
     </div>
-  </div>
+  </FullScreenWrapper>
 </MainLayout>
