@@ -94,6 +94,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "project",
     "information",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
