@@ -39,11 +39,9 @@ REST_AUTH = {
     "JWT_AUTH_REFRESH_COOKIE": "refresh_token",
     "JWT_AUTH_HTTPONLY": False,
     "JWT_AUTH_SAMESITE": "None",
-    "JWT_AUTH_SECURE": True,  # usa HTTPS
-    "JWT_AUTH_COOKIE_DOMAIN": "http://192.168.1.115:4321",  # opzionale, se necessario
-    "JWT_AUTH_COOKIE_USE_CSRF": False,  # opzionale ma consigliato
+    "JWT_AUTH_SECURE": True,
+    "JWT_AUTH_COOKIE_USE_CSRF": False,
 }
-
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
