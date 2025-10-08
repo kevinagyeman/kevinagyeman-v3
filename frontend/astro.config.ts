@@ -8,6 +8,15 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
+    // server: {
+    //   proxy: {
+    //     '/api': {
+    //       target: import.meta.env.PUBLIC_BACKEND_URL,
+    //       changeOrigin: true,
+    //       secure: false,
+    //     },
+    //   },
+    // },
   },
   output: 'server',
   adapter: vercel(),
