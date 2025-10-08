@@ -14,7 +14,9 @@ env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 SECRET_KEY = env("SECRET_KEY")
+
 DEBUG = env("DEBUG")
+
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 CSRF_COOKIE_SAMESITE = "None"
@@ -31,6 +33,23 @@ SESSION_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_DOMAIN = env.list("ALLOWED_ORIGINS")
 
+REST_AUTH = {
+    "USE_JWT": True,
+    "JWT_AUTH_COOKIE": "access_token",
+    "JWT_AUTH_REFRESH_COOKIE": "refresh_token",
+    "JWT_AUTH_HTTPONLY": False,
+    "JWT_AUTH_SAMESITE": "None",
+    "JWT_AUTH_SECURE": True,  # usa HTTPS
+    "JWT_AUTH_COOKIE_DOMAIN": "http://192.168.1.115:4321",  # opzionale, se necessario
+    "JWT_AUTH_COOKIE_USE_CSRF": False,  # opzionale ma consigliato
+}
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
@@ -40,20 +59,6 @@ REST_FRAMEWORK = {
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
-
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-}
-
-REST_AUTH = {
-    "USE_JWT": True,
-    "JWT_AUTH_COOKIE": "access_token",
-    "JWT_AUTH_REFRESH_COOKIE": "refresh_token",
-    "JWT_AUTH_HTTPONLY": False,
-    "JWT_AUTH_SAMESITE": "None",
-    "JWT_AUTH_SECURE": True,
-}
 
 INSTALLED_APPS = [
     "django.contrib.admin",

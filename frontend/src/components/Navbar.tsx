@@ -102,13 +102,28 @@ function Navbar() {
                       Logout
                     </Button>
                   ) : (
-                    <img
-                      src={imageUrl}
-                      alt='profile'
-                      className='w-[30px] h-auto object-cover rounded-full border cursor-pointer'
-                      style={{ aspectRatio: '1/1' }}
-                      onClick={() => (window.location.href = DASHBOARD_URL)}
-                    />
+                    <>
+                      {/* <img
+                        src={imageUrl}
+                        alt='profile'
+                        className='w-[30px] h-auto object-cover rounded-full border cursor-pointer'
+                        style={{ aspectRatio: '1/1' }}
+                        onClick={() => (window.location.href = DASHBOARD_URL)}
+                      /> */}
+                      <Button
+                        onClick={handleLogout}
+                        variant={'outline'}
+                        size={'sm'}
+                      >
+                        Logout
+                      </Button>
+                      <Button
+                        onClick={() => (window.location.href = DASHBOARD_URL)}
+                        size={'sm'}
+                      >
+                        Login
+                      </Button>
+                    </>
                   )}
                 </div>
               </div>
