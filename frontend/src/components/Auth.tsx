@@ -6,6 +6,7 @@ import { Loader2 } from 'lucide-react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import CustomInput from './form/CustomInput';
 import { Button } from './ui/button';
+import { useEffect } from 'react';
 
 export default function Auth() {
   const form = useForm<AuthSchema>({

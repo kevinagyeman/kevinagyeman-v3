@@ -6,7 +6,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Button } from './ui/button';
 import Logo from './Logo';
 import { fetchInformation } from '@/services/information';
-import { DASHBOARD_URL } from '@/constants';
+import { AUTH_API_BASE_URL, DASHBOARD_URL } from '@/constants';
 import { getResourceUrl } from '@/utils/utils';
 
 function Navbar() {
@@ -49,6 +49,17 @@ function Navbar() {
         ]
       : []),
   ];
+
+  const test = async () => {
+    await fetch(`${AUTH_API_BASE_URL}/user`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        // Passa i cookie esatti ricevuti'
+      },
+      credentials: 'include', // Non sempre serve, ma è buona pratica
+    });
+  };
 
   return (
     <>
@@ -94,13 +105,16 @@ function Navbar() {
                     <ModeToggle />
                   </div>
                   {isAuthenticated ? (
-                    <Button
-                      onClick={handleLogout}
-                      variant={'outline'}
-                      size={'sm'}
-                    >
-                      Logout
-                    </Button>
+                    <>
+                      <Button
+                        onClick={handleLogout}
+                        variant={'outline'}
+                        size={'sm'}
+                      >
+                        Logout
+                      </Button>
+                      <button onClick={test}>ddd</button>
+                    </>
                   ) : (
                     <>
                       {/* <img
@@ -123,6 +137,7 @@ function Navbar() {
                       >
                         Login
                       </Button>
+                      <button onClick={test}>ddd</button>
                     </>
                   )}
                 </div>

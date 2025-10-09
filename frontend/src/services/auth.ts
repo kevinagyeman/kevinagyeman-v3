@@ -18,3 +18,14 @@ export function logout() {
     credentials: 'include',
   });
 }
+
+export async function getUserInfo() {
+  const response = await fetch(`${AUTH_API_BASE_URL}/user`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+  });
+  if (!response.ok) throw new Error(' failed');
+  const data = await response.json();
+  return data;
+}
