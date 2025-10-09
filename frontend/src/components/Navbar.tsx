@@ -21,7 +21,6 @@ function Navbar() {
 
   const handleLogout = async () => {
     await logout();
-    localStorage.setItem('isAuthenticated', 'false');
     window.location.href = '/';
   };
 
@@ -38,7 +37,7 @@ function Navbar() {
     { name: `About`, href: '/about' },
     { name: `Contact`, href: '/contact' },
     { name: `Resume`, href: resumeUrl },
-    ...(isAuthenticated
+    ...(false
       ? [
           { name: `Dashboard`, href: '/admin/dashboard' },
           { name: `New Project`, href: '/admin/project/new' },
@@ -49,17 +48,6 @@ function Navbar() {
         ]
       : []),
   ];
-
-  const test = async () => {
-    await fetch(`${AUTH_API_BASE_URL}/user`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        // Passa i cookie esatti ricevuti'
-      },
-      credentials: 'include', // Non sempre serve, ma è buona pratica
-    });
-  };
 
   return (
     <>
@@ -104,42 +92,13 @@ function Navbar() {
                   <div className='hidden sm:block'>
                     <ModeToggle />
                   </div>
-                  {isAuthenticated ? (
-                    <>
-                      <Button
-                        onClick={handleLogout}
-                        variant={'outline'}
-                        size={'sm'}
-                      >
-                        Logout
-                      </Button>
-                      <button onClick={test}>ddd</button>
-                    </>
-                  ) : (
-                    <>
-                      {/* <img
-                        src={imageUrl}
-                        alt='profile'
-                        className='w-[30px] h-auto object-cover rounded-full border cursor-pointer'
-                        style={{ aspectRatio: '1/1' }}
-                        onClick={() => (window.location.href = DASHBOARD_URL)}
-                      /> */}
-                      <Button
-                        onClick={handleLogout}
-                        variant={'outline'}
-                        size={'sm'}
-                      >
-                        Logout
-                      </Button>
-                      <Button
-                        onClick={() => (window.location.href = DASHBOARD_URL)}
-                        size={'sm'}
-                      >
-                        Login
-                      </Button>
-                      <button onClick={test}>ddd</button>
-                    </>
-                  )}
+                  <img
+                    src={imageUrl}
+                    alt='profile'
+                    className='w-[30px] h-auto object-cover rounded-full border cursor-pointer'
+                    style={{ aspectRatio: '1/1' }}
+                    onClick={() => (window.location.href = DASHBOARD_URL)}
+                  />
                 </div>
               </div>
             </div>

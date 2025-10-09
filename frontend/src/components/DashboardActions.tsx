@@ -1,5 +1,11 @@
 import React from 'react';
 import { Button } from './ui/button';
+import { logout } from '@/services/auth';
+
+const handleLogout = async () => {
+  await logout();
+  window.location.href = '/';
+};
 
 function DashboardActions() {
   return (
@@ -9,6 +15,9 @@ function DashboardActions() {
       </Button>
       <Button variant={'secondary'}>
         <a href='/admin/information'>Edit Profile</a>
+      </Button>
+      <Button variant={'outline'} onClick={handleLogout}>
+        Logout
       </Button>
     </div>
   );

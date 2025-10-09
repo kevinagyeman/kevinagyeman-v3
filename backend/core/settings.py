@@ -37,9 +37,8 @@ REST_AUTH = {
     "JWT_AUTH_COOKIE": "access_token",
     "JWT_AUTH_REFRESH_COOKIE": "refresh_token",
     "JWT_AUTH_HTTPONLY": False,
-    "JWT_AUTH_SAMESITE": "Lax",
+    "JWT_AUTH_SAMESITE": "None",
     "JWT_AUTH_SECURE": True,
-    "JWT_AUTH_COOKIE_USE_CSRF": False,
 }
 
 SIMPLE_JWT = {
