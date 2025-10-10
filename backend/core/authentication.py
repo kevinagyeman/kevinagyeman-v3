@@ -66,7 +66,7 @@ class RefreshToken(TokenRefreshView):
             cookie_httponly = False  # Permetti accesso a JS/middleware
             cookie_samesite = "None"
 
-            cookie_domain = getattr(settings, "SESSION_COOKIE_DOMAIN", None)
+            cookie_domain = ".kevinagyeman.com"
 
             token_expiration = timezone.now() + jwt_settings.ACCESS_TOKEN_LIFETIME
             response.set_cookie(
