@@ -6,6 +6,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+from .authentication import Login, RefreshToken
+
 schema_view = get_schema_view(
     openapi.Info(
         title="API Documentation",
@@ -22,6 +24,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/projects/", include("project.urls")),
     path("api/information/", include("information.urls")),
+    path("api/auth/login/", Login.as_view(), name="custom_login"),
+    path(
+        "api/auth/token/refresh/", RefreshToken.as_view(), name="custom_token_refresh"
+    ),
     path("api/v1/auth/", include("dj_rest_auth.urls")),
 ]
 

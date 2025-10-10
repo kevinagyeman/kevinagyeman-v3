@@ -41,6 +41,9 @@ REST_AUTH = {
     "JWT_AUTH_SECURE": True,
 }
 
+JWT_AUTH_SECURE = True
+SESSION_COOKIE_DOMAIN = ".kevinagyeman.com"
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),

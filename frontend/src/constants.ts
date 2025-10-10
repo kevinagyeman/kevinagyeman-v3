@@ -4,7 +4,7 @@ export const PROJECT_API_BASE_URL = `${
 }/api/projects`;
 export const AUTH_API_BASE_URL = `${
   import.meta.env.PUBLIC_BACKEND_URL
-}/api/v1/auth`;
+}/api/auth`;
 export const INFORMATION_API_BASE_URL = `${
   import.meta.env.PUBLIC_BACKEND_URL
 }/api/information`;

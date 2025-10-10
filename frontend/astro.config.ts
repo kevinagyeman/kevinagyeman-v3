@@ -18,6 +18,9 @@ export default defineConfig({
     //   },
     // },
   },
+  security: {
+    checkOrigin: false,
+  },
   output: 'server',
   adapter: vercel(),
   integrations: [react()],
