@@ -15,14 +15,15 @@ class Login(LoginView):
             cookie_name = getattr(settings, "JWT_AUTH_COOKIE", None)
             refresh_cookie_name = getattr(settings, "JWT_AUTH_REFRESH_COOKIE", None)
             refresh_cookie_path = getattr(settings, "JWT_AUTH_REFRESH_COOKIE_PATH", "/")
-            cookie_secure = getattr(settings, "JWT_AUTH_SECURE", False)
-            cookie_httponly = getattr(settings, "JWT_AUTH_HTTPONLY", True)
-            cookie_samesite = getattr(settings, "JWT_AUTH_SAMESITE", "Lax")
+
+            # Disabilita sicurezza per accesso cookie da JS / middleware Astro
+            cookie_secure = False
+            cookie_httponly = False  # Permetti accesso a JS
+            cookie_samesite = "None"  # Permetti cross-origin
 
             # read domain from django settings
             cookie_domain = getattr(settings, "SESSION_COOKIE_DOMAIN", None)
 
-            # prendi gli expiration dai settings jwt
             access_token_expiration = (
                 timezone.now() + jwt_settings.ACCESS_TOKEN_LIFETIME
             )
@@ -60,11 +61,10 @@ class RefreshToken(TokenRefreshView):
         response = super().post(request, *args, **kwargs)
         cookie_name = getattr(settings, "JWT_AUTH_COOKIE", None)
         if cookie_name and response.status_code == 200 and "access" in response.data:
-            cookie_secure = getattr(settings, "JWT_AUTH_SECURE", False)
-            cookie_httponly = getattr(settings, "JWT_AUTH_HTTPONLY", True)
-            cookie_samesite = getattr(settings, "JWT_AUTH_SAMESITE", "Lax")
+            cookie_secure = False
+            cookie_httponly = False  # Permetti accesso a JS/middleware
+            cookie_samesite = "None"
 
-            # read domain from django settings
             cookie_domain = getattr(settings, "SESSION_COOKIE_DOMAIN", None)
 
             token_expiration = timezone.now() + jwt_settings.ACCESS_TOKEN_LIFETIME
