@@ -31,33 +31,27 @@ const verifyAuth = async (token?: string) => {
 };
 
 export const onRequest = defineMiddleware(async (context, next) => {
+  console.log('context.cookies', context.cookies);
   const token = context.cookies.get(TOKEN_COOKIE_NAME)?.value;
-  console.log('All cookies:', token);
-
+  console.log('Token cookie:', token);
   const validationResult = await verifyAuth(token);
+  console.log('Validation result:', validationResult);
   const path = context.url.pathname;
 
   if (path === '/login' && validationResult.status === 'authorized') {
     return Response.redirect(new URL('/', context.url));
   }
-
   if (path.startsWith('/admin')) {
     if (validationResult.status === 'authorized') {
       return next();
     } else {
-      const url = new URL(context.url);
-      if (!url.port) {
-        url.port = '4321'; // Imposta la porta corretta
-      }
-      const loginUrl = new URL('/login', url);
-      loginUrl.searchParams.set('next', path + context.url.search);
-
+      const loginUrl = new URL('/login', context.url);
+      loginUrl.searchParams.set('next', path + context.url.search); // conserva query params originali
       if (path.startsWith('/api/')) {
         return new Response(JSON.stringify({ message: 'Unauthorized' }), {
           status: 401,
         });
       }
-
       return Response.redirect(loginUrl);
     }
   }
