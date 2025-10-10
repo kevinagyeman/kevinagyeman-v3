@@ -41,7 +41,7 @@ REST_AUTH = {
 }
 
 JWT_AUTH_SECURE = True
-SESSION_COOKIE_DOMAIN = None
+SESSION_COOKIE_DOMAIN = ".kevinagyeman.com"
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
