@@ -24,10 +24,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/projects/", include("project.urls")),
     path("api/information/", include("information.urls")),
-    path("api/auth/login/", Login.as_view(), name="custom_login"),
-    path(
-        "api/auth/token/refresh/", RefreshToken.as_view(), name="custom_token_refresh"
-    ),
+    # path("api/auth/login/", Login.as_view(), name="custom_login"),
+    # path(
+    #     "api/auth/token/refresh/", RefreshToken.as_view(), name="custom_token_refresh"
+    # ),
     path("api/v1/auth/", include("dj_rest_auth.urls")),
 ]
 

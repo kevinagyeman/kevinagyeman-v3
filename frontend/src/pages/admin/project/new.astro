@@ -1,8 +1,8 @@
 ---
-import ProjectForm from '@/components/ProjectForm';
+import ProjectEditOrNew from '@/components/pages/ProjectEditOrNew';
 import MainLayout from '@/layouts/main.astro';
 ---
 
 <MainLayout content={{ title: 'New Project' }}>
-  <ProjectForm client:visible />
+  <ProjectEditOrNew projectId={null} client:visible />
 </MainLayout>

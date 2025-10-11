@@ -1,11 +1,11 @@
 import { getUserInfo } from '@/services/auth';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, type ReactNode } from 'react';
 
-interface AdminRouteGuardProps {
-  children: any;
+interface AdminGuardProps {
+  children: ReactNode;
 }
 
-const AuthGuard = ({ children }: AdminRouteGuardProps) => {
+const AuthGuard = ({ children }: AdminGuardProps) => {
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
 
@@ -13,7 +13,6 @@ const AuthGuard = ({ children }: AdminRouteGuardProps) => {
     const verify = async () => {
       try {
         const userData = await getUserInfo();
-        // aggiungi controllo su ruolo admin se serve
         setAuthenticated(true);
       } catch {
         setAuthenticated(false);
@@ -31,7 +30,7 @@ const AuthGuard = ({ children }: AdminRouteGuardProps) => {
   }
 
   if (!authenticated) {
-    return null; // o fallback
+    return null;
   }
 
   return <>{children}</>;
