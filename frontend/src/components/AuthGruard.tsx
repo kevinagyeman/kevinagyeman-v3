@@ -5,7 +5,7 @@ interface AdminRouteGuardProps {
   children: any;
 }
 
-const AdminRouteGuard = ({ children }: AdminRouteGuardProps) => {
+const AuthGuard = ({ children }: AdminRouteGuardProps) => {
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
 
@@ -37,4 +37,4 @@ const AdminRouteGuard = ({ children }: AdminRouteGuardProps) => {
   return <>{children}</>;
 };
 
-export default AdminRouteGuard;
+export default AuthGuard;

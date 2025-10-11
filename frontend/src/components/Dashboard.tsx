@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import DashboardActions from './DashboardActions';
 import DashboardProjectsList from './DashboardProjectsList';
-import AdminRouteGuard from './AdminRouteGruard';
+import AuthGuard from './AuthGruard';
 
 function Dashboard() {
   useEffect(() => {
@@ -10,10 +10,10 @@ function Dashboard() {
 
   return (
     <>
-      <AdminRouteGuard>
+      <AuthGuard>
         <DashboardActions />
         <DashboardProjectsList />
-      </AdminRouteGuard>
+      </AuthGuard>
     </>
   );
 }
