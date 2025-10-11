@@ -39,21 +39,21 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
   }, [projectId]);
 
   const loadProject = async (id: string) => {
-    const data: any = await fetchProject(id);
+    const data: any = await fetchProject(Number(id));
     handleFilePreview(data, setImagePreview, 'image');
     form.reset(data);
   };
 
   const submitProject: SubmitHandler<ProjectSchema> = async (data) => {
     if (projectId) {
-      await updateProject(projectId, filterData(data));
+      await updateProject(Number(projectId), filterData(data));
     } else {
       await createProject(filterData(data));
     }
     window.location.href = DASHBOARD_URL;
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => {
     await deleteProject(id);
     window.location.href = DASHBOARD_URL;
   };
@@ -66,7 +66,7 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
         </Button>
         {projectId && (
           <Button
-            onClick={() => handleDelete(projectId)}
+            onClick={() => handleDelete(Number(projectId))}
             size={'sm'}
             variant={'destructive'}
           >

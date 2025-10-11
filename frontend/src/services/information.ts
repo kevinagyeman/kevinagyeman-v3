@@ -9,7 +9,9 @@ export async function fetchInformation(): Promise<Information> {
   return response.json();
 }
 
-export async function updateInformation(data: any) {
+export async function updateInformation(
+  data: Information
+): Promise<Information> {
   let fetchOptions: RequestInit;
 
   const hasFileImage = data.image instanceof File;
@@ -19,15 +21,10 @@ export async function updateInformation(data: any) {
     const formData = new FormData();
 
     for (const key in data) {
-      if (data[key] !== undefined && data[key] !== null) {
-        if (
-          (key === 'image' && data[key] instanceof File) ||
-          (key === 'resume' && data[key] instanceof File)
-        ) {
-          formData.append(key, data[key]);
-        } else {
-          formData.append(key, data[key]);
-        }
+      const typedKey = key as keyof Information;
+      const value = data[typedKey];
+      if (value !== undefined && value !== null) {
+        formData.append(key, value as string | Blob);
       }
     }
 

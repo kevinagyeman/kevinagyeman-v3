@@ -3,15 +3,16 @@ import { TrashIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import DateDisplay from './DateDisplay';
 import { Button } from './ui/button';
+import type { Project } from '@/types/project-type';
 
 function DashboardProjectsList() {
-  const [projects, setProjects] = useState<any>();
+  const [projects, setProjects] = useState<Project[]>();
 
   useEffect(() => {
     loadProjects();
   }, []);
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => {
     const data = await deleteProject(id);
     window.location.reload();
   };
@@ -25,10 +26,10 @@ function DashboardProjectsList() {
     <div>
       <h2 className='text-2xl font-semibold mt-5'>Projects List</h2>
       <div className='space-y-3 mt-2'>
-        {projects?.map((project: any, number: any) => (
+        {projects?.map((project: Project, index: number) => (
           <div
             className='flex justify-between p-2 border rounded-xl items-center bg-card'
-            key={number}
+            key={index}
           >
             <div className='flex gap-4 items-center'>
               <span

@@ -7,6 +7,7 @@ import Links from '@/components/Links';
 import Skills from '@/components/Skills';
 import MainLayout from '@/layouts/main.astro';
 import { fetchProject } from '@/services/project';
+import type { Seo } from '@/types/seo-type';
 import { getResourceUrl } from '@/utils/utils';
 
 const { id } = Astro.params;
@@ -15,9 +16,15 @@ const project = await fetchProject(id);
 if (!project) {
   return Astro.redirect('/404');
 }
+
+const content: Seo = {
+  title: project.title,
+  description: project.short_description,
+  image: project.image,
+};
 ---
 
-<MainLayout content={{ title: 'Project Info' }}>
+<MainLayout content={content}>
   <div class='space-y-6 max-w-2xl mx-auto'>
     <img
       src={getResourceUrl(project?.image)}

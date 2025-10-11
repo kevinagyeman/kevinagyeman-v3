@@ -8,6 +8,7 @@ import Logo from './Logo';
 import { fetchInformation } from '@/services/information';
 import { AUTH_API_BASE_URL, DASHBOARD_URL } from '@/constants';
 import { getResourceUrl } from '@/utils/utils';
+import type { Information } from '@/types/information-type';
 
 function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -51,15 +52,11 @@ function Navbar() {
 
   return (
     <>
-      {/* <Disclosure
-        as='nav'
-        className='sticky top-0 z-50 border-b bg-background/80 backdrop-blur-sm'
-      > */}
       <Disclosure
         as='nav'
-        className='z-50 border-b bg-background/80 backdrop-blur-sm mb-6'
+        className='z-50 sticky top-0 border-b bg-background/80 backdrop-blur-sm'
       >
-        {({ open }: any) => (
+        {({ open }: { open: boolean }) => (
           <>
             <div className='mx-auto container px-4 sm:px-0'>
               <div className='relative flex h-16 items-center justify-between'>

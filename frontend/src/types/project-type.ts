@@ -7,7 +7,7 @@ export interface Project {
   title: string;
   description: string;
   short_description: string;
-  image: string;
+  image: File | string;
   skills: string;
   links: string;
 }

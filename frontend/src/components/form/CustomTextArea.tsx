@@ -24,7 +24,7 @@ function CustomTextArea({
       <Label className='mb-2'>{labelText}</Label>
       <Textarea placeholder={placeholder} rows={rows} {...textAreaProps} />
       {hint && <small className='text-xs text-muted-foreground'>{hint}</small>}
-      {error && <small className='text-xs text-red'>{error}</small>}
+      {error && <small className='text-xs text-orange-800'>{error}</small>}
     </div>
   );
 }

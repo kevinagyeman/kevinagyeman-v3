@@ -20,7 +20,7 @@ export function logout() {
 }
 
 export async function getUserInfo() {
-  const response = await fetch(`${AUTH_API_BASE_URL}/user`, {
+  const response = await fetch(`${AUTH_API_BASE_URL}/user/`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',

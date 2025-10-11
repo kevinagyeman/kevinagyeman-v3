@@ -9,16 +9,23 @@ import { getResourceUrl } from '@/utils/utils';
 import Title from '@/components/astro/Title.astro';
 import ShortDescription from '@/components/astro/ShortDescription.astro';
 import Description from '@/components/astro/Description.astro';
+import type { Seo } from '@/types/seo-type';
 
 const information = await fetchInformation();
+
+const content: Seo = {
+  title: `About - ${information.first_name} ${information.last_name}`,
+  description: information.summary,
+  image: information.image,
+};
 ---
 
-<MainLayout content={{ title: 'About' }}>
+<MainLayout content={content}>
   <div class='space-y-6 max-w-2xl mx-auto'>
     <img
       src={getResourceUrl(information?.image)}
       alt='profile image'
-      class='w-full h-auto object-cover rounded-xl border max-w-2xs'
+      class='w-full h-auto object-cover rounded-xl border max-w-[150px]'
       style={{ aspectRatio: '1/1' }}
     />
     <Title content={`${information.first_name} ${information.last_name}`} />

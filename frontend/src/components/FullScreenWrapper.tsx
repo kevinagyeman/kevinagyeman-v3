@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React from 'react';
 
 function FullScreenWrapper({ children }: { children: React.ReactNode }) {
   return (

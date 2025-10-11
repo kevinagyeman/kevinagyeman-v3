@@ -1,4 +1,4 @@
-import React from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { Button } from './ui/button';
 export default function Links({ linksString }: { linksString?: string }) {
   const safeLinksString = linksString ?? '';
@@ -15,9 +15,10 @@ export default function Links({ linksString }: { linksString?: string }) {
   return (
     <div className='flex flex-wrap gap-2'>
       {links.map((link, index) => (
-        <Button key={index} variant='outline'>
+        <Button key={index} variant='outline' asChild>
           <a href={link.url} target='_blank' rel='noopener noreferrer'>
             {link.label}
+            <ArrowUpRight />
           </a>
         </Button>
       ))}

@@ -1,11 +1,12 @@
 ---
-import { fetchInformation } from '@/services/information';
 import { Button } from '@/components/ui/button';
 import Skills from '@/components/Skills';
-import { LinkedinIcon, Github } from 'lucide-react';
 import { getResourceUrl } from '@/utils/utils';
+import Socials from '../Socials';
+import type { Information } from '@/types/information-type';
 
-const information = await fetchInformation();
+const props = Astro.props as { information: Information };
+const { information } = props;
 ---
 
 
@@ -62,22 +63,10 @@ const information = await fetchInformation();
         )
       }
       <div class='flex gap-4 flex-wrap'>
-        <Button variant='default'>
-          <a href={`/about`}> Read More </a>
-        </Button>
-        <Button variant='secondary'>
-          <a href={getResourceUrl(information.resume)}> Read my CV </a>
-        </Button>
-        <Button variant='outline' size='icon' className='rounded-full'>
-          <a href={'https://www.linkedin.com/in/kevinagyeman/'} target='_blank'>
-            <LinkedinIcon className='w-4 h-4' />
-          </a>
-        </Button>
-        <Button variant='outline' size='icon' className='rounded-full'>
-          <a href={'https://github.com/kevinagyeman'} target='_blank'>
-            <Github className='w-4 h-4' />
-          </a>
-        </Button>
+      <Button variant='default' client:visible>
+        <a href={`/about`}> Read More </a>
+      </Button>
+      <Socials client:visible resume={information.resume} />
       </div>
     </div>
   </div>

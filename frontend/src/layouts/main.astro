@@ -2,7 +2,11 @@
 import Footer from '@/components/astro/Footer.astro';
 import Navbar from '@/components/Navbar';
 import '@/styles/global.css';
-const { content } = Astro.props;
+import type { Seo } from '@/types/seo-type';
+import { SEO } from 'astro-seo';
+
+const props = Astro.props as { content: Seo };
+const { content } = props;
 ---
 
 <script is:inline>
@@ -33,17 +37,41 @@ const { content } = Astro.props;
   <head>
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width' />
+    <link rel='sitemap' href='/sitemap-index.xml' />
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-    <title>{content.title}</title>
+    <SEO
+      title={content.title}
+      description={content.description}
+      openGraph={{
+        basic: {
+          title: content.title || 'Kevin Agyeman',
+          type: 'website',
+          image: content.image || 'https://www.kevinagyeman.com/cover.png',
+        },
+      }}
+      twitter={{
+        creator: '@kevinagyeman_',
+      }}
+      extend={{
+        link: [{ rel: 'icon', href: '/favicon.ico' }],
+        meta: [
+          {
+            name: 'twitter:image',
+            content: 'https://www.kevinagyeman.com/cover.png',
+          },
+          { name: 'twitter:title', content: content.title },
+          { name: 'twitter:description', content: content.description },
+        ],
+      }}
+    />
   </head>
   <body>
-    <!-- <div class='flex min-h-screen flex-col'> -->
-    <Navbar client:visible />
-    <!-- <div class='flex-grow container mx-auto px-4 sm:px-0'> -->
-    <div class='container mx-auto px-4 sm:px-0'>
-      <slot />
+    <div class='flex min-h-screen flex-col'>
+      <Navbar client:visible />
+      <div class='container flex-grow mx-auto px-4 sm:px-0'>
+        <slot />
+      </div>
+      <Footer />
     </div>
-    <Footer />
-    <!-- </div> -->
   </body>
 </html>

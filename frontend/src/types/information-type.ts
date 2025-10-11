@@ -9,6 +9,6 @@ export interface Information {
   about: string;
   skills: string;
   links: string;
-  image: string;
-  resume: string;
+  image: File | string;
+  resume: File | string;
 }

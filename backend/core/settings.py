@@ -31,6 +31,8 @@ CORS_ALLOWED_ORIGINS = env.list("ALLOWED_ORIGINS")
 SESSION_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SECURE = True
 
+# pkfc qiye dnnm puf
+
 REST_AUTH = {
     "USE_JWT": True,
     "JWT_AUTH_COOKIE": "access_token",

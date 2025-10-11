@@ -28,7 +28,7 @@ urlpatterns = [
     # path(
     #     "api/auth/token/refresh/", RefreshToken.as_view(), name="custom_token_refresh"
     # ),
-    path("api/v1/auth/", include("dj_rest_auth.urls")),
+    path("api/auth/", include("dj_rest_auth.urls")),
 ]
 
 if settings.DEBUG:

@@ -1,7 +1,7 @@
 import { PROJECT_API_BASE_URL } from '@/constants';
 import type { Project } from '@/types/project-type';
 
-export async function fetchProjects() {
+export async function fetchProjects(): Promise<Project[]> {
   const response = await fetch(`${PROJECT_API_BASE_URL}/`, {
     credentials: 'include',
   });
@@ -9,7 +9,7 @@ export async function fetchProjects() {
   return response.json();
 }
 
-export async function fetchProject(id: any): Promise<Project | null> {
+export async function fetchProject(id: number): Promise<Project | null> {
   const response = await fetch(`${PROJECT_API_BASE_URL}/${id}/`, {
     credentials: 'include',
   });
@@ -20,16 +20,14 @@ export async function fetchProject(id: any): Promise<Project | null> {
   return response.json();
 }
 
-export async function createProject(data: any) {
+export async function createProject(data: Project): Promise<Project> {
   const formData = new FormData();
 
   for (const key in data) {
-    if (data[key] !== undefined && data[key] !== null) {
-      if (key === 'image' && data[key] instanceof File) {
-        formData.append(key, data[key]);
-      } else {
-        formData.append(key, data[key]);
-      }
+    const typedKey = key as keyof Project;
+    const value = data[typedKey];
+    if (value !== undefined && value !== null) {
+      formData.append(key, value as string | Blob);
     }
   }
 
@@ -42,7 +40,10 @@ export async function createProject(data: any) {
   if (!response.ok) throw new Error('Failed to create project');
   return response.json();
 }
-export async function updateProject(id: string, data: any) {
+export async function updateProject(
+  id: number,
+  data: Project
+): Promise<Project> {
   let fetchOptions: RequestInit;
 
   const hasFile = data.image instanceof File;
@@ -51,12 +52,10 @@ export async function updateProject(id: string, data: any) {
     const formData = new FormData();
 
     for (const key in data) {
-      if (data[key] !== undefined && data[key] !== null) {
-        if (key === 'image' && data[key] instanceof File) {
-          formData.append(key, data[key]);
-        } else {
-          formData.append(key, data[key]);
-        }
+      const typedKey = key as keyof Project;
+      const value = data[typedKey];
+      if (value !== undefined && value !== null) {
+        formData.append(key, value as string | Blob);
       }
     }
 
@@ -80,7 +79,7 @@ export async function updateProject(id: string, data: any) {
   return response.json();
 }
 
-export async function deleteProject(id: any) {
+export async function deleteProject(id: number) {
   const response = await fetch(`${PROJECT_API_BASE_URL}/${id}/`, {
     method: 'DELETE',
     credentials: 'include',

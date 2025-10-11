@@ -1,3 +1,6 @@
+import type { Information } from '@/types/information-type';
+import type { Project } from '@/types/project-type';
+
 export function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
   const options: Intl.DateTimeFormatOptions = {
@@ -7,23 +10,25 @@ export function formatDate(dateStr: string): string {
   return date.toLocaleDateString('en-US', options);
 }
 
-export function filterData(data: any) {
+export function filterData(data: any): any {
   return Object.fromEntries(Object.entries(data).filter(([_, v]) => v !== ''));
 }
 
 export function handleFilePreview(
-  data: any,
+  data: Record<string, any>,
   setPreview: (url: string) => void,
   fieldName: string
 ) {
-  if (data[fieldName]) {
-    const fileUrl = data[fieldName].startsWith('http')
-      ? data[fieldName]
-      : `${import.meta.env.PUBLIC_BACKEND_URL}${data[fieldName]}`;
-    setPreview(fileUrl);
-  }
+  const fieldValue = data[fieldName];
 
-  if (typeof data[fieldName] === 'string') {
+  if (typeof fieldValue === 'string' && fieldValue.length > 0) {
+    // Se il valore inizia per http lo usi così, altrimenti concatena backend url
+    const fileUrl = fieldValue.startsWith('http')
+      ? fieldValue
+      : `${import.meta.env.PUBLIC_BACKEND_URL}${fieldValue}`;
+    setPreview(fileUrl);
+
+    // Elimina il campo stringa per evitare errori in upload/form-data
     delete data[fieldName];
   }
 }
@@ -32,6 +37,6 @@ export function getResourceUrl(path?: string): string {
   if (path?.startsWith('/media/')) {
     return import.meta.env.PUBLIC_BACKEND_URL + path;
   } else {
-    return 'https://placehold.co/600x400?text=Hello+World';
+    return `${import.meta.env.PUBLIC_BACKEND_URL}/media/palceholder.png`;
   }
 }

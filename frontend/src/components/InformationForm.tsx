@@ -14,6 +14,7 @@ import CustomTextArea from './form/CustomTextArea';
 import CustomUpload from './form/CustomUpload';
 import { Button } from './ui/button';
 import AuthGuard from './AuthGruard';
+import type { Information } from '@/types/information-type';
 
 export default function InformationForm() {
   const [imagePreview, setImagePreview] = useState<string>('');

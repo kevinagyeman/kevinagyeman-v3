@@ -31,8 +31,8 @@ function CustomInput({
         {...inputProps}
         autoComplete='true'
       />
-      {hint && <small className='text-sm text-muted-foreground'>{hint}</small>}
-      {error && <small className='text-sm text-red'>{error}</small>}
+      {hint && <small className='text-xs text-muted-foreground'>{hint}</small>}
+      {error && <small className='text-xs text-orange-800'>{error}</small>}
     </div>
   );
 }
