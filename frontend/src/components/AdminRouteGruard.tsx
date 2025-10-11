@@ -1,37 +1,40 @@
-import { AUTH_API_BASE_URL } from '@/constants';
-import { useEffect, useState } from 'react';
+import { getUserInfo } from '@/services/auth';
+import React, { useState, useEffect } from 'react';
 
-function AdminRouteGuard({ children }: { children: React.ReactNode }) {
+interface AdminRouteGuardProps {
+  children: any;
+}
+
+const AdminRouteGuard = ({ children }: AdminRouteGuardProps) => {
   const [loading, setLoading] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
-    const checkUser = async () => {
-      if (window.location.pathname === '/login') {
-        setLoading(false); // Se siamo già su login, non fare altro
-        return;
-      }
-
+    const verify = async () => {
       try {
-        const res = await fetch(`${AUTH_API_BASE_URL}/user`, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-        });
-        if (!res.ok) throw new Error();
-        setLoading(false);
+        const userData = await getUserInfo();
+        // aggiungi controllo su ruolo admin se serve
+        setAuthenticated(true);
       } catch {
-        localStorage.setItem('redirectAfterLogin', window.location.pathname);
-        window.location.replace('/login');
+        setAuthenticated(false);
+        window.location.href = '/login';
+      } finally {
+        setLoading(false);
       }
     };
-    checkUser();
+
+    verify();
   }, []);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  if (!authenticated) {
+    return null; // o fallback
+  }
+
   return <>{children}</>;
-}
+};
 
 export default AdminRouteGuard;

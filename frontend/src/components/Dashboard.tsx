@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import DashboardActions from './DashboardActions';
 import DashboardProjectsList from './DashboardProjectsList';
+import AdminRouteGuard from './AdminRouteGruard';
 
 function Dashboard() {
   useEffect(() => {
@@ -9,8 +10,10 @@ function Dashboard() {
 
   return (
     <>
-      <DashboardActions />
-      <DashboardProjectsList />
+      <AdminRouteGuard>
+        <DashboardActions />
+        <DashboardProjectsList />
+      </AdminRouteGuard>
     </>
   );
 }

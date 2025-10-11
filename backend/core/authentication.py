@@ -22,8 +22,8 @@ class Login(LoginView):
             cookie_samesite = "None"  # Permetti cross-origin
 
             # read domain from django settings
-            # cookie_domain = getattr(settings, "SESSION_COOKIE_DOMAIN", None)
-            cookie_domain = ".kevinagyeman.com"
+            cookie_domain = getattr(settings, "SESSION_COOKIE_DOMAIN", None)
+            # cookie_domain = ".kevinagyeman.com"
 
             access_token_expiration = (
                 timezone.now() + jwt_settings.ACCESS_TOKEN_LIFETIME

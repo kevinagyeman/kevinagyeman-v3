@@ -1,7 +1,7 @@
 import { AUTH_API_BASE_URL } from '@/constants';
 
 export async function login(username: string, password: string) {
-  const response = await fetch(`${AUTH_API_BASE_URL}/login/`, {
+  const response = await fetch(`${AUTH_API_BASE_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password }),
@@ -25,7 +25,15 @@ export async function getUserInfo() {
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   });
-  if (!response.ok) throw new Error(' failed');
+
+  if (response.status === 401) {
+    throw new Error('Unauthorized');
+  }
+
+  if (!response.ok) {
+    throw new Error('Fetch failed with status ' + response.status);
+  }
+
   const data = await response.json();
   return data;
 }
