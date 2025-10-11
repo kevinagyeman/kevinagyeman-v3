@@ -6,7 +6,7 @@ export default function Skills({
   limit = Number.MAX_VALUE,
   variant,
 }: {
-  skillsString: string;
+  skillsString?: string;
   limit?: number;
   variant?:
     | 'default'
@@ -16,7 +16,9 @@ export default function Skills({
     | null
     | undefined;
 }) {
-  const skills = skillsString
+  const safeSkillsString = skillsString ?? '';
+
+  const skills = safeSkillsString
     .split(';')
     .map((skill) => skill.trim())
     .filter((skill) => skill);

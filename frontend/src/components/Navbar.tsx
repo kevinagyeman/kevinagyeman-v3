@@ -51,9 +51,13 @@ function Navbar() {
 
   return (
     <>
-      <Disclosure
+      {/* <Disclosure
         as='nav'
         className='sticky top-0 z-50 border-b bg-background/80 backdrop-blur-sm'
+      > */}
+      <Disclosure
+        as='nav'
+        className='z-50 border-b bg-background/80 backdrop-blur-sm mb-6'
       >
         {({ open }: any) => (
           <>

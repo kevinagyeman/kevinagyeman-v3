@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button } from './ui/button';
+export default function Links({ linksString }: { linksString?: string }) {
+  const safeLinksString = linksString ?? '';
 
-export default function Links({ linksString }: { linksString: string }) {
-  const linksArray = linksString.split(';').filter((item) => item.trim());
+  const linksArray = safeLinksString.split(';').filter((item) => item.trim());
 
   const links = [];
   for (let i = 0; i < linksArray.length; i += 2) {
