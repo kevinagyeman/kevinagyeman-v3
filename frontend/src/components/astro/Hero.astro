@@ -5,97 +5,42 @@ import { getResourceUrl } from '@/utils/utils';
 import Socials from '../Socials';
 import type { Information } from '@/types/information-type';
 import { ArrowRight } from 'lucide-react';
+import CodeViewer from '../CodeViewer';
 
 const props = Astro.props as { information: Information };
 const { information } = props;
 ---
 
-<!-- <div
-    class='flex gap-0 sm:gap-12 py-12 md:py-24 lg:py-32 flex-col md:flex-row'
-  >
-    <div class='flex gap-4 items-center'>
+<section class='py-12 md:py-32 -mt-6'>
+  <div class='grid grid-cols-1 md:grid-cols-2 gap-12'>
+    <div class='my-auto space-y-4'>
       <img
         src={getResourceUrl(information?.image)}
         alt='profile image'
-        class='rounded-lg object-cover aspect-square w-[80px] md:h-full md:w-full'
+        class='object-cover aspect-square w-[80px] md:h-[80px] md:w-[80px] rounded-full'
       />
-      <div class='block sm:hidden'>
-        <code
-          class='bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold'
-        >
-          {information.role}
-        </code>
-        <h1
-          class='text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mt-2'
-        >
-          {information.first_name}
-          {information.last_name}
-        </h1>
-      </div>
-    </div>
-    <div class='space-y-6 my-auto'>
-      <div class='hidden sm:block'>
-        <code
-          class='bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold'
-        >
-          {information.role}
-        </code>
-        <h1
-          class='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mt-6'
-        >
-          {information.first_name}
-          {information.last_name}
-        </h1>
-      </div>
-      <p
-        class='text-base sm:text-lg md:text-xl text-muted-foreground font-light'
-      >
-        {information.about}
+      <h1 class='text-3xl font-bold lg:text-6xl'>
+        {information.first_name}
+        {information.last_name}
+      </h1>
+      <p class='text-muted-foreground text-balance lg:text-lg'>
+        {information.summary}
       </p>
-      {
-        information.skills && (
-          <Skills
-            skillsString={information.skills}
-            limit={4}
-            variant={'secondary'}
-          />
-          <div />
-        )
-      }
+      <Skills
+        skillsString={information.skills}
+        limit={4}
+        variant={'secondary'}
+      />
       <div class='flex gap-4 flex-wrap'>
-      <a href="/about">
-  <Button variant="default" client:visible>
-    Read More
-    <ArrowRight />
-  </Button>
-</a>
-      <Socials client:visible resume={information.resume} />
+        <a href='/about'>
+          <Button variant='default' client:load>
+            Read More
+            <ArrowRight />
+          </Button>
+        </a>
+        <Socials client:load resume={information.resume} />
       </div>
     </div>
-  </div> -->
-<section class='py-10'>
-  <div class='mx-auto flex max-w-5xl flex-col gap-6 items-center text-center'>
-    <img
-      src={getResourceUrl(information?.image)}
-      alt='profile image'
-      class='object-cover aspect-square w-[80px] md:h-[80px] md:w-[80px] rounded-full'
-    />
-    <h1 class='text-3xl font-bold lg:text-6xl'>
-      {information.first_name}
-      {information.last_name}
-    </h1>
-    <p class='text-muted-foreground text-balance lg:text-lg'>
-      {information.summary}
-    </p>
-    <Skills skillsString={information.skills} limit={4} variant={'secondary'} />
-    <div class='flex gap-4 flex-wrap'>
-      <a href='/about'>
-        <Button variant='default' client:visible>
-          Read More
-          <ArrowRight />
-        </Button>
-      </a>
-      <Socials client:visible resume={information.resume} />
-    </div>
+    <CodeViewer client:load information={information} />
   </div>
 </section>
