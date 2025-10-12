@@ -1,9 +1,10 @@
 ---
-import Skills from "@/components/Skills";
-import { Button } from "@/components/ui/button";
-import { fetchProjects } from "@/services/project";
-import type { Project } from "@/types/project-type";
-import { getResourceUrl } from "@/utils/utils";
+import Skills from '@/components/Skills';
+import { Button } from '@/components/ui/button';
+import { fetchProjects } from '@/services/project';
+import type { Project } from '@/types/project-type';
+import { getResourceUrl } from '@/utils/utils';
+import { ArrowRight } from 'lucide-react';
 
 const projects = await fetchProjects();
 ---
@@ -32,9 +33,17 @@ const projects = await fetchProjects();
               variant={'outline'}
             />
           </div>
-          <Button variant='secondary' size='sm' className='mt-4' client:visible>
-            <a href={`/project/${project.id}`}>Read more</a>
-          </Button>
+          <a href={`/project/${project.id}`}>
+            <Button
+              variant='secondary'
+              client:visible
+              size='sm'
+              className='mt-4'
+            >
+              Read More
+              <ArrowRight />
+            </Button>
+          </a>
         </div>
       </div>
     ))

@@ -1,16 +1,16 @@
 ---
-import Footer from "@/components/astro/Footer.astro";
-import Navbar from "@/components/Navbar";
-import "@/styles/global.css";
-import type { Seo } from "@/types/seo-type";
-import { getResourceUrl } from "@/utils/utils";
-import { SEO } from "astro-seo";
+import Footer from '@/components/astro/Footer.astro';
+import Navbar from '@/components/Navbar';
+import '@/styles/global.css';
+import type { Seo } from '@/types/seo-type';
+import { getResourceUrl } from '@/utils/utils';
+import { SEO } from 'astro-seo';
 
 const props = Astro.props as { content: Seo };
 const { content } = props;
 
 const seoImage =
-	getResourceUrl(content.image) || "https://www.kevinagyeman.com/cover.png";
+  getResourceUrl(content.image) || 'https://www.kevinagyeman.com/cover.png';
 ---
 
 <script is:inline>
@@ -40,7 +40,10 @@ const seoImage =
 <html lang='en'>
   <head>
     <meta charset='utf-8' />
-    <meta name='viewport' content='width=device-width' />
+    <meta
+      name='viewport'
+      content='width=device-width, initial-scale=1, viewport-fit=cover'
+    />
     <link rel='sitemap' href='/sitemap-index.xml' />
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <SEO
@@ -60,7 +63,7 @@ const seoImage =
         creator: '@kevinagyeman_',
       }}
       extend={{
-        link: [{ rel: 'icon', href: '/favicon.ico' }],
+        link: [{ rel: 'icon', href: '/favicon.svg' }],
         meta: [
           {
             name: 'twitter:image',
@@ -73,12 +76,10 @@ const seoImage =
     />
   </head>
   <body>
-    <div class='flex min-h-screen flex-col'>
-      <Navbar client:visible />
-      <div class='container flex-grow mx-auto px-4 sm:px-0'>
-        <slot />
-      </div>
-      <Footer />
+    <Navbar client:visible />
+    <div class='container mx-auto px-4 sm:px-0'>
+      <slot />
     </div>
+    <Footer />
   </body>
 </html>

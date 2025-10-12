@@ -11,24 +11,16 @@ import { getResourceUrl } from '@/utils/utils';
 import type { Information } from '@/types/information-type';
 
 function Navbar() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [information, setInformation] = useState<any>();
-
-  useEffect(() => {
-    const storedAuth = localStorage.getItem('isAuthenticated');
-    setIsAuthenticated(storedAuth === 'true');
-    loadInformation();
-  }, []);
-
-  const handleLogout = async () => {
-    await logout();
-    window.location.href = '/';
-  };
+  const [information, setInformation] = useState<Information>();
 
   const loadInformation = async () => {
     const data = await fetchInformation();
     setInformation(data);
   };
+
+  useEffect(() => {
+    loadInformation();
+  }, []);
 
   const resumeUrl = getResourceUrl(information?.resume);
   const imageUrl = getResourceUrl(information?.image);
@@ -38,24 +30,16 @@ function Navbar() {
     { name: `About`, href: '/about' },
     { name: `Contact`, href: '/contact' },
     { name: `Resume`, href: resumeUrl },
-    ...(false
-      ? [
-          { name: `Dashboard`, href: '/admin/dashboard' },
-          { name: `New Project`, href: '/admin/project/new' },
-          {
-            name: `Edit Profile`,
-            href: '/admin/information',
-          },
-        ]
-      : []),
   ];
 
   return (
     <>
       <Disclosure
         as='nav'
-        className='z-50 sticky top-0 border-b bg-background/80 backdrop-blur-sm'
+        className='z-50 sticky top-0 border-b bg-background/80 backdrop-blur-sm mb-6'
+        style={{ top: 'env(safe-area-inset-top, 0px)' }}
       >
+        {/* sticky top-0 */}
         {({ open }: { open: boolean }) => (
           <>
             <div className='mx-auto container px-4 sm:px-0'>
@@ -104,7 +88,7 @@ function Navbar() {
               </div>
             </div>
             <Disclosure.Panel className='sm:hidden'>
-              <div className='space-y-1 pb-2 container'>
+              <div className='space-y-1 pb-2 container px-4'>
                 {/* MOBILE MENU */}
                 {navigation.map((item) => (
                   <a

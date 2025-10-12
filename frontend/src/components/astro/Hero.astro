@@ -4,6 +4,7 @@ import Skills from "@/components/Skills";
 import { getResourceUrl } from "@/utils/utils";
 import Socials from "../Socials";
 import type { Information } from "@/types/information-type";
+import { ArrowRight } from 'lucide-react';
 
 const props = Astro.props as { information: Information };
 const { information } = props;
@@ -63,9 +64,12 @@ const { information } = props;
         )
       }
       <div class='flex gap-4 flex-wrap'>
-      <Button variant='default' client:visible>
-        <a href={`/about`}> Read More </a>
-      </Button>
+      <a href="/about">
+  <Button variant="default" client:visible>
+    Read More
+    <ArrowRight />
+  </Button>
+</a>
       <Socials client:visible resume={information.resume} />
       </div>
     </div>

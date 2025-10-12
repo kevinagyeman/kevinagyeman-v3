@@ -1,8 +1,9 @@
 ---
-import ProjectEditOrNew from "@/components/pages/ProjectEditOrNew";
-import MainLayout from "@/layouts/main.astro";
+import ProjectEditOrNew from '@/components/pages/ProjectEditOrNew';
+import MainLayout from '@/layouts/main.astro';
+import { undefined } from 'astro:schema';
 ---
 
 <MainLayout content={{ title: 'New Project' }}>
-  <ProjectEditOrNew projectId={null} client:visible />
+  <ProjectEditOrNew client:visible />
 </MainLayout>
