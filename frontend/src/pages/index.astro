@@ -1,16 +1,16 @@
 ---
-import Hero from '@/components/astro/Hero.astro';
-import ProjectsList from '@/components/astro/ProjectsList.astro';
-import MainLayout from '@/layouts/main.astro';
-import { fetchInformation } from '@/services/information';
-import type { Seo } from '@/types/seo-type';
+import Hero from "@/components/astro/Hero.astro";
+import ProjectsList from "@/components/astro/ProjectsList.astro";
+import MainLayout from "@/layouts/main.astro";
+import { fetchInformation } from "@/services/information";
+import type { Seo } from "@/types/seo-type";
 
 const information = await fetchInformation();
 
 const content: Seo = {
-  title: `${information.first_name} ${information.last_name} - ${information.role}`,
-  description: information.summary,
-  image: information.image,
+	title: `${information.first_name} ${information.last_name} - ${information.role}`,
+	description: information.summary,
+	image: information.image,
 };
 ---
 

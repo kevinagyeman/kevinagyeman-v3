@@ -106,10 +106,10 @@ function Navbar() {
             <Disclosure.Panel className='sm:hidden'>
               <div className='space-y-1 pb-2 container'>
                 {/* MOBILE MENU */}
-                {navigation.map((item, index: number) => (
+                {navigation.map((item) => (
                   <a
                     href={item.href}
-                    key={index}
+                    key={item.href}
                     className={
                       'text-light hover:text-light block rounded-md py-2 text-base font-medium'
                     }

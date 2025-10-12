@@ -9,12 +9,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
+import AuthGuard from './AuthGruard';
 import CustomInput from './form/CustomInput';
 import CustomTextArea from './form/CustomTextArea';
 import CustomUpload from './form/CustomUpload';
 import { Button } from './ui/button';
-import AuthGuard from './AuthGruard';
-import type { Information } from '@/types/information-type';
 
 export default function InformationForm() {
   const [imagePreview, setImagePreview] = useState<string>('');
@@ -26,16 +25,16 @@ export default function InformationForm() {
 
   const errors = form.formState.errors;
 
-  useEffect(() => {
-    loadInformation();
-  }, []);
-
   const loadInformation = async () => {
     const data: any = await fetchInformation();
     handleFilePreview(data, setImagePreview, 'image');
     handleFilePreview(data, setResumePreview, 'resume');
     form.reset(data);
   };
+
+  useEffect(() => {
+    loadInformation();
+  }, []);
 
   const submitInformation: SubmitHandler<InformationSchema> = async (data) => {
     await updateInformation(filterData(data));

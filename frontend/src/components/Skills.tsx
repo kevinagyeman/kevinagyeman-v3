@@ -1,4 +1,3 @@
-import React from 'react';
 import { Badge } from './ui/badge';
 
 export default function Skills({
@@ -27,7 +26,7 @@ export default function Skills({
 
   return (
     <div className='flex flex-wrap gap-2'>
-      {displayedSkills.map((skill, index) => (
+      {displayedSkills.map((skill: string, index: number) => (
         <Badge key={index} variant={variant}>
           {skill}
         </Badge>

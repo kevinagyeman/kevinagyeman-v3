@@ -1,21 +1,21 @@
-import { z } from 'zod';
-import { dateFormat, imageFormat, textFormat } from './custom-formats';
+import { z } from "zod";
+import { dateFormat, imageFormat, textFormat } from "./custom-formats";
 
 export const projectSchema = z.object({
-  id: z.number().optional(),
-  is_present_date: z.boolean(),
+	id: z.number().optional(),
+	is_present_date: z.boolean(),
 
-  is_published: z.boolean(),
+	is_published: z.boolean(),
 
-  start_date: dateFormat,
-  end_date: textFormat,
+	start_date: dateFormat,
+	end_date: textFormat,
 
-  title: z.string().min(1),
-  description: textFormat,
-  short_description: textFormat,
-  skills: textFormat,
-  links: textFormat,
-  image: imageFormat.optional(),
+	title: z.string().min(1),
+	description: textFormat,
+	short_description: textFormat,
+	skills: textFormat,
+	links: textFormat,
+	image: imageFormat.optional(),
 });
 
 export type ProjectSchema = z.infer<typeof projectSchema>;

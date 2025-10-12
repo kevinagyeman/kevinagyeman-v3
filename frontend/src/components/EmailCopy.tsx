@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Input } from './ui/input';
+import { CopyIcon, SendIcon } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from './ui/button';
-import { CopyIcon, Send, SendIcon } from 'lucide-react';
+import { Input } from './ui/input';
 
 const EmailCopy = ({ email }: { email: string }) => {
   const [copied, setCopied] = useState(false);

@@ -11,7 +11,7 @@ import type { Seo } from '@/types/seo-type';
 import { getResourceUrl } from '@/utils/utils';
 
 const { id } = Astro.params;
-const project = await fetchProject(id);
+const project = await fetchProject(Number(id));
 
 if (!project) {
   return Astro.redirect('/404');

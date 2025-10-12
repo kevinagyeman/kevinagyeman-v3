@@ -1,18 +1,17 @@
 ---
-import EmailCopy from '@/components/EmailCopy';
-import FullScreenWrapper from '@/components/FullScreenWrapper';
-import Socials from '@/components/Socials';
-import MainLayout from '@/layouts/main.astro';
-import { fetchInformation } from '@/services/information';
-import type { Seo } from '@/types/seo-type';
-import { getResourceUrl } from '@/utils/utils';
+import EmailCopy from "@/components/EmailCopy";
+import FullScreenWrapper from "@/components/FullScreenWrapper";
+import Socials from "@/components/Socials";
+import MainLayout from "@/layouts/main.astro";
+import { fetchInformation } from "@/services/information";
+import type { Seo } from "@/types/seo-type";
 
 const information = await fetchInformation();
 
 const content: Seo = {
-  title: `Contact - ${information.first_name} ${information.last_name}`,
-  description: information.summary,
-  image: getResourceUrl(information?.image),
+	title: `Contact - ${information.first_name} ${information.last_name}`,
+	description: information.summary,
+	image: information.image,
 };
 ---
 

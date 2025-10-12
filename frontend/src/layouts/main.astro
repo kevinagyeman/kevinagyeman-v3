@@ -1,12 +1,16 @@
 ---
-import Footer from '@/components/astro/Footer.astro';
-import Navbar from '@/components/Navbar';
-import '@/styles/global.css';
-import type { Seo } from '@/types/seo-type';
-import { SEO } from 'astro-seo';
+import Footer from "@/components/astro/Footer.astro";
+import Navbar from "@/components/Navbar";
+import "@/styles/global.css";
+import type { Seo } from "@/types/seo-type";
+import { getResourceUrl } from "@/utils/utils";
+import { SEO } from "astro-seo";
 
 const props = Astro.props as { content: Seo };
 const { content } = props;
+
+const seoImage =
+	getResourceUrl(content.image) || "https://www.kevinagyeman.com/cover.png";
 ---
 
 <script is:inline>
@@ -46,7 +50,10 @@ const { content } = props;
         basic: {
           title: content.title || 'Kevin Agyeman',
           type: 'website',
-          image: content.image || 'https://www.kevinagyeman.com/cover.png',
+          image: seoImage,
+        },
+        image: {
+          url: seoImage,
         },
       }}
       twitter={{
@@ -57,7 +64,7 @@ const { content } = props;
         meta: [
           {
             name: 'twitter:image',
-            content: 'https://www.kevinagyeman.com/cover.png',
+            content: seoImage,
           },
           { name: 'twitter:title', content: content.title },
           { name: 'twitter:description', content: content.description },

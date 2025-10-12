@@ -8,18 +8,18 @@ import type { Project } from '@/types/project-type';
 function DashboardProjectsList() {
   const [projects, setProjects] = useState<Project[]>();
 
+  const loadProjects = async () => {
+    const data = await fetchProjects();
+    setProjects(data);
+  };
+
   useEffect(() => {
     loadProjects();
-  }, []);
+  }, [loadProjects]);
 
   const handleDelete = async (id: number) => {
     const data = await deleteProject(id);
     window.location.reload();
-  };
-
-  const loadProjects = async () => {
-    const data = await fetchProjects();
-    setProjects(data);
   };
 
   return (
@@ -29,7 +29,7 @@ function DashboardProjectsList() {
         {projects?.map((project: Project, index: number) => (
           <div
             className='flex justify-between p-2 border rounded-xl items-center bg-card'
-            key={index}
+            key={project.id}
           >
             <div className='flex gap-4 items-center'>
               <span

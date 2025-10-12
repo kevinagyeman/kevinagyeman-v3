@@ -14,8 +14,8 @@ export default function Links({ linksString }: { linksString?: string }) {
 
   return (
     <div className='flex flex-wrap gap-2'>
-      {links.map((link, index) => (
-        <Button key={index} variant='outline' asChild>
+      {links.map((link) => (
+        <Button key={link.url} variant='outline' asChild>
           <a href={link.url} target='_blank' rel='noopener noreferrer'>
             {link.label}
             <ArrowUpRight />

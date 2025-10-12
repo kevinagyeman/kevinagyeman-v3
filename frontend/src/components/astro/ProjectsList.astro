@@ -1,9 +1,9 @@
 ---
-import Skills from '@/components/Skills';
-import { Button } from '@/components/ui/button';
-import { fetchProjects } from '@/services/project';
-import type { Project } from '@/types/project-type';
-import { getResourceUrl } from '@/utils/utils';
+import Skills from "@/components/Skills";
+import { Button } from "@/components/ui/button";
+import { fetchProjects } from "@/services/project";
+import type { Project } from "@/types/project-type";
+import { getResourceUrl } from "@/utils/utils";
 
 const projects = await fetchProjects();
 ---

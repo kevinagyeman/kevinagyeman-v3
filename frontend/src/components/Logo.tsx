@@ -1,9 +1,6 @@
-import React from 'react';
-
 export default function Logo() {
   return (
     <svg
-      id='kevin_agyeman_logo'
       className='h-8 w-auto fill-black dark:fill-white'
       data-name='Kevin Agyeman'
       xmlns='http://www.w3.org/2000/svg'

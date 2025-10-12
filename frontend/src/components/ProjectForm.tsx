@@ -31,18 +31,18 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 
   const errors = form.formState.errors;
 
+  const loadProject = async (id: string) => {
+    const data: any = await fetchProject(Number(id));
+    handleFilePreview(data, setImagePreview, 'image');
+    form.reset(data);
+  };
+
   useEffect(() => {
     if (!projectId) return;
     if (projectId === 'new') return;
 
     loadProject(projectId);
   }, [projectId]);
-
-  const loadProject = async (id: string) => {
-    const data: any = await fetchProject(Number(id));
-    handleFilePreview(data, setImagePreview, 'image');
-    form.reset(data);
-  };
 
   const submitProject: SubmitHandler<ProjectSchema> = async (data) => {
     if (projectId) {

@@ -1,6 +1,3 @@
-import type { Information } from '@/types/information-type';
-import type { Project } from '@/types/project-type';
-
 export function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
   const options: Intl.DateTimeFormatOptions = {

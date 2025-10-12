@@ -1,8 +1,8 @@
 declare global {
-  namespace App {
-    interface Locals {
-      isAdmin?: boolean;
-    }
-  }
+	namespace App {
+		interface Locals {
+			isAdmin?: boolean;
+		}
+	}
 }
 export {};
