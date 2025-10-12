@@ -1,20 +1,20 @@
 ---
-import Description from "@/components/astro/Description.astro";
-import ShortDescription from "@/components/astro/ShortDescription.astro";
-import Title from "@/components/astro/Title.astro";
-import Links from "@/components/Links";
-import Skills from "@/components/Skills";
-import MainLayout from "@/layouts/main.astro";
-import { fetchInformation } from "@/services/information";
-import type { Seo } from "@/types/seo-type";
-import { getResourceUrl } from "@/utils/utils";
+import Description from '@/components/astro/Description.astro';
+import ShortDescription from '@/components/astro/ShortDescription.astro';
+import Title from '@/components/astro/Title.astro';
+import Links from '@/components/Links';
+import Skills from '@/components/Skills';
+import MainLayout from '@/layouts/main.astro';
+import { fetchInformation } from '@/services/information';
+import type { Seo } from '@/types/seo-type';
+import { getResourceUrl } from '@/utils/utils';
 
 const information = await fetchInformation();
 
 const content: Seo = {
-	title: `About - ${information.first_name} ${information.last_name}`,
-	description: information.summary,
-	image: information.image,
+  title: `About - ${information.first_name} ${information.last_name}`,
+  description: information.summary,
+  image: information.image,
 };
 ---
 
@@ -23,7 +23,7 @@ const content: Seo = {
     <img
       src={getResourceUrl(information.image)}
       alt='profile image'
-      class='w-full h-auto object-cover rounded-xl border max-w-[150px]'
+      class='w-full h-auto object-cover border max-w-[80px] rounded-full'
       style={{ aspectRatio: '1/1' }}
     />
     <Title content={`${information.first_name} ${information.last_name}`} />
