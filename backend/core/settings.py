@@ -14,24 +14,10 @@ env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 SECRET_KEY = env("SECRET_KEY")
-
 DEBUG = env("DEBUG")
-
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
-
-CSRF_COOKIE_SAMESITE = "None"
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_DOMAIN = env.list("ALLOWED_ORIGINS")
-CSRF_TRUSTED_ORIGINS = env.list("ALLOWED_ORIGINS")
-
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_HOSTS = env.list("ALLOWED_ORIGINS")
 CORS_ALLOWED_ORIGINS = env.list("ALLOWED_ORIGINS")
-
-SESSION_COOKIE_SAMESITE = "None"
-SESSION_COOKIE_SECURE = True
-
-# pkfc qiye dnnm puf
 
 REST_AUTH = {
     "USE_JWT": True,
@@ -41,9 +27,6 @@ REST_AUTH = {
     "JWT_AUTH_SAMESITE": "None",
     "JWT_AUTH_SECURE": True,
 }
-
-JWT_AUTH_SECURE = True
-SESSION_COOKIE_DOMAIN = None
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),

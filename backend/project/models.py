@@ -11,7 +11,9 @@ class Project(models.Model):
     short_description = models.CharField(max_length=160, null=True, blank=True)
     skills = models.TextField(null=True, blank=True)
     links = models.TextField(null=True, blank=True)
-    image = models.ImageField(upload_to="projects/", null=True, blank=True)
+    image = models.ImageField(
+        upload_to="projects/", null=True, blank=True, default="placeholder.png"
+    )
 
     def __str__(self):
         return self.title

@@ -15,7 +15,7 @@ function DashboardProjectsList() {
 
   useEffect(() => {
     loadProjects();
-  }, [loadProjects]);
+  }, []);
 
   const handleDelete = async (id: number) => {
     const data = await deleteProject(id);

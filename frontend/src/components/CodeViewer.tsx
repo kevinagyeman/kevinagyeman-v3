@@ -22,7 +22,6 @@ export default function CodeViewer({
 }) {
   const [selectedLanguage, setSelectedLanguage] = useState('typescript');
 
-  // Funzione per sanitizzare stringhe in modo che siano sicure da inserire in un codice template
   const sanitizeString = (str: string | undefined) =>
     (str ?? '')
       .replace(/\\/g, '\\\\')
@@ -34,14 +33,21 @@ interface User {
   firstName: string;
   lastName: string;
   role: string;
-  summary: string;
+  skills: string[];
 }
 
 const user: User = {
   firstName: "${sanitizeString(information.first_name)}",
   lastName: "${sanitizeString(information.last_name)}",
   role: "${sanitizeString(information.role)}",
-  summary: \`${sanitizeString(information.summary)}\`,
+  skills: [${sanitizeString(
+    information.skills
+      .split(';')
+      .map((s) => `"${s.trim()}"`)
+      .filter(Boolean)
+      .slice(0, 5)
+      .join(', ')
+  )}],
 };
 
 console.log(user);
@@ -52,7 +58,14 @@ user = {
     "first_name": "${sanitizeString(information.first_name)}",
     "last_name": "${sanitizeString(information.last_name)}",
     "role": "${sanitizeString(information.role)}",
-    "summary": """${sanitizeString(information.summary)}""",
+    "skills": [${sanitizeString(
+      information.skills
+        .split(';')
+        .map((s) => `"${s.trim()}"`)
+        .filter(Boolean)
+        .slice(0, 5)
+        .join(', ')
+    )}],
 }
 
 print(user)
@@ -83,8 +96,12 @@ print(user)
       <div className='flex w-full flex-col gap-1 overflow-hidden'>
         <Tabs defaultValue='typescript' onValueChange={setSelectedLanguage}>
           <TabsList className='h-10 w-full'>
-            <TabsTrigger value='typescript'>Typescript</TabsTrigger>
-            <TabsTrigger value='python'>Python</TabsTrigger>
+            <TabsTrigger value='typescript' className='cursor-pointer'>
+              Typescript
+            </TabsTrigger>
+            <TabsTrigger value='python' className='cursor-pointer'>
+              Python
+            </TabsTrigger>
           </TabsList>
         </Tabs>
         <CodeBlock data={code} value={selectedLanguage} className='w-full'>
