@@ -1,6 +1,8 @@
 ---
-import ProjectEditOrNew from "@/components/pages/ProjectEditOrNew";
-import MainLayout from "@/layouts/main.astro";
+import ProjectEditOrNew from '@/components/pages/ProjectEditOrNew';
+import MainLayout from '@/layouts/main.astro';
+
+export const prerender = false;
 
 const { id } = Astro.params;
 ---

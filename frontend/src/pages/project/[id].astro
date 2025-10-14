@@ -6,9 +6,17 @@ import DateDisplay from '@/components/DateDisplay';
 import Links from '@/components/Links';
 import Skills from '@/components/Skills';
 import MainLayout from '@/layouts/main.astro';
-import { fetchProject } from '@/services/project';
+import { fetchProject, fetchProjects } from '@/services/project';
 import type { Seo } from '@/types/seo-type';
 import { getResourceUrl } from '@/utils/utils';
+
+export async function getStaticPaths() {
+  const projects = await fetchProjects();
+
+  return projects.map((project) => ({
+    params: { id: String(project.id) },
+  }));
+}
 
 const { id } = Astro.params;
 const project = await fetchProject(Number(id));
