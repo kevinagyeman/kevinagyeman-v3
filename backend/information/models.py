@@ -13,6 +13,7 @@ class Information(models.Model):
     links = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to="information/", null=True, blank=True)
     resume = models.FileField(upload_to="resumes/", null=True, blank=True)
+    location = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.first_name

@@ -1,10 +1,31 @@
 ---
+import type { Information } from '@/types/information-type';
+import Socials from '../Socials';
+
+const props = Astro.props as { information: Information };
+const { information } = props;
+
 const year = new Date().getFullYear();
 ---
 
-<footer
-  class='container mx-auto h-16 flex justify-between items-center text-muted-foreground text-xs px-4 sm:px-0'
->
-  <p>Kevin Agyeman</p>
-  <p>© {year} All rights</p>
+<footer class='mt-16'>
+  <div class='py-8 border-t container mx-auto flex flex-col sm:flex-row'>
+    <div class='flex justify-between w-full'>
+      {/* Nascondi questo blocco su sm e più piccoli */}
+      <p class='text-xl font-semibold hidden sm:block'>
+        Kevin Agyeman
+        <br />
+        <span class='text-muted-foreground/80'>kevinagyeman.com</span>
+      </p>
+
+      <div class='flex flex-col gap-2 w-full'>
+        <div class='flex gap-4 sm:justify-end justify-center'>
+          <Socials client:load />
+        </div>
+        <small class='text-muted-foreground text-center sm:text-right'>
+          Kevin Agyeman | © {year} All rights reserved.
+        </small>
+      </div>
+    </div>
+  </div>
 </footer>

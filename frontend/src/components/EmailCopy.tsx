@@ -18,21 +18,26 @@ const EmailCopy = ({ email }: { email: string }) => {
 
   return (
     <>
-      <div className='flex gap-3'>
+      <div className='flex gap-3 max-w-sm'>
         <Input value={email} className='w-full' readOnly />
         <Button
-          variant='secondary'
+          variant='outline'
           size='icon'
           onClick={handleCopy}
           aria-label='Copy email'
         >
           <CopyIcon />
         </Button>
-        <Button size='icon' onClick={sendEmail} aria-label='Send email'>
+        <Button
+          size='icon'
+          onClick={sendEmail}
+          aria-label='Send email'
+          variant={'outline'}
+        >
           <SendIcon />
         </Button>
       </div>
-      {copied && <p className='text-sm text-green-600'>Email copied!</p>}
+      {copied && <p className='text-sm text-green-600 mt-4'>Email copied!</p>}
     </>
   );
 };

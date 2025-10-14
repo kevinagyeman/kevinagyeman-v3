@@ -17,6 +17,7 @@ import CustomInput from './form/CustomInput';
 import CustomTextArea from './form/CustomTextArea';
 import CustomUpload from './form/CustomUpload';
 import { Button } from './ui/button';
+import { triggerRedeploy } from '@/services/vercel';
 
 interface ProjectFormProps {
   projectId?: string;
@@ -50,6 +51,7 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
     } else {
       await createProject(filterData(data));
     }
+    await triggerRedeploy();
     window.location.href = DASHBOARD_URL;
   };
 

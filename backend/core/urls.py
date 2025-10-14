@@ -7,6 +7,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
 from .authentication import Login, RefreshToken
+from .views import VercelRedeployView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -15,9 +16,7 @@ schema_view = get_schema_view(
         description="Test description",
     ),
     public=True,
-    permission_classes=[
-        permissions.AllowAny
-    ],  # puoi cambiare in IsAdminUser per protezione
+    permission_classes=[permissions.AllowAny],
 )
 
 urlpatterns = [
@@ -29,6 +28,7 @@ urlpatterns = [
     #     "api/auth/token/refresh/", RefreshToken.as_view(), name="custom_token_refresh"
     # ),
     path("api/auth/", include("dj_rest_auth.urls")),
+    path("api/redeploy/", VercelRedeployView.as_view(), name="vercel_redeploy"),
 ]
 
 if settings.DEBUG:

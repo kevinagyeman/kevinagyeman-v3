@@ -66,7 +66,12 @@ function Navbar() {
                     <div className='flex space-x-4 flex-wrap'>
                       {/* DESKTOP MENU */}
                       {navigation.map((item) => (
-                        <Button asChild variant={'ghost'} key={item.name}>
+                        <Button
+                          asChild
+                          variant={'ghost'}
+                          key={item.name}
+                          className='font-light uppercase'
+                        >
                           <a href={item.href}>{item.name}</a>
                         </Button>
                       ))}
@@ -98,7 +103,9 @@ function Navbar() {
                       'text-light hover:text-light block rounded-md py-2 text-base font-medium'
                     }
                   >
-                    <Disclosure.Button>{item.name}</Disclosure.Button>
+                    <Disclosure.Button className='font-light uppercase'>
+                      {item.name}
+                    </Disclosure.Button>
                   </a>
                 ))}
               </div>

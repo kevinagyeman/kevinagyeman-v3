@@ -1,26 +1,18 @@
 ---
-import EmailCopy from "@/components/EmailCopy";
-import FullScreenWrapper from "@/components/FullScreenWrapper";
-import Socials from "@/components/Socials";
-import MainLayout from "@/layouts/main.astro";
-import { fetchInformation } from "@/services/information";
-import type { Seo } from "@/types/seo-type";
+import Contact from '@/components/astro/Contact.astro';
+import MainLayout from '@/layouts/main.astro';
+import { fetchInformation } from '@/services/information';
+import type { Seo } from '@/types/seo-type';
 
 const information = await fetchInformation();
 
 const content: Seo = {
-	title: `Contact - ${information.first_name} ${information.last_name}`,
-	description: information.summary,
-	image: information.image,
+  title: `Contact - ${information.first_name} ${information.last_name}`,
+  description: information.summary,
+  image: information.image,
 };
 ---
 
 <MainLayout content={content}>
-  <FullScreenWrapper client:visible>
-    <h2 class='text-3xl font-bold mb-3'>Contact</h2>
-    <EmailCopy client:visible email={information.email} />
-    <div class='flex gap-3 flex-wrap mt-3'>
-      <Socials client:visible resume={information.resume} />
-    </div>
-  </FullScreenWrapper>
+  <Contact information={information} />
 </MainLayout>

@@ -14,6 +14,7 @@ import CustomInput from './form/CustomInput';
 import CustomTextArea from './form/CustomTextArea';
 import CustomUpload from './form/CustomUpload';
 import { Button } from './ui/button';
+import { triggerRedeploy } from '@/services/vercel';
 
 export default function InformationForm() {
   const [imagePreview, setImagePreview] = useState<string>('');
@@ -38,6 +39,7 @@ export default function InformationForm() {
 
   const submitInformation: SubmitHandler<InformationSchema> = async (data) => {
     await updateInformation(filterData(data));
+    await triggerRedeploy();
     window.location.href = DASHBOARD_URL;
   };
 
@@ -66,7 +68,7 @@ export default function InformationForm() {
           error={errors.resume?.message}
           labelText='Resume'
         />
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4'>
           <CustomInput
             inputType='text'
             placeholder='First Name'
@@ -94,6 +96,13 @@ export default function InformationForm() {
             labelText='Role'
             inputProps={form.register('role')}
             error={errors.role?.message}
+          />
+          <CustomInput
+            inputType='text'
+            placeholder='Location'
+            labelText='Location'
+            inputProps={form.register('location')}
+            error={errors.location?.message}
           />
         </div>
         <CustomInput

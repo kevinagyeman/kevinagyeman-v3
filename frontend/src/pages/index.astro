@@ -1,4 +1,5 @@
 ---
+import Contact from '@/components/astro/Contact.astro';
 import Hero from '@/components/astro/Hero.astro';
 import ProjectsList from '@/components/astro/ProjectsList.astro';
 import Section from '@/components/astro/Section.astro';
@@ -19,4 +20,5 @@ const content: Seo = {
   <Hero information={information} />
   <Section />
   <ProjectsList />
+  <Contact information={information} />
 </MainLayout>
