@@ -5,6 +5,7 @@ import { fetchProjects } from '@/services/project';
 import type { Project } from '@/types/project-type';
 import { getResourceUrl } from '@/utils/utils';
 import { ArrowRight } from 'lucide-react';
+import EditAsAdmin from '../EditAsAdmin';
 
 const projects = await fetchProjects();
 ---
@@ -39,7 +40,7 @@ const projects = await fetchProjects();
           />
         </div>
         <a href={`/project/${project.id}`}>
-          <Button variant='link' client:visible size='sm' className='mt-4 p-0'>
+          <Button variant='outline' client:visible size='sm' className='mt-4'>
             Read More
             <ArrowRight />
           </Button>

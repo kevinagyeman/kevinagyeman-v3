@@ -1,6 +1,7 @@
 import { logout } from '@/services/auth';
 import TriggerRedeployButton from './TriggerRedeploy';
 import { Button } from './ui/button';
+import { LogOut } from 'lucide-react';
 
 const handleLogout = async () => {
   await logout();
@@ -18,12 +19,8 @@ function DashboardActions() {
       </Button>
 
       <TriggerRedeployButton />
-      <Button
-        variant={'destructive'}
-        onClick={handleLogout}
-        className='ml-auto'
-      >
-        Logout
+      <Button variant={'outline'} onClick={handleLogout} className='ml-auto'>
+        <LogOut />
       </Button>
     </div>
   );
