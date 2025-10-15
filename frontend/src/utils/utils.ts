@@ -34,6 +34,6 @@ export function getResourceUrl(path?: string): string {
   if (path?.startsWith('/media/')) {
     return import.meta.env.PUBLIC_BACKEND_URL + path;
   } else {
-    return `${import.meta.env.PUBLIC_BACKEND_URL}/media/palceholder.png`;
+    return `${import.meta.env.PUBLIC_BACKEND_URL}/media/placeholder.png`;
   }
 }

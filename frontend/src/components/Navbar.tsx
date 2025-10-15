@@ -70,7 +70,7 @@ function Navbar() {
                           asChild
                           variant={'ghost'}
                           key={item.name}
-                          className='font-light uppercase'
+                          className=' uppercase'
                         >
                           <a href={item.href}>{item.name}</a>
                         </Button>
@@ -82,13 +82,17 @@ function Navbar() {
                   <div className='hidden sm:block'>
                     <ModeToggle />
                   </div>
-                  <img
+                  {/* <img
                     src={imageUrl}
                     alt='profile'
                     className='w-[30px] h-auto object-cover rounded-full border cursor-pointer'
                     style={{ aspectRatio: '1/1' }}
                     onClick={() => (window.location.href = DASHBOARD_URL)}
-                  />
+                  /> */}
+                  <span
+                    className='w-[30px] h-[30px] rounded-full border bg-accent cursor-pointer'
+                    onClick={() => (window.location.href = DASHBOARD_URL)}
+                  ></span>
                 </div>
               </div>
             </div>
@@ -103,7 +107,7 @@ function Navbar() {
                       'text-light hover:text-light block rounded-md py-2 text-base font-medium'
                     }
                   >
-                    <Disclosure.Button className='font-light uppercase'>
+                    <Disclosure.Button className=' uppercase'>
                       {item.name}
                     </Disclosure.Button>
                   </a>
