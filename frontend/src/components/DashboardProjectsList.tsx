@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import DateDisplay from './DateDisplay';
 import { Button } from './ui/button';
 import type { Project } from '@/types/project-type';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 
 function DashboardProjectsList() {
   const [projects, setProjects] = useState<Project[]>();
@@ -46,13 +47,22 @@ function DashboardProjectsList() {
               <Button size={'sm'} variant={'outline'}>
                 <a href={`/admin/project/${project.id}`}>Edit</a>
               </Button>
-              <Button
-                onClick={() => handleDelete(project.id)}
-                size={'sm'}
-                variant={'destructive'}
-              >
-                <TrashIcon className='size-4' />
-              </Button>
+
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant='destructive' size={'sm'}>
+                    <TrashIcon className='size-4' />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className='w-fit'>
+                  <Button
+                    onClick={() => handleDelete(project.id)}
+                    variant={'destructive'}
+                  >
+                    Delete
+                  </Button>
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
         ))}

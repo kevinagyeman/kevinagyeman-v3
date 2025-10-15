@@ -14,7 +14,6 @@ import CustomInput from './form/CustomInput';
 import CustomTextArea from './form/CustomTextArea';
 import CustomUpload from './form/CustomUpload';
 import { Button } from './ui/button';
-import { triggerRedeploy } from '@/services/vercel';
 
 export default function InformationForm() {
   const [imagePreview, setImagePreview] = useState<string>('');
@@ -39,7 +38,6 @@ export default function InformationForm() {
 
   const submitInformation: SubmitHandler<InformationSchema> = async (data) => {
     await updateInformation(filterData(data));
-    await triggerRedeploy();
     window.location.href = DASHBOARD_URL;
   };
 
