@@ -42,7 +42,7 @@ function Navbar() {
         {/* sticky top-0 */}
         {({ open }: { open: boolean }) => (
           <>
-            <div className='mx-auto container px-4 sm:px-0'>
+            <div className='mx-auto container px-4'>
               <div className='relative flex h-16 items-center justify-between'>
                 <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
                   <Disclosure.Button className='relative inline-flex items-center justify-center rounded-md pr-2 text-black hover:text-black   dark:text-white  dark:hover:text-white '>
