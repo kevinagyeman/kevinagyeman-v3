@@ -5,6 +5,7 @@ import DateDisplay from './DateDisplay';
 import { Button } from './ui/button';
 import type { Project } from '@/types/project-type';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import DeleteProject from './DeleteProject';
 
 function DashboardProjectsList() {
   const [projects, setProjects] = useState<Project[]>();
@@ -17,11 +18,6 @@ function DashboardProjectsList() {
   useEffect(() => {
     loadProjects();
   }, []);
-
-  const handleDelete = async (id: number) => {
-    const data = await deleteProject(id);
-    window.location.reload();
-  };
 
   return (
     <div>
@@ -51,22 +47,7 @@ function DashboardProjectsList() {
               <Button size={'sm'} variant={'outline'}>
                 <a href={`/admin/project/${project.id}`}>Edit</a>
               </Button>
-
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant='destructive' size={'sm'}>
-                    <TrashIcon className='size-4' />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className='w-fit'>
-                  <Button
-                    onClick={() => handleDelete(project.id)}
-                    variant={'destructive'}
-                  >
-                    Delete
-                  </Button>
-                </PopoverContent>
-              </Popover>
+              <DeleteProject projectId={project.id} />
             </div>
           </div>
         ))}

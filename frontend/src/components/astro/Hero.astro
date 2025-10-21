@@ -33,14 +33,14 @@ const { information } = props;
       />
       <div class='flex gap-4 flex-wrap'>
         <a href='/about'>
-          <Button variant='default' client:load>
+          <Button variant='default' client:visible>
             Read More
             <ArrowRight />
           </Button>
         </a>
-        <Socials client:load resume={information.resume} />
+        <Socials client:visible resume={information.resume} />
       </div>
     </div>
-    <CodeViewer client:load information={information} />
+    <CodeViewer client:visible information={information} />
   </div>
 </section>

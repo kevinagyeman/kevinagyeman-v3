@@ -15,7 +15,7 @@ function TriggerRedeployButton() {
     }
   };
   return (
-    <Button onClick={redeploy} className='bg-yellow-500'>
+    <Button onClick={redeploy} className='bg-yellow-500' disabled={isLoading}>
       {isLoading ? <Loader2 className='animate-spin' /> : 'Redeploy'}
     </Button>
   );

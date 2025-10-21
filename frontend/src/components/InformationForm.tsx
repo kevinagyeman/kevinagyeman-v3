@@ -42,7 +42,12 @@ export default function InformationForm() {
   };
 
   return (
-    <AuthGuard>
+    <>
+      <div className='flex gap-2 mb-5 justify-between'>
+        <Button size={'sm'} variant={'outline'}>
+          <a href={DASHBOARD_URL}>Dashboard</a>
+        </Button>
+      </div>
       <form
         onSubmit={form.handleSubmit(submitInformation)}
         className='space-y-6'
@@ -137,7 +142,11 @@ export default function InformationForm() {
           hint='Separate with ; e.g, Example;https://ex.com;Google;https://gg.com'
         />
 
-        <Button type='submit'>
+        <Button
+          type='submit'
+          className='w-full'
+          disabled={form.formState.isSubmitting}
+        >
           {form.formState.isSubmitting ? (
             <Loader2 className='animate-spin' />
           ) : (
@@ -145,6 +154,6 @@ export default function InformationForm() {
           )}
         </Button>
       </form>
-    </AuthGuard>
+    </>
   );
 }

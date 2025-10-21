@@ -16,6 +16,7 @@ import CustomInput from './form/CustomInput';
 import CustomTextArea from './form/CustomTextArea';
 import CustomUpload from './form/CustomUpload';
 import { Button } from './ui/button';
+import DeleteProject from './DeleteProject';
 
 interface ProjectFormProps {
   projectId?: string;
@@ -52,26 +53,13 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
     window.location.href = DASHBOARD_URL;
   };
 
-  const handleDelete = async (id: number) => {
-    await deleteProject(id);
-    window.location.href = DASHBOARD_URL;
-  };
-
   return (
     <>
-      <div className='flex gap-2 my-5 justify-between'>
+      <div className='flex gap-2 mb-5 justify-between'>
         <Button size={'sm'} variant={'outline'}>
           <a href={DASHBOARD_URL}>Dashboard</a>
         </Button>
-        {projectId && (
-          <Button
-            onClick={() => handleDelete(Number(projectId))}
-            size={'sm'}
-            variant={'destructive'}
-          >
-            <TrashIcon className='size-4' />
-          </Button>
-        )}
+        {projectId && <DeleteProject projectId={Number(projectId)} />}
       </div>
       <form
         onSubmit={form.handleSubmit(submitProject)}
