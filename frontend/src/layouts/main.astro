@@ -5,6 +5,7 @@ import '@/styles/global.css';
 import { SEO } from 'astro-seo';
 import type { Seo } from '@/types/seo-type';
 import { getResourceUrl } from '@/utils/utils';
+import Analytics from '@vercel/analytics/astro';
 
 const props = Astro.props as { content: Seo };
 const { content } = props;
@@ -83,5 +84,6 @@ const seoImage =
       </div>
       <Footer />
     </div>
+    <Analytics />
   </body>
 </html>
