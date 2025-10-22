@@ -1,11 +1,11 @@
 ---
-import { Button } from '@/components/ui/button';
-import Skills from '@/components/Skills';
-import { getResourceUrl } from '@/utils/utils';
-import Socials from '../Socials';
-import type { Information } from '@/types/information-type';
 import { ArrowRight } from 'lucide-react';
+import Skills from '@/components/Skills';
+import { Button } from '@/components/ui/button';
+import type { Information } from '@/types/information-type';
+import { getResourceUrl } from '@/utils/utils';
 import CodeViewer from '../CodeViewer';
+import Socials from '../Socials';
 
 const props = Astro.props as { information: Information };
 const { information } = props;

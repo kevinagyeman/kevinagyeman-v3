@@ -1,6 +1,5 @@
-import React from "react";
-import AuthGuard from "../AuthGruard";
-import ProjectForm from "../ProjectForm";
+import AuthGuard from '../AuthGruard';
+import ProjectForm from '../ProjectForm';
 
 const ProjectEditOrNew = ({ projectId }: { projectId?: string }) => {
 	return (

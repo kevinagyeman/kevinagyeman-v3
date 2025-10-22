@@ -11,24 +11,24 @@ import type { Seo } from '@/types/seo-type';
 import { getResourceUrl } from '@/utils/utils';
 
 export async function getStaticPaths() {
-  const projects = await fetchProjects();
+	const projects = await fetchProjects();
 
-  return projects.map((project) => ({
-    params: { id: String(project.id) },
-  }));
+	return projects.map((project) => ({
+		params: { id: String(project.id) },
+	}));
 }
 
 const { id } = Astro.params;
 const project = await fetchProject(Number(id));
 
 if (!project) {
-  return Astro.redirect('/404');
+	return Astro.redirect('/404');
 }
 
 const content: Seo = {
-  title: project.title,
-  description: project.short_description,
-  image: project.image,
+	title: project.title,
+	description: project.short_description,
+	image: project.image,
 };
 ---
 

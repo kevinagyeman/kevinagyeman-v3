@@ -2,15 +2,15 @@
 import Footer from '@/components/astro/Footer.astro';
 import Navbar from '@/components/Navbar';
 import '@/styles/global.css';
+import { SEO } from 'astro-seo';
 import type { Seo } from '@/types/seo-type';
 import { getResourceUrl } from '@/utils/utils';
-import { SEO } from 'astro-seo';
 
 const props = Astro.props as { content: Seo };
 const { content } = props;
 
 const seoImage =
-  getResourceUrl(content.image) || 'https://www.kevinagyeman.com/cover.png';
+	getResourceUrl(content.image) || 'https://www.kevinagyeman.com/cover.png';
 ---
 
 <script is:inline>

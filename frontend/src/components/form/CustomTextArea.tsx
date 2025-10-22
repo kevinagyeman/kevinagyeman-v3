@@ -1,6 +1,6 @@
-import type React from "react";
-import { Textarea } from "../ui/textarea";
-import { Label } from "../ui/label";
+import type React from 'react';
+import { Label } from '../ui/label';
+import { Textarea } from '../ui/textarea';
 
 type CustomTextAreaProps = {
 	labelText: string;
@@ -21,10 +21,10 @@ function CustomTextArea({
 }: CustomTextAreaProps) {
 	return (
 		<div>
-			<Label className="mb-2">{labelText}</Label>
+			<Label className='mb-2'>{labelText}</Label>
 			<Textarea placeholder={placeholder} rows={rows} {...textAreaProps} />
-			{hint && <small className="text-xs text-muted-foreground">{hint}</small>}
-			{error && <small className="text-xs text-orange-800">{error}</small>}
+			{hint && <small className='text-xs text-muted-foreground'>{hint}</small>}
+			{error && <small className='text-xs text-orange-800'>{error}</small>}
 		</div>
 	);
 }

@@ -10,9 +10,9 @@ import type { Seo } from '@/types/seo-type';
 const information = await fetchInformation();
 
 const content: Seo = {
-  title: `${information.first_name} ${information.last_name} - ${information.role}`,
-  description: information.summary,
-  image: information.image,
+	title: `${information.first_name} ${information.last_name} - ${information.role}`,
+	description: information.summary,
+	image: information.image,
 };
 ---
 

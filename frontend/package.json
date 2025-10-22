@@ -6,7 +6,10 @@
     "dev": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "biome lint",
+    "lint:error": "biome lint --diagnostic-level=error",
+    "format": "biome format --write"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.6",
@@ -58,6 +61,7 @@
     "shiki": "^3.13.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.13",
+    "uuid": "^13.0.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {
