@@ -13,16 +13,16 @@ import {
 } from '@/components/kibo-ui/code-block';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import type { Information } from '@/types/information-type';
+import type { InformationSchema } from '@/schemas/information-schema';
 
 export default function CodeViewer({
 	information,
 }: {
-	information: Information;
+	information: InformationSchema;
 }) {
 	const [selectedLanguage, setSelectedLanguage] = useState('typescript');
 
-	const sanitizeString = (str: string | undefined) =>
+	const sanitizeString = (str: string | null) =>
 		(str ?? '')
 			.replace(/\\/g, '\\\\')
 			.replace(/`/g, '\\`')
@@ -41,7 +41,7 @@ const user: User = {
   lastName: "${sanitizeString(information.last_name)}",
   role: "${sanitizeString(information.role)}",
   skills: [${sanitizeString(
-		information.skills
+		(information.skills ?? '')
 			.split(';')
 			.map((s) => `"${s.trim()}"`)
 			.filter(Boolean)
@@ -59,7 +59,7 @@ user = {
     "last_name": "${sanitizeString(information.last_name)}",
     "role": "${sanitizeString(information.role)}",
     "skills": [${sanitizeString(
-			information.skills
+			(information.skills ?? '')
 				.split(';')
 				.map((s) => `"${s.trim()}"`)
 				.filter(Boolean)

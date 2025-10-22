@@ -1,11 +1,11 @@
+import { DASHBOARD_URL } from '@/constants';
+import { type ProjectSchema, projectSchema } from '@/schemas/project-schema';
+import { createProject, fetchProject, updateProject } from '@/services/project';
+import { filterProjectData, getFilePath } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
-import { DASHBOARD_URL } from '@/constants';
-import { type ProjectSchema, projectSchema } from '@/schemas/project-schema';
-import { createProject, fetchProject, updateProject } from '@/services/project';
-import { filterData, getFilePath } from '@/utils/utils';
 import DeleteProject from './DeleteProject';
 import CustomCheckbox from './form/CustomCheckbox';
 import CustomInput from './form/CustomInput';
@@ -28,7 +28,8 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 
 	const loadProject = useCallback(
 		async (id: string) => {
-			const data: any = await fetchProject(Number(id));
+			const data = await fetchProject(Number(id));
+			if (!data) return;
 			setImagePreview(getFilePath(data.image));
 			form.reset(data);
 		},
@@ -44,9 +45,9 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 
 	const submitProject: SubmitHandler<ProjectSchema> = async (data) => {
 		if (projectId) {
-			await updateProject(Number(projectId), filterData(data));
+			await updateProject(Number(projectId), filterProjectData(data));
 		} else {
-			await createProject(filterData(data));
+			await createProject(filterProjectData(data));
 		}
 		window.location.href = DASHBOARD_URL;
 	};

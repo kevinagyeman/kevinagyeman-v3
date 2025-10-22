@@ -1,14 +1,14 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2 } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
-import { type SubmitHandler, useForm } from 'react-hook-form';
 import { DASHBOARD_URL } from '@/constants';
 import {
 	type InformationSchema,
 	informationSchema,
 } from '@/schemas/information-schema';
 import { fetchInformation, updateInformation } from '@/services/information';
-import { filterData, getFilePath } from '@/utils/utils';
+import { filterInformationtData, getFilePath } from '@/utils/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 import CustomInput from './form/CustomInput';
 import CustomTextArea from './form/CustomTextArea';
 import CustomUpload from './form/CustomUpload';
@@ -25,7 +25,7 @@ export default function InformationForm() {
 	const errors = form.formState.errors;
 
 	const loadInformation = useCallback(async () => {
-		const data: any = await fetchInformation();
+		const data = await fetchInformation();
 		setImagePreview(getFilePath(data.image));
 		setResumePreview(getFilePath(data.resume));
 		form.reset(data);
@@ -36,7 +36,9 @@ export default function InformationForm() {
 	}, [loadInformation]);
 
 	const submitInformation: SubmitHandler<InformationSchema> = async (data) => {
-		await updateInformation(filterData(data));
+		console.log('data', filterInformationtData(data));
+
+		await updateInformation(filterInformationtData(data));
 		window.location.href = DASHBOARD_URL;
 	};
 

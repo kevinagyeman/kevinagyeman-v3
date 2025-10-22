@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { fileFormat, imageFormat, textFormat } from './custom-formats';
+import { fileFormat, textFormat } from './custom-formats';
 
 export const informationSchema = z.object({
 	first_name: z.string().min(1),
@@ -11,8 +11,8 @@ export const informationSchema = z.object({
 	about: textFormat,
 	skills: textFormat,
 	links: textFormat,
-	image: imageFormat.optional(),
-	resume: fileFormat.optional(),
+	image: fileFormat,
+	resume: fileFormat,
 	location: textFormat,
 });
 

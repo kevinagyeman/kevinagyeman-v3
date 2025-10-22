@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import type { ProjectSchema } from '@/schemas/project-schema';
 import { fetchProjects } from '@/services/project';
-import type { Project } from '@/types/project-type';
+import { useCallback, useEffect, useState } from 'react';
 import DateDisplay from './DateDisplay';
 import DeleteProject from './DeleteProject';
 import { Button } from './ui/button';
 
 function DashboardProjectsList() {
-	const [projects, setProjects] = useState<Project[]>();
+	const [projects, setProjects] = useState<ProjectSchema[]>();
 
 	const loadProjects = useCallback(async () => {
 		const data = await fetchProjects();
@@ -21,7 +21,7 @@ function DashboardProjectsList() {
 		<div>
 			<h2 className='text-2xl font-semibold mt-5'>Projects List</h2>
 			<div className='space-y-3 mt-2'>
-				{projects?.map((project: Project) => (
+				{projects?.map((project: ProjectSchema) => (
 					<div
 						className='flex justify-between p-2 border rounded-xl items-center bg-card'
 						key={project.id}
@@ -45,7 +45,7 @@ function DashboardProjectsList() {
 							<Button size={'sm'} variant={'outline'}>
 								<a href={`/admin/project/${project.id}`}>Edit</a>
 							</Button>
-							<DeleteProject projectId={project.id} />
+							{project.id && <DeleteProject projectId={project.id} />}
 						</div>
 					</div>
 				))}

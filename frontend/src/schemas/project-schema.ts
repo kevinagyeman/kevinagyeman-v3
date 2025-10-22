@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { dateFormat, imageFormat, textFormat } from './custom-formats';
+import { dateFormat, fileFormat, textFormat } from './custom-formats';
 
 export const projectSchema = z.object({
 	id: z.number().optional(),
@@ -15,7 +15,7 @@ export const projectSchema = z.object({
 	short_description: textFormat,
 	skills: textFormat,
 	links: textFormat,
-	image: imageFormat.optional(),
+	image: fileFormat,
 });
 
 export type ProjectSchema = z.infer<typeof projectSchema>;

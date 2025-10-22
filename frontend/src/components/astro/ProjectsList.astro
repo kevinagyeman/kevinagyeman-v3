@@ -6,6 +6,7 @@ import { fetchProjects } from '@/services/project';
 import type { Project } from '@/types/project-type';
 import { getResourceUrl } from '@/utils/utils';
 import EditAsAdmin from '../EditAsAdmin';
+import type { ProjectSchema } from '@/schemas/project-schema';
 
 const projects = await fetchProjects();
 ---
@@ -17,7 +18,7 @@ const projects = await fetchProjects();
 </div>
 <div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12'>
   {
-    projects.map((project: Project) => (
+    projects.map((project: ProjectSchema) => (
       <div>
         <img
           src={getResourceUrl(project?.image)}
@@ -33,11 +34,13 @@ const projects = await fetchProjects();
           {project.short_description}
         </p>
         <div class='mt-4'>
-          <Skills
-            skillsString={project.skills}
-            limit={4}
-            variant={'secondary'}
-          />
+          {project.skills && (
+            <Skills
+              skillsString={project.skills}
+              limit={4}
+              variant={'secondary'}
+            />
+          )}
         </div>
         <a href={`/project/${project.id}`}>
           <Button variant='outline' client:visible size='sm' className='mt-4'>

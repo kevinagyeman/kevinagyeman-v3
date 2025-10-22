@@ -1,7 +1,7 @@
 import { PROJECT_API_BASE_URL } from '@/constants';
-import type { Project } from '@/types/project-type';
+import type { ProjectSchema } from '@/schemas/project-schema';
 
-export async function fetchProjects(): Promise<Project[]> {
+export async function fetchProjects(): Promise<ProjectSchema[]> {
 	const response = await fetch(`${PROJECT_API_BASE_URL}/`, {
 		credentials: 'include',
 	});
@@ -9,7 +9,7 @@ export async function fetchProjects(): Promise<Project[]> {
 	return response.json();
 }
 
-export async function fetchProject(id: number): Promise<Project | null> {
+export async function fetchProject(id: number): Promise<ProjectSchema | null> {
 	const response = await fetch(`${PROJECT_API_BASE_URL}/${id}/`, {
 		credentials: 'include',
 	});
@@ -20,11 +20,13 @@ export async function fetchProject(id: number): Promise<Project | null> {
 	return response.json();
 }
 
-export async function createProject(data: Project): Promise<Project> {
+export async function createProject(
+	data: ProjectSchema,
+): Promise<ProjectSchema> {
 	const formData = new FormData();
 
 	for (const key in data) {
-		const typedKey = key as keyof Project;
+		const typedKey = key as keyof ProjectSchema;
 		const value = data[typedKey];
 		if (value !== undefined && value !== null) {
 			formData.append(key, value as string | Blob);
@@ -40,7 +42,10 @@ export async function createProject(data: Project): Promise<Project> {
 	if (!response.ok) throw new Error('Failed to create project');
 	return response.json();
 }
-export async function updateProject(id: number, data: any): Promise<Project> {
+export async function updateProject(
+	id: number,
+	data: ProjectSchema,
+): Promise<ProjectSchema> {
 	let fetchOptions: RequestInit;
 
 	const hasFile = data.image instanceof File;
@@ -49,7 +54,7 @@ export async function updateProject(id: number, data: any): Promise<Project> {
 		const formData = new FormData();
 
 		for (const key in data) {
-			const typedKey = key as keyof Project;
+			const typedKey = key as keyof ProjectSchema;
 			const value = data[typedKey];
 			if (value !== undefined && value !== null) {
 				formData.append(key, value as string | Blob);

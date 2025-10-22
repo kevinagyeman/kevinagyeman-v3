@@ -1,7 +1,7 @@
 import { INFORMATION_API_BASE_URL } from '@/constants';
-import type { Information } from '@/types/information-type';
+import type { InformationSchema } from '@/schemas/information-schema';
 
-export async function fetchInformation(): Promise<Information> {
+export async function fetchInformation(): Promise<InformationSchema> {
 	const response = await fetch(`${INFORMATION_API_BASE_URL}/`, {
 		credentials: 'include',
 	});
@@ -9,7 +9,9 @@ export async function fetchInformation(): Promise<Information> {
 	return response.json();
 }
 
-export async function updateInformation(data: any): Promise<Information> {
+export async function updateInformation(
+	data: InformationSchema,
+): Promise<InformationSchema> {
 	let fetchOptions: RequestInit;
 
 	const hasFileImage = data.image instanceof File;
@@ -19,7 +21,7 @@ export async function updateInformation(data: any): Promise<Information> {
 		const formData = new FormData();
 
 		for (const key in data) {
-			const typedKey = key as keyof Information;
+			const typedKey = key as keyof InformationSchema;
 			const value = data[typedKey];
 			if (value !== undefined && value !== null) {
 				formData.append(key, value as string | Blob);

@@ -1,13 +1,13 @@
 export interface Project {
 	id: number;
-	is_published: boolean;
+	is_published: boolean | null;
 	start_date: string;
-	end_date: string;
-	is_present_date: boolean;
-	title: string;
-	description: string;
-	short_description: string;
-	image: string;
-	skills: string;
-	links: string;
+	end_date: string | null;
+	is_present_date: boolean | null;
+	title: string | null;
+	description: string | null;
+	short_description: string | null;
+	image: string | File | null;
+	skills: string | null;
+	links: string | null;
 }

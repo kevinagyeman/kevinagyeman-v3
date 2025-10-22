@@ -1,18 +1,16 @@
 import z from 'zod';
 import { MAX_FILE_SIZE } from '@/constants';
 
-export const textFormat = z.string().optional().nullable();
-export const imageFormat = z
-	.instanceof(File)
-	.refine((file) => file.size <= MAX_FILE_SIZE, {
-		message: 'File size must be less than 1MB',
-	});
-
+export const textFormat = z.string().nullable();
 export const fileFormat = z
-	.instanceof(File)
-	.refine((file) => file.size <= MAX_FILE_SIZE, {
-		message: 'File size must be less than 1MB',
-	});
+	.union([
+		z.instanceof(File).refine((file) => file.size <= MAX_FILE_SIZE, {
+			message: 'File size must be less than 1MB',
+		}),
+		z.string(),
+	])
+	.nullable()
+	.optional();
 
 export const dateFormat = z
 	.string()

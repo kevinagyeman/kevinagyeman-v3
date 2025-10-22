@@ -2,8 +2,9 @@
 import { Mail, MapPin } from 'lucide-react';
 import type { Information } from '@/types/information-type';
 import EmailCopy from '../EmailCopy';
+import type { InformationSchema } from '@/schemas/information-schema';
 
-const props = Astro.props as { information: Information };
+const props = Astro.props as { information: InformationSchema };
 const { information } = props;
 ---
 
@@ -22,7 +23,11 @@ const { information } = props;
       </span>
       <p class='mb-2 text-lg font-semibold'>Primary Email</p>
       <p class='text-muted-foreground mb-3'>You can contact me here</p>
-      <EmailCopy email={information.email} client:visible />
+      {
+        information.email && (
+          <EmailCopy email={information.email} client:visible />
+        )
+      }
     </div>
     <div class='bg-muted rounded-lg p-6'>
       <span

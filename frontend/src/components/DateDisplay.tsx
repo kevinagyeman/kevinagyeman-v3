@@ -3,7 +3,7 @@ import { formatDate } from '@/utils/utils';
 type DateDisplayProps = {
 	period: {
 		start_date: string;
-		end_date: string;
+		end_date: string | null;
 		is_present_date: boolean;
 	};
 };

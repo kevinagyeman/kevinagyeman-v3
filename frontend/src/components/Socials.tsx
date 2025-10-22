@@ -2,7 +2,7 @@ import { File, Github, LinkedinIcon } from 'lucide-react';
 import { getResourceUrl } from '@/utils/utils';
 import { Button } from './ui/button';
 
-function Socials({ resume }: { resume?: string }) {
+function Socials({ resume }: { resume: string | File }) {
 	return (
 		<>
 			{resume && (
