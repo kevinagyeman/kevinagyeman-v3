@@ -1,24 +1,48 @@
-import os
 from datetime import timedelta
 from pathlib import Path
 
-import environ
-from dotenv import load_dotenv
-
-load_dotenv()
+import dj_database_url
+from decouple import Csv, config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env(DEBUG=(bool, False))
+SECRET_KEY = config("SECRET_KEY")
 
-environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-SECRET_KEY = env("SECRET_KEY")
-DEBUG = env("DEBUG")
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
+
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = env.list("ALLOWED_ORIGINS")
-VERCEL_WEBHOOK_URL = os.getenv("VERCEL_WEBHOOK_URL")
+CORS_ALLOWED_ORIGINS = config("ALLOWED_ORIGINS", cast=Csv())
+
+VERCEL_WEBHOOK_URL = config("VERCEL_WEBHOOK_URL", default=None)
+
+AWS_ACCESS_KEY_ID = config("R2_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = config("R2_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = config("R2_BUCKET_NAME")
+AWS_S3_ENDPOINT_URL = config("R2_ENDPOINT")
+AWS_S3_CUSTOM_DOMAIN = config("R2_CUSTOM_DOMAIN")
+
+AWS_S3_REGION_NAME = config("R2_REGION", default="auto")
+AWS_DEFAULT_ACL = None
+AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+AWS_QUERYSTRING_AUTH = False
+
+MEDIA_URL = "/media/"
+STATIC_ROOT = BASE_DIR / "media"
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "access_key": config("R2_ACCESS_KEY_ID"),
+            "secret_key": config("R2_SECRET_ACCESS_KEY"),
+            "bucket_name": config("R2_BUCKET_NAME"),
+            "endpoint_url": config("R2_ENDPOINT"),
+        },
+    },
+    "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+}
 
 REST_AUTH = {
     "USE_JWT": True,
@@ -30,7 +54,7 @@ REST_AUTH = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=12),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
@@ -40,9 +64,6 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -58,6 +79,7 @@ INSTALLED_APPS = [
     "project",
     "information",
     "drf_yasg",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -90,9 +112,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-DATABASES = {
-    "default": env.db(),
-}
+DATABASES = {"default": dj_database_url.parse(config("DATABASE_URL"))}
 
 AUTH_PASSWORD_VALIDATORS = [
     {

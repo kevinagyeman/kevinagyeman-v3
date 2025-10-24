@@ -1,0 +1,7 @@
+[build]
+python_version = "3.11"
+requirements = ["requirements.txt"]
+
+[start]
+cmd = "gunicorn core.wsgi:application"
+env = ["DJANGO_SETTINGS_MODULE=core.settings"]

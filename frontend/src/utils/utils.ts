@@ -35,7 +35,7 @@ export function filterInformationtData(data: InformationSchema) {
 }
 
 export function getFilePath(filePath: string | File | null | undefined) {
-	return `${import.meta.env.PUBLIC_BACKEND_URL}${filePath}`;
+	return `${filePath}`;
 }
 
 export function getResourceUrl(
@@ -44,5 +44,5 @@ export function getResourceUrl(
 	if (!filePath) {
 		return '';
 	}
-	return `${import.meta.env.PUBLIC_BACKEND_URL}${filePath}`;
+	return `${import.meta.env.PUBLIC_MEDIA_URL}${filePath}`;
 }
