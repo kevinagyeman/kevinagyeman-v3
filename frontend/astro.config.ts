@@ -3,7 +3,7 @@
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel';
+import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
@@ -11,10 +11,8 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   output: 'static',
-  adapter: vercel({
-    webAnalytics: {
-      enabled: true,
-    },
+  adapter: node({
+    mode: 'standalone'
   }),
   site: 'https://www.kevinagyeman.com',
   integrations: [react(), sitemap()],
