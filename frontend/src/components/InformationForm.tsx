@@ -4,7 +4,7 @@ import {
 	informationSchema,
 } from '@/schemas/information-schema';
 import { fetchInformation, updateInformation } from '@/services/information';
-import { filterInformationtData, getFilePath } from '@/utils/utils';
+import { filterInformationtData } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
@@ -26,8 +26,8 @@ export default function InformationForm() {
 
 	const loadInformation = useCallback(async () => {
 		const data = await fetchInformation();
-		setImagePreview(getFilePath(data.image));
-		setResumePreview(getFilePath(data.resume));
+		setImagePreview(`${data.image}`);
+		setResumePreview(`${data.resume}`);
 		form.reset(data);
 	}, [form]);
 

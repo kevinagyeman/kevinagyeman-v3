@@ -1,12 +1,9 @@
 ---
-import { ArrowRight } from 'lucide-react';
 import Skills from '@/components/Skills';
 import { Button } from '@/components/ui/button';
-import { fetchProjects } from '@/services/project';
-import type { Project } from '@/types/project-type';
-import { getResourceUrl } from '@/utils/utils';
-import EditAsAdmin from '../EditAsAdmin';
 import type { ProjectSchema } from '@/schemas/project-schema';
+import { fetchProjects } from '@/services/project';
+import { ArrowRight } from 'lucide-react';
 
 const projects = await fetchProjects();
 ---
@@ -21,7 +18,7 @@ const projects = await fetchProjects();
     projects.map((project: ProjectSchema) => (
       <div>
         <img
-          src={getResourceUrl(project?.image)}
+          src={`${project.image}`}
           alt='project image'
           class='w-full h-auto object-cover rounded-lg'
           style={{ aspectRatio: '16/9' }}

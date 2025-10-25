@@ -33,16 +33,3 @@ export function filterInformationtData(data: InformationSchema) {
 
 	return newData;
 }
-
-export function getFilePath(filePath: string | File | null | undefined) {
-	return `${filePath}`;
-}
-
-export function getResourceUrl(
-	filePath: string | File | null | undefined,
-): string {
-	if (!filePath) {
-		return '';
-	}
-	return `${import.meta.env.PUBLIC_MEDIA_URL}${filePath}`;
-}

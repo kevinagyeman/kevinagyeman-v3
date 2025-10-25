@@ -7,29 +7,32 @@ import Skills from '@/components/Skills';
 import MainLayout from '@/layouts/main.astro';
 import { fetchInformation } from '@/services/information';
 import type { Seo } from '@/types/seo-type';
-import { getResourceUrl } from '@/utils/utils';
 
 const information = await fetchInformation();
 
 const content: Seo = {
 	title: `About - ${information.first_name} ${information.last_name}`,
-	description: information.summary,
-	image: information.image,
+	description: `${information.summary}`,
+	image: `${information.image}`,
 };
 ---
 
 <MainLayout content={content}>
   <div class='space-y-6 max-w-2xl mx-auto'>
     <img
-      src={getResourceUrl(information.image)}
+      src={`${information.image}`}
       alt='profile image'
       class='w-full h-auto object-cover max-w-[80px] rounded-full'
       style={{ aspectRatio: '1/1' }}
     />
     <Title content={`${information.first_name} ${information.last_name}`} />
     <ShortDescription content={information.summary} />
-    <Skills skillsString={information.skills} variant={'secondary'} />
+    {
+      information.skills && (
+        <Skills skillsString={information.skills} variant={'secondary'} />
+      )
+    }
     <Description content={information.about} />
-    <Links linksString={information.links} />
+    {information.links && <Links linksString={information.links} />}
   </div>
 </MainLayout>

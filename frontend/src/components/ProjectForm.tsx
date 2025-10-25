@@ -1,7 +1,7 @@
 import { DASHBOARD_URL } from '@/constants';
 import { type ProjectSchema, projectSchema } from '@/schemas/project-schema';
 import { createProject, fetchProject, updateProject } from '@/services/project';
-import { filterProjectData, getFilePath } from '@/utils/utils';
+import { filterProjectData } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
@@ -30,7 +30,7 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 		async (id: string) => {
 			const data = await fetchProject(Number(id));
 			if (!data) return;
-			setImagePreview(getFilePath(data.image));
+			setImagePreview(`${data.image}`);
 			form.reset(data);
 		},
 		[form],

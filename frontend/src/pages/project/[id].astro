@@ -8,7 +8,6 @@ import Skills from '@/components/Skills';
 import MainLayout from '@/layouts/main.astro';
 import { fetchProject, fetchProjects } from '@/services/project';
 import type { Seo } from '@/types/seo-type';
-import { getResourceUrl } from '@/utils/utils';
 
 export async function getStaticPaths() {
 	const projects = await fetchProjects();
@@ -27,15 +26,15 @@ if (!project) {
 
 const content: Seo = {
 	title: project.title,
-	description: project.short_description,
-	image: project.image,
+	description: `${project.short_description}`,
+	image: `${project.image}`,
 };
 ---
 
 <MainLayout content={content}>
   <div class='space-y-6 max-w-2xl mx-auto'>
     <img
-      src={getResourceUrl(project?.image)}
+      src={`${project.image}`}
       alt='profile image'
       class='w-full h-auto object-cover rounded-xl'
       style={{ aspectRatio: '16/9' }}
@@ -43,8 +42,12 @@ const content: Seo = {
     <Title content={project.title} />
     <DateDisplay period={project} />
     <ShortDescription content={project.short_description} />
-    <Skills skillsString={project.skills} variant={'secondary'} />
+    {
+      project.skills && (
+        <Skills skillsString={project.skills} variant={'secondary'} />
+      )
+    }
     <Description content={project.description} />
-    <Links linksString={project.links} />
+    {project.links && <Links linksString={project.links} />}
   </div>
 </MainLayout>

@@ -1,5 +1,4 @@
 import { File, Github, LinkedinIcon } from 'lucide-react';
-import { getResourceUrl } from '@/utils/utils';
 import { Button } from './ui/button';
 
 function Socials({ resume }: { resume: string | File }) {
@@ -7,7 +6,7 @@ function Socials({ resume }: { resume: string | File }) {
 		<>
 			{resume && (
 				<Button variant='secondary' asChild>
-					<a href={getResourceUrl(resume)}>
+					<a href={`${resume}`}>
 						{' '}
 						Resume <File />
 					</a>

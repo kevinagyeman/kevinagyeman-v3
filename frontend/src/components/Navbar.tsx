@@ -1,7 +1,6 @@
 import { DASHBOARD_URL } from '@/constants';
 import type { InformationSchema } from '@/schemas/information-schema';
 import { fetchInformation } from '@/services/information';
-import { getResourceUrl } from '@/utils/utils';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useCallback, useEffect, useState } from 'react';
@@ -21,13 +20,11 @@ function Navbar() {
 		loadInformation();
 	}, [loadInformation]);
 
-	const resumeUrl = getResourceUrl(information?.resume);
-
 	const navigation = [
 		{ name: `Home`, href: '/' },
 		{ name: `About`, href: '/about' },
 		{ name: `Contact`, href: '/contact' },
-		{ name: `Resume`, href: resumeUrl },
+		{ name: `Resume`, href: `${information?.resume}` },
 	];
 
 	return (
