@@ -11,9 +11,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   output: 'static',
-  adapter: node({
-    mode: 'standalone'
-  }),
   site: 'https://www.kevinagyeman.com',
   integrations: [react(), sitemap()],
 });
