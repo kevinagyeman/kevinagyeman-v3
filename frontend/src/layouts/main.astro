@@ -5,12 +5,13 @@ import '@/styles/global.css';
 import type { Seo } from '@/types/seo-type';
 import Analytics from '@vercel/analytics/astro';
 import { SEO } from 'astro-seo';
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 const props = Astro.props as { content: Seo };
 const { content } = props;
 
 const seoImage =
-	content.image || `${import.meta.env.PUBLIC_MEDIA_URL}/cover.png`;
+  content.image || `${import.meta.env.PUBLIC_MEDIA_URL}/cover.png`;
 ---
 
 <script is:inline>
@@ -84,5 +85,6 @@ const seoImage =
       <Footer />
     </div>
     <Analytics />
+    <SpeedInsights />
   </body>
 </html>
