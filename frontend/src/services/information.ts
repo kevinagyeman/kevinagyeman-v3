@@ -2,7 +2,7 @@ import { INFORMATION_API_BASE_URL } from '@/constants';
 import type { InformationSchema } from '@/schemas/information-schema';
 
 export async function fetchInformation(): Promise<InformationSchema> {
-	const response = await fetch(`${INFORMATION_API_BASE_URL}/`, {
+	const response = await fetch(`https://api.kevinagyeman.com/api/information/`, {
 		credentials: 'include',
 	});
 	if (!response.ok) throw new Error('Failed to fetch information');
