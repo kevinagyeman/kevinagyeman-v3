@@ -2,7 +2,7 @@ import { PROJECT_API_BASE_URL } from '@/constants';
 import type { ProjectSchema } from '@/schemas/project-schema';
 
 export async function fetchProjects(): Promise<ProjectSchema[]> {
-	const response = await fetch('https://api.kevinagyeman.com/api/projects/', {
+	const response = await fetch(`${PROJECT_API_BASE_URL}/`, {
 		credentials: 'include',
 	});
 	if (!response.ok) throw new Error('Failed to fetch projects');
@@ -10,7 +10,7 @@ export async function fetchProjects(): Promise<ProjectSchema[]> {
 }
 
 export async function fetchProject(id: number): Promise<ProjectSchema | null> {
-	const response = await fetch(`https://api.kevinagyeman.com/api/projects/${id}/`, {
+	const response = await fetch(`${PROJECT_API_BASE_URL}/${id}/`, {
 		credentials: 'include',
 	});
 	if (response.status === 404) {
@@ -33,7 +33,7 @@ export async function createProject(
 		}
 	}
 
-	const response = await fetch(`https://api.kevinagyeman.com/api/projects/`, {
+	const response = await fetch(`${PROJECT_API_BASE_URL}/`, {
 		method: 'POST',
 		body: formData,
 		credentials: 'include',
@@ -75,14 +75,14 @@ export async function updateProject(
 		};
 	}
 
-	const response = await fetch(`https://api.kevinagyeman.com/api/projects/${id}/`, fetchOptions);
+	const response = await fetch(`${PROJECT_API_BASE_URL}/${id}/`, fetchOptions);
 
 	if (!response.ok) throw new Error('Failed to update project');
 	return response.json();
 }
 
 export async function deleteProject(id: number) {
-	const response = await fetch(`https://api.kevinagyeman.com/api/projects/${id}/`, {
+	const response = await fetch(`${PROJECT_API_BASE_URL}/${id}/`, {
 		method: 'DELETE',
 		credentials: 'include',
 	});

@@ -1,24 +1,10 @@
 ---
 import ProjectEditOrNew from '@/components/pages/ProjectEditOrNew';
 import MainLayout from '@/layouts/main.astro';
-import { fetchProject, fetchProjects } from '@/services/project';
 
-// export const prerender = false;
-
-export async function getStaticPaths() {
-  const projects = await fetchProjects();
-
-  return projects.map((project) => ({
-    params: { id: String(project.id) },
-  }));
-}
+export const prerender = false;
 
 const { id } = Astro.params;
-const project = await fetchProject(Number(id));
-
-if (!project) {
-  return Astro.redirect('/404');
-}
 ---
 
 <MainLayout content={{ title: 'Edit Project' }}>
