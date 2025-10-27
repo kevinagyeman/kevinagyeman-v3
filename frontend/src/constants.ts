@@ -9,6 +9,7 @@ export const AUTH_API_BASE_URL = `${
 export const INFORMATION_API_BASE_URL = `${
 	import.meta.env.PUBLIC_BACKEND_URL
 }/api/information`;
+export const SEO_PLACEHOLDER_IMAGE_URL = `${import.meta.env.PUBLIC_MEDIA_URL}/cover.png`;
 
 export const DASHBOARD_URL = '/admin/dashboard';
 

@@ -3,12 +3,14 @@ import { Mail, MapPin } from 'lucide-react';
 import type { Information } from '@/types/information-type';
 import EmailCopy from '../EmailCopy';
 import type { InformationSchema } from '@/schemas/information-schema';
+import EditAsAdmin from '../EditAsAdmin';
 
 const props = Astro.props as { information: InformationSchema };
 const { information } = props;
 ---
 
 <section class='bg-background py-12'>
+  <EditAsAdmin href=`/admin/information` client:load />
   <div class='mb-8'>
     <h1 class='mb-3 mt-2 text-balance text-3xl font-semibold md:text-4xl'>
       Contact

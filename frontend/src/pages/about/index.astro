@@ -2,6 +2,7 @@
 import Description from '@/components/astro/Description.astro';
 import ShortDescription from '@/components/astro/ShortDescription.astro';
 import Title from '@/components/astro/Title.astro';
+import EditAsAdmin from '@/components/EditAsAdmin';
 import Links from '@/components/Links';
 import Skills from '@/components/Skills';
 import MainLayout from '@/layouts/main.astro';
@@ -19,6 +20,7 @@ const content: Seo = {
 
 <MainLayout content={content}>
   <div class='space-y-6 max-w-2xl mx-auto'>
+    <EditAsAdmin href=`/admin/information` client:load />
     <img
       src={`${information.image}`}
       alt='profile image'

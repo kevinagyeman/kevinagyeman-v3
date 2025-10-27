@@ -1,5 +1,6 @@
 ---
 import Contact from '@/components/astro/Contact.astro';
+import { SEO_PLACEHOLDER_IMAGE_URL } from '@/constants';
 import MainLayout from '@/layouts/main.astro';
 import { fetchInformation } from '@/services/information';
 import type { Seo } from '@/types/seo-type';
@@ -8,8 +9,8 @@ const information = await fetchInformation();
 
 const content: Seo = {
 	title: `Contact - ${information.first_name} ${information.last_name}`,
-	description: information.summary,
-	image: information.image,
+	description: `${information.summary}`,
+	image: SEO_PLACEHOLDER_IMAGE_URL,
 };
 ---
 

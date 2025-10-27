@@ -5,6 +5,7 @@ import type { InformationSchema } from '@/schemas/information-schema';
 import { ArrowRight } from 'lucide-react';
 import CodeViewer from '../CodeViewer';
 import Socials from '../Socials';
+import EditAsAdmin from '../EditAsAdmin';
 
 const props = Astro.props as { information: InformationSchema };
 const { information } = props;
@@ -34,7 +35,7 @@ const { information } = props;
           />
         )
       }
-      <div class='flex gap-4 flex-wrap'>
+      <div class='flex gap-4 flex-wrap items-center'>
         <a href='/about'>
           <Button variant='default' client:visible>
             Read More
@@ -46,6 +47,7 @@ const { information } = props;
             <Socials client:visible resume={information.resume} />
           )
         }
+        <EditAsAdmin href='/admin/information' client:load />
       </div>
     </div>
     <CodeViewer client:visible information={information} />
