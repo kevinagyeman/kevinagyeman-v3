@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Logo from './Logo';
 import { ModeToggle } from './ModeToggle';
 import { Button } from './ui/button';
+import { cn } from '@/lib/utils';
 
 function Navbar() {
 	const [information, setInformation] = useState<InformationSchema>();
@@ -20,6 +21,57 @@ function Navbar() {
 		loadInformation();
 	}, [loadInformation]);
 
+	const [isVisible, setIsVisible] = useState(true);
+	const [lastScrollY, setLastScrollY] = useState(0);
+	const [isCursorAtTop, setIsCursorAtTop] = useState(false);
+
+	useEffect(() => {
+		const scrollHideThreshold = 50;
+
+		const handleScroll = () => {
+			const currentScrollY = window.scrollY;
+			const scrollingDown = currentScrollY > lastScrollY;
+
+			if (!isCursorAtTop) {
+				if (scrollingDown && currentScrollY > scrollHideThreshold) {
+					setIsVisible(false);
+				} else if (!scrollingDown || currentScrollY <= scrollHideThreshold) {
+					setIsVisible(true);
+				}
+			} else {
+				setIsVisible(true);
+			}
+
+			setLastScrollY(Math.max(0, currentScrollY));
+		};
+
+		const mouseTopZone = 125;
+
+		const handleMouseMove = (e: MouseEvent) => {
+			if (e.clientY <= mouseTopZone) {
+				if (!isCursorAtTop) {
+					setIsCursorAtTop(true);
+					setIsVisible(true);
+				}
+			} else {
+				if (isCursorAtTop) {
+					setIsCursorAtTop(false);
+					if (window.scrollY > scrollHideThreshold) {
+						setIsVisible(false);
+					}
+				}
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		window.addEventListener('mousemove', handleMouseMove);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener('mousemove', handleMouseMove);
+		};
+	}, [lastScrollY, isCursorAtTop]);
+
 	const navigation = [
 		{ name: `Home`, href: '/' },
 		{ name: `About`, href: '/about' },
@@ -30,8 +82,10 @@ function Navbar() {
 	return (
 		<Disclosure
 			as='nav'
-			className='z-50 sticky top-0 border-b bg-background/80 backdrop-blur-sm mb-6'
-			style={{ top: 'env(safe-area-inset-top, 0px)' }}
+			className={cn(
+				'border-b fixed top-0 left-0 z-50 w-full transition-transform bg-background/80 backdrop-blur-sm duration-300 ease-in-out',
+				isVisible ? 'translate-y-0' : '-translate-y-full',
+			)}
 		>
 			{/* sticky top-0 */}
 			{({ open }: { open: boolean }) => (
