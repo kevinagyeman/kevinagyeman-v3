@@ -19,7 +19,7 @@ function DashboardProjectsList() {
 
 	return (
 		<div>
-			<h2 className='text-2xl font-semibold mt-5'>Projects List</h2>
+			<h2 className='text-2xl font-semibold'>Projects List</h2>
 			<div className='space-y-3 mt-2'>
 				{projects?.map((project: ProjectSchema) => (
 					<div

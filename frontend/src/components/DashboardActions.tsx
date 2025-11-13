@@ -10,7 +10,7 @@ const handleLogout = async () => {
 
 function DashboardActions() {
 	return (
-		<div className='flex gap-2 mt-5 flex-wrap'>
+		<div className='flex gap-2 mb-5 flex-wrap'>
 			<Button variant={'secondary'}>
 				<a href='/admin/project/new'>New Project</a>
 			</Button>

@@ -74,13 +74,9 @@ const seoImage = content.image || SEO_PLACEHOLDER_IMAGE_URL;
     />
   </head>
   <body>
-    <div class='flex min-h-screen flex-col'>
-      <Navbar client:visible />
-      <div class='flex-grow container mx-auto px-4'>
-        <slot />
-      </div>
-      <Footer />
-    </div>
+    <Navbar client:visible />
+    <div class='container mx-auto px-4 mt-24'><slot /></div>
+    <Footer />
     <Analytics />
     <SpeedInsights />
   </body>
