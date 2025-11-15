@@ -1,0 +1,21 @@
+---
+import { SEO_PLACEHOLDER_IMAGE_URL } from '@/constants';
+import MainLayout from '@/layouts/main.astro';
+import { fetchInformation } from '@/services/information';
+import type { Seo } from '@/types/seo-type';
+
+const information = await fetchInformation();
+
+const content: Seo = {
+	title: `Resume - ${information.first_name} ${information.last_name}`,
+	description: `${information.summary}`,
+	image: SEO_PLACEHOLDER_IMAGE_URL,
+};
+---
+
+<MainLayout content={content}>
+  <iframe
+    src={`https://docs.google.com/gview?url=${encodeURIComponent(`${information.resume}`)}&embedded=true`}
+    class='w-full h-screen'
+    title='PDF Resume'></iframe>
+</MainLayout>

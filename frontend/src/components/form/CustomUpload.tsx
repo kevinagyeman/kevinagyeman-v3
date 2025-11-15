@@ -35,7 +35,7 @@ function CustomUpload({
 					{typeOfFile === 'file'
 						? preview && (
 								<Button className='mb-2' variant={'outline'}>
-									<a href={preview} target='_blank' rel='noopener noreferrer'>
+									<a href={'/resume'} target='_blank' rel='noopener noreferrer'>
 										View current resume
 									</a>
 								</Button>

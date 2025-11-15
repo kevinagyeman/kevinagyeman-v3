@@ -42,11 +42,7 @@ const { information } = props;
             <ArrowRight />
           </Button>
         </a>
-        {
-          information.resume && (
-            <Socials client:visible resume={information.resume} />
-          )
-        }
+        {information.resume && <Socials client:visible resume />}
         <EditAsAdmin href='/admin/information' client:load />
       </div>
     </div>

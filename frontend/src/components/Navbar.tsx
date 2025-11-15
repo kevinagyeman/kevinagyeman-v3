@@ -10,7 +10,7 @@ import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
 
 function Navbar() {
-	const [information, setInformation] = useState<InformationSchema>();
+	const [_, setInformation] = useState<InformationSchema>();
 
 	const loadInformation = useCallback(async () => {
 		const data = await fetchInformation();
@@ -76,7 +76,7 @@ function Navbar() {
 		{ name: `Home`, href: '/' },
 		{ name: `About`, href: '/about' },
 		{ name: `Contact`, href: '/contact' },
-		{ name: `Resume`, href: `${information?.resume}` },
+		{ name: `Resume`, href: '/resume' },
 	];
 
 	return (

@@ -1,13 +1,12 @@
 import { File, Github, LinkedinIcon } from 'lucide-react';
 import { Button } from './ui/button';
 
-function Socials({ resume }: { resume: string | File }) {
+function Socials({ resume }: { resume: boolean }) {
 	return (
 		<>
 			{resume && (
 				<Button variant='secondary' asChild>
-					<a href={`${resume}`}>
-						{' '}
+					<a href={'/resume'}>
 						Resume <File />
 					</a>
 				</Button>
