@@ -1,19 +1,24 @@
-import { Controller } from 'react-hook-form';
+import {
+	Controller,
+	type Control,
+	type FieldValues,
+	type Path,
+} from 'react-hook-form';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
-type CustomUploadProps = {
+type CustomUploadProps<T extends FieldValues = FieldValues> = {
 	preview: string;
 	typeOfFile: 'image' | 'file';
-	fieldName: string;
-	formControl: any;
+	fieldName: Path<T>;
+	formControl: Control<T>;
 	labelText: string;
 	aspectRatio?: string;
 	error?: string;
 };
 
-function CustomUpload({
+function CustomUpload<T extends FieldValues = FieldValues>({
 	preview,
 	fieldName,
 	formControl,
@@ -21,7 +26,7 @@ function CustomUpload({
 	labelText,
 	typeOfFile,
 	aspectRatio,
-}: CustomUploadProps) {
+}: CustomUploadProps<T>) {
 	const accept = typeOfFile === 'file' ? 'application/pdf' : 'image/*';
 	const ratio = aspectRatio ? aspectRatio : '1/1';
 

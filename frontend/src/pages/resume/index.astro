@@ -6,6 +6,10 @@ import type { Seo } from '@/types/seo-type';
 
 const information = await fetchInformation();
 
+// Ensure resume is a string URL (API returns string, not File)
+const resumeUrl =
+	typeof information.resume === 'string' ? information.resume : null;
+
 const content: Seo = {
 	title: `Resume - ${information.first_name} ${information.last_name}`,
 	description: `${information.summary}`,
@@ -14,8 +18,60 @@ const content: Seo = {
 ---
 
 <MainLayout content={content}>
-  <iframe
-    src={`https://docs.google.com/gview?url=${encodeURIComponent(`${information.resume}`)}&embedded=true`}
-    class='w-full h-screen'
-    title='PDF Resume'></iframe>
+  {resumeUrl ? (
+    <div class='w-full h-screen flex flex-col'>
+      {/* Desktop: iframe viewer, Mobile: embedded object with fallback */}
+      <div class='w-full flex-1 relative'>
+        <iframe
+          src={resumeUrl}
+          class='w-full h-full hidden md:block'
+          title='PDF Resume'
+        ></iframe>
+        <object
+          data={resumeUrl}
+          type='application/pdf'
+          class='w-full h-full md:hidden'
+          aria-label='PDF Resume'
+        >
+          <div class='flex flex-col items-center justify-center h-full p-6 text-center'>
+            <p class='text-gray-700 dark:text-gray-300 mb-4'>
+              Unable to display PDF. Please download to view.
+            </p>
+            <a
+              href={resumeUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+              class='px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium'
+            >
+              Open PDF
+            </a>
+          </div>
+        </object>
+      </div>
+      <div class='text-center p-4 bg-gray-100 dark:bg-gray-800 flex gap-4 justify-center flex-wrap'>
+        <a
+          href={resumeUrl}
+          target='_blank'
+          rel='noopener noreferrer'
+          class='text-blue-600 dark:text-blue-400 hover:underline font-medium'
+        >
+          Open in New Tab
+        </a>
+        <span class='text-gray-400'>|</span>
+        <a
+          href={resumeUrl}
+          download
+          class='text-blue-600 dark:text-blue-400 hover:underline font-medium'
+        >
+          Download PDF
+        </a>
+      </div>
+    </div>
+  ) : (
+    <div class='flex items-center justify-center h-screen'>
+      <p class='text-center text-gray-600 dark:text-gray-400 text-lg'>
+        Resume not available at the moment.
+      </p>
+    </div>
+  )}
 </MainLayout>
