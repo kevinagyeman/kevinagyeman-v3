@@ -1,26 +1,13 @@
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DASHBOARD_URL } from "@/constants";
 import { cn } from "@/lib/utils";
-import type { InformationSchema } from "@/schemas/information-schema";
-import { fetchInformation } from "@/services/information";
 import Logo from "./Logo";
 import { ModeToggle } from "./ModeToggle";
 import { Button } from "./ui/button";
 
 function Navbar() {
-	const [_, setInformation] = useState<InformationSchema>();
-
-	const loadInformation = useCallback(async () => {
-		const data = await fetchInformation();
-		setInformation(data);
-	}, []);
-
-	useEffect(() => {
-		loadInformation();
-	}, [loadInformation]);
-
 	const [isVisible, setIsVisible] = useState(true);
 	const [lastScrollY, setLastScrollY] = useState(0);
 	const [isCursorAtTop, setIsCursorAtTop] = useState(false);

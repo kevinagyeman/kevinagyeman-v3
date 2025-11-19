@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { DASHBOARD_URL } from "@/constants";
 import {
@@ -17,6 +17,7 @@ import { Button } from "./ui/button";
 export default function InformationForm() {
 	const [imagePreview, setImagePreview] = useState<string>("");
 	const [resumePreview, setResumePreview] = useState<string>("");
+	const [error, setError] = useState<string>("");
 
 	const form = useForm<InformationSchema>({
 		resolver: zodResolver(informationSchema),
@@ -24,22 +25,30 @@ export default function InformationForm() {
 
 	const errors = form.formState.errors;
 
-	const loadInformation = useCallback(async () => {
-		const data = await fetchInformation();
-		setImagePreview(`${data.image}`);
-		setResumePreview(`${data.resume}`);
-		form.reset(data);
-	}, [form]);
-
 	useEffect(() => {
+		const loadInformation = async () => {
+			const data = await fetchInformation();
+			setImagePreview(`${data.image}`);
+			setResumePreview(`${data.resume}`);
+			form.reset(data);
+		};
+
 		loadInformation();
-	}, [loadInformation]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const submitInformation: SubmitHandler<InformationSchema> = async (data) => {
-		console.log("data", filterInformationtData(data));
-
-		await updateInformation(filterInformationtData(data));
-		window.location.href = DASHBOARD_URL;
+		try {
+			setError("");
+			await updateInformation(filterInformationtData(data));
+			window.location.href = DASHBOARD_URL;
+		} catch (err) {
+			setError(
+				err instanceof Error
+					? err.message
+					: "Failed to update information. Please try again.",
+			);
+		}
 	};
 
 	return (
@@ -54,6 +63,11 @@ export default function InformationForm() {
 				className="space-y-6"
 				encType="multipart/form-data"
 			>
+				{error && (
+					<div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 px-4 py-3 rounded">
+						{error}
+					</div>
+				)}
 				<CustomUpload
 					preview={imagePreview}
 					typeOfFile={"image"}

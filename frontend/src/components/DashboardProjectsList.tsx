@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
 import type { ProjectSchema } from "@/schemas/project-schema";
 import { fetchProjects } from "@/services/project";
+import { useEffect, useState } from "react";
 import DateDisplay from "./DateDisplay";
 import DeleteProject from "./DeleteProject";
 import { Button } from "./ui/button";
@@ -8,14 +8,14 @@ import { Button } from "./ui/button";
 function DashboardProjectsList() {
 	const [projects, setProjects] = useState<ProjectSchema[]>();
 
-	const loadProjects = useCallback(async () => {
+	const loadProjects = async () => {
 		const data = await fetchProjects();
 		setProjects(data);
-	}, []);
+	};
 
 	useEffect(() => {
 		loadProjects();
-	}, [loadProjects]);
+	}, []);
 
 	return (
 		<div>

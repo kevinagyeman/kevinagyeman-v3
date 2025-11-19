@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
+import { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { DASHBOARD_URL } from "@/constants";
 import { type AuthSchema, authSchema } from "@/schemas/auth-schema";
@@ -8,6 +9,8 @@ import CustomInput from "./form/CustomInput";
 import { Button } from "./ui/button";
 
 export default function Auth() {
+	const [error, setError] = useState<string>("");
+
 	const form = useForm<AuthSchema>({
 		resolver: zodResolver(authSchema),
 	});
@@ -15,13 +18,25 @@ export default function Auth() {
 	const errors = form.formState.errors;
 
 	const submitAuth: SubmitHandler<AuthSchema> = async (data) => {
-		await login(data.username, data.password);
-		localStorage.setItem("isAuthenticated", "true");
-		window.location.href = DASHBOARD_URL;
+		try {
+			setError("");
+			await login(data.username, data.password);
+			localStorage.setItem("isAuthenticated", "true");
+			window.location.href = DASHBOARD_URL;
+		} catch (err) {
+			setError(
+				err instanceof Error ? err.message : "Login failed. Please try again.",
+			);
+		}
 	};
 
 	return (
 		<form onSubmit={form.handleSubmit(submitAuth)} className="space-y-6">
+			{error && (
+				<div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 px-4 py-3 rounded">
+					{error}
+				</div>
+			)}
 			<CustomInput
 				labelText="Username"
 				inputType="text"
@@ -36,7 +51,11 @@ export default function Auth() {
 				inputProps={form.register("password")}
 				error={errors.password?.message}
 			/>
-			<Button type="submit" className="w-full">
+			<Button
+				type="submit"
+				className="w-full"
+				disabled={form.formState.isSubmitting}
+			>
 				{form.formState.isSubmitting ? (
 					<Loader2 className="animate-spin" />
 				) : (

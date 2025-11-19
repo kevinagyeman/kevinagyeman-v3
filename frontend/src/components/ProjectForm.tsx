@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { DASHBOARD_URL } from "@/constants";
 import { type ProjectSchema, projectSchema } from "@/schemas/project-schema";
@@ -19,6 +19,7 @@ interface ProjectFormProps {
 
 export default function ProjectForm({ projectId }: ProjectFormProps) {
 	const [imagePreview, setImagePreview] = useState<string>("");
+	const [error, setError] = useState<string>("");
 
 	const form = useForm<ProjectSchema>({
 		resolver: zodResolver(projectSchema),
@@ -26,30 +27,36 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 
 	const errors = form.formState.errors;
 
-	const loadProject = useCallback(
-		async (id: string) => {
-			const data = await fetchProject(Number(id));
+	useEffect(() => {
+		if (!projectId || projectId === "new") return;
+
+		const loadProject = async () => {
+			const data = await fetchProject(Number(projectId));
 			if (!data) return;
 			setImagePreview(`${data.image}`);
 			form.reset(data);
-		},
-		[form],
-	);
+		};
 
-	useEffect(() => {
-		if (!projectId) return;
-		if (projectId === "new") return;
-
-		loadProject(projectId);
-	}, [projectId, loadProject]);
+		loadProject();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [projectId]);
 
 	const submitProject: SubmitHandler<ProjectSchema> = async (data) => {
-		if (projectId) {
-			await updateProject(Number(projectId), filterProjectData(data));
-		} else {
-			await createProject(filterProjectData(data));
+		try {
+			setError("");
+			if (projectId) {
+				await updateProject(Number(projectId), filterProjectData(data));
+			} else {
+				await createProject(filterProjectData(data));
+			}
+			window.location.href = DASHBOARD_URL;
+		} catch (err) {
+			setError(
+				err instanceof Error
+					? err.message
+					: "Failed to save project. Please try again.",
+			);
 		}
-		window.location.href = DASHBOARD_URL;
 	};
 
 	return (
@@ -65,6 +72,11 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 				className="space-y-6"
 				encType="multipart/form-data"
 			>
+				{error && (
+					<div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 px-4 py-3 rounded">
+						{error}
+					</div>
+				)}
 				<CustomCheckbox
 					inputProps={form.register("is_published")}
 					label="Published"
