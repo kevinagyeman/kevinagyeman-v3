@@ -1,5 +1,5 @@
-import { getUserInfo } from '@/services/auth';
 import { useEffect, useState } from 'react';
+import { getUserInfo } from '@/services/auth';
 import { Button } from './ui/button';
 
 export default function EditAsAdmin({ href }: { href: string }) {

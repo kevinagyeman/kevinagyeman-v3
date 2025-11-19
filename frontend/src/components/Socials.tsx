@@ -1,7 +1,7 @@
 import { File, Github, LinkedinIcon } from 'lucide-react';
 import { Button } from './ui/button';
 
-function Socials({ resume }: { resume: boolean }) {
+function Socials({ resume = false }: { resume?: boolean }) {
 	return (
 		<>
 			{resume && (

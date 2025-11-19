@@ -1,6 +1,6 @@
+import { useCallback, useEffect, useState } from 'react';
 import type { ProjectSchema } from '@/schemas/project-schema';
 import { fetchProjects } from '@/services/project';
-import { useCallback, useEffect, useState } from 'react';
 import DateDisplay from './DateDisplay';
 import DeleteProject from './DeleteProject';
 import { Button } from './ui/button';

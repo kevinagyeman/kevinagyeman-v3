@@ -1,13 +1,13 @@
-import { DASHBOARD_URL } from '@/constants';
-import type { InformationSchema } from '@/schemas/information-schema';
-import { fetchInformation } from '@/services/information';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useCallback, useEffect, useState } from 'react';
+import { DASHBOARD_URL } from '@/constants';
+import { cn } from '@/lib/utils';
+import type { InformationSchema } from '@/schemas/information-schema';
+import { fetchInformation } from '@/services/information';
 import Logo from './Logo';
 import { ModeToggle } from './ModeToggle';
 import { Button } from './ui/button';
-import { cn } from '@/lib/utils';
 
 function Navbar() {
 	const [_, setInformation] = useState<InformationSchema>();

@@ -1,11 +1,11 @@
-import { DASHBOARD_URL } from '@/constants';
-import { type ProjectSchema, projectSchema } from '@/schemas/project-schema';
-import { createProject, fetchProject, updateProject } from '@/services/project';
-import { filterProjectData } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
+import { DASHBOARD_URL } from '@/constants';
+import { type ProjectSchema, projectSchema } from '@/schemas/project-schema';
+import { createProject, fetchProject, updateProject } from '@/services/project';
+import { filterProjectData } from '@/utils/utils';
 import DeleteProject from './DeleteProject';
 import CustomCheckbox from './form/CustomCheckbox';
 import CustomInput from './form/CustomInput';

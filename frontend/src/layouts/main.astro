@@ -2,11 +2,11 @@
 import Footer from '@/components/astro/Footer.astro';
 import Navbar from '@/components/Navbar';
 import '@/styles/global.css';
-import type { Seo } from '@/types/seo-type';
 import Analytics from '@vercel/analytics/astro';
-import { SEO } from 'astro-seo';
 import SpeedInsights from '@vercel/speed-insights/astro';
+import { SEO } from 'astro-seo';
 import { SEO_PLACEHOLDER_IMAGE_URL } from '@/constants';
+import type { Seo } from '@/types/seo-type';
 
 const props = Astro.props as { content: Seo };
 const { content } = props;

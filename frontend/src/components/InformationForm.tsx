@@ -1,3 +1,7 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 import { DASHBOARD_URL } from '@/constants';
 import {
 	type InformationSchema,
@@ -5,10 +9,6 @@ import {
 } from '@/schemas/information-schema';
 import { fetchInformation, updateInformation } from '@/services/information';
 import { filterInformationtData } from '@/utils/utils';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2 } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
-import { type SubmitHandler, useForm } from 'react-hook-form';
 import CustomInput from './form/CustomInput';
 import CustomTextArea from './form/CustomTextArea';
 import CustomUpload from './form/CustomUpload';

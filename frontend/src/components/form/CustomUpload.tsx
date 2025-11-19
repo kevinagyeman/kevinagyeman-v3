@@ -1,6 +1,6 @@
 import {
-	Controller,
 	type Control,
+	Controller,
 	type FieldValues,
 	type Path,
 } from 'react-hook-form';
@@ -54,7 +54,7 @@ function CustomUpload<T extends FieldValues = FieldValues>({
 									onError={(e) => {
 										const target = e.target as HTMLImageElement;
 										target.onerror = null;
-										target.src = '/cover.png';
+										target.src = '/placeholder.png';
 									}}
 								/>
 							)}

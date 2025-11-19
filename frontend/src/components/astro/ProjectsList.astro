@@ -1,52 +1,52 @@
 ---
+import { ArrowRight } from 'lucide-react';
 import Skills from '@/components/Skills';
 import { Button } from '@/components/ui/button';
 import type { ProjectSchema } from '@/schemas/project-schema';
 import { fetchProjects } from '@/services/project';
-import { ArrowRight } from 'lucide-react';
 import EditAsAdmin from '../EditAsAdmin';
 
 const projects = await fetchProjects();
 ---
 
-<div class='mb-8'>
-  <h1 class='mb-3 mt-2 text-balance text-3xl font-semibold md:text-4xl'>
+<div class="mb-8">
+  <h1 class="mb-3 mt-2 text-balance text-3xl font-semibold md:text-4xl">
     Projects
   </h1>
 </div>
-<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12'>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
   {
     projects.map((project: ProjectSchema) => (
       <div>
         <img
           src={`${project.image}`}
-          alt='project image'
-          class='w-full h-auto object-cover rounded-lg'
-          style={{ aspectRatio: '16/9' }}
-          onerror="this.onerror=null; this.src='/cover.png';"
+          alt="project image"
+          class="w-full h-auto object-cover rounded-lg"
+          style={{ aspectRatio: "16/9" }}
+          onerror="this.onerror=null; this.src='/placeholder.png';"
         />
 
-        <h3 class='line-clamp-1 font-bold mb-1 lg:text-2xl md:text-xl sm:text-lg mt-4'>
+        <h3 class="line-clamp-1 font-bold mb-1 lg:text-2xl md:text-xl sm:text-lg mt-4">
           {project.title}
         </h3>
-        <p class='line-clamp-2 text-muted-foreground mt-0 lg:text-lg md:text-sm sm:text-sm'>
+        <p class="line-clamp-2 text-muted-foreground mt-0 lg:text-lg md:text-sm sm:text-sm">
           {project.short_description}
         </p>
-        <div class='mt-4'>
+        <div class="mt-4">
           {project.skills && (
             <Skills
               skillsString={project.skills}
               limit={4}
-              variant={'secondary'}
+              variant={"secondary"}
             />
           )}
         </div>
         <a href={`/project/${project.id}`}>
           <Button
-            variant='outline'
+            variant="outline"
             client:visible
-            size='sm'
-            className='mt-4 mr-4'
+            size="sm"
+            className="mt-4 mr-4"
           >
             Read More
             <ArrowRight />

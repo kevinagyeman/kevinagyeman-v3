@@ -33,21 +33,21 @@ const content: Seo = {
 ---
 
 <MainLayout content={content}>
-  <div class='space-y-6 max-w-2xl mx-auto'>
+  <div class="space-y-6 max-w-2xl mx-auto">
     <EditAsAdmin href=`/admin/project/${id}` client:load />
     <img
       src={`${project.image}`}
-      alt='profile image'
-      class='w-full h-auto object-cover rounded-xl'
-      style={{ aspectRatio: '16/9' }}
-      onerror="this.onerror=null; this.src='/cover.png';"
+      alt="profile image"
+      class="w-full h-auto object-cover rounded-xl"
+      style={{ aspectRatio: "16/9" }}
+      onerror="this.onerror=null; this.src='/placeholder.png';"
     />
     <Title content={project.title} />
     <DateDisplay period={project} />
     <ShortDescription content={project.short_description} />
     {
       project.skills && (
-        <Skills skillsString={project.skills} variant={'secondary'} />
+        <Skills skillsString={project.skills} variant={"secondary"} />
       )
     }
     <Description content={project.description} />

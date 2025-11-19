@@ -6,7 +6,6 @@ import type { Seo } from '@/types/seo-type';
 
 const information = await fetchInformation();
 
-// Ensure resume is a string URL (API returns string, not File)
 const resumeUrl =
 	typeof information.resume === 'string' ? information.resume : null;
 
@@ -18,135 +17,50 @@ const content: Seo = {
 ---
 
 <MainLayout content={content}>
-  {resumeUrl ? (
-    <div class='w-full h-screen flex flex-col'>
-      {/* Desktop: iframe viewer, Mobile: embedded object with fallback */}
-      <div id='pdf-container' class='w-full flex-1 relative'>
-        <iframe
-          id='pdf-iframe'
-          src={resumeUrl}
-          class='w-full h-full hidden md:block'
-          title='PDF Resume'
-        ></iframe>
-        <object
-          id='pdf-object'
-          data={resumeUrl}
-          type='application/pdf'
-          class='w-full h-full md:hidden'
-          aria-label='PDF Resume'
-        >
-          <div class='flex flex-col items-center justify-center h-full p-6 text-center'>
-            <p class='text-gray-700 dark:text-gray-300 mb-4'>
-              Unable to display PDF. Please download to view.
-            </p>
-            <a
-              href={resumeUrl}
-              target='_blank'
-              rel='noopener noreferrer'
-              class='px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium'
-            >
-              Open PDF
-            </a>
-          </div>
-        </object>
-        <div id='cdn-blocked-message' class='hidden flex flex-col items-center justify-center h-full p-6 text-center bg-gray-50 dark:bg-gray-900'>
-          <svg class='w-16 h-16 text-orange-500 mb-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-            <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'></path>
-          </svg>
-          <h2 class='text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2'>
-            CDN Access Blocked
-          </h2>
-          <p class='text-gray-600 dark:text-gray-400 mb-4'>
-            Your network is blocking access to the resume file.
-          </p>
-          <p class='text-sm text-gray-500 dark:text-gray-500'>
-            Please contact the administrator or try accessing from a different network.
-          </p>
+  {
+    resumeUrl ? (
+      <div class="w-full h-screen flex flex-col">
+        {/* Desktop: iframe viewer, Mobile: embedded object with fallback */}
+        <div id="pdf-container" class="w-full flex-1 relative">
+          <iframe
+            id="pdf-iframe"
+            src={resumeUrl}
+            class="w-full h-full hidden md:block"
+            title="PDF Resume"
+          />
+          <object
+            id="pdf-object"
+            data={resumeUrl}
+            type="application/pdf"
+            class="w-full h-full md:hidden"
+            aria-label="PDF Resume"
+          />
+        </div>
+        <div class="text-center p-4 bg-gray-100 dark:bg-gray-800 flex gap-4 justify-center flex-wrap">
+          <a
+            href={resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+          >
+            Open in New Tab
+          </a>
+          <span class="text-gray-400">|</span>
+          <a
+            href={resumeUrl}
+            download
+            class="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+          >
+            Download PDF
+          </a>
         </div>
       </div>
-      <div class='text-center p-4 bg-gray-100 dark:bg-gray-800 flex gap-4 justify-center flex-wrap'>
-        <a
-          href={resumeUrl}
-          target='_blank'
-          rel='noopener noreferrer'
-          class='text-blue-600 dark:text-blue-400 hover:underline font-medium'
-        >
-          Open in New Tab
-        </a>
-        <span class='text-gray-400'>|</span>
-        <a
-          href={resumeUrl}
-          download
-          class='text-blue-600 dark:text-blue-400 hover:underline font-medium'
-        >
-          Download PDF
-        </a>
+    ) : (
+      <div class="flex items-center justify-center h-screen">
+        <p class="text-center text-gray-600 dark:text-gray-400 text-lg">
+          Resume not available at the moment.
+        </p>
       </div>
-    </div>
-  ) : (
-    <div class='flex items-center justify-center h-screen'>
-      <p class='text-center text-gray-600 dark:text-gray-400 text-lg'>
-        Resume not available at the moment.
-      </p>
-    </div>
-  )}
-
-  <script>
-    // Check if PDF loads successfully, show blocked message if it fails
-    const checkPdfLoad = () => {
-      const iframe = document.getElementById('pdf-iframe');
-      const pdfObject = document.getElementById('pdf-object');
-      const blockedMessage = document.getElementById('cdn-blocked-message');
-      const container = document.getElementById('pdf-container');
-
-      // Function to show blocked message
-      const showBlockedMessage = () => {
-        if (iframe) iframe.style.display = 'none';
-        if (pdfObject) pdfObject.style.display = 'none';
-        if (blockedMessage) {
-          blockedMessage.classList.remove('hidden');
-          blockedMessage.classList.add('flex');
-        }
-      };
-
-      // Check iframe load
-      if (iframe) {
-        iframe.addEventListener('error', showBlockedMessage);
-        // Also check after a timeout if iframe didn't load
-        setTimeout(() => {
-          try {
-            // Try to access iframe content to see if it loaded
-            if (iframe.contentDocument === null) {
-              showBlockedMessage();
-            }
-          } catch (e) {
-            // Cross-origin error means CDN might be blocked
-            console.warn('PDF may be blocked by network', e);
-          }
-        }, 3000);
-      }
-
-      // Check object load
-      if (pdfObject) {
-        pdfObject.addEventListener('error', showBlockedMessage);
-      }
-
-      // Test if we can fetch the PDF URL
-      const resumeUrl = iframe?.src || pdfObject?.data;
-      if (resumeUrl) {
-        fetch(resumeUrl, { method: 'HEAD', mode: 'no-cors' })
-          .catch(() => {
-            // If fetch fails, likely blocked
-            showBlockedMessage();
-          });
-      }
-    };
-
-    // Run check when page loads
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', checkPdfLoad);
-    } else {
-      checkPdfLoad();
-    }
-  </script>
+    )
+  }
 </MainLayout>

@@ -13,7 +13,7 @@ export default function ImageWithFallback({
 	alt,
 	className,
 	style,
-	fallbackSrc = '/cover.png',
+	fallbackSrc = '/placeholder.png',
 }: ImageWithFallbackProps) {
 	const [imgSrc, setImgSrc] = useState(src);
 	const [hasError, setHasError] = useState(false);
