@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { getUserInfo } from '@/services/auth';
-import { Button } from './ui/button';
+import { useEffect, useState } from "react";
+import { getUserInfo } from "@/services/auth";
+import { Button } from "./ui/button";
 
 export default function EditAsAdmin({ href }: { href: string }) {
 	const [isVisible, setIsVisible] = useState(false);
@@ -27,7 +27,7 @@ export default function EditAsAdmin({ href }: { href: string }) {
 	}
 
 	return (
-		<Button asChild size='sm' className='my-4 text-cyan-500 p-0' variant='link'>
+		<Button asChild size="sm" className="my-4 text-cyan-500 p-0" variant="link">
 			<a href={href}>Edit as admin</a>
 		</Button>
 	);

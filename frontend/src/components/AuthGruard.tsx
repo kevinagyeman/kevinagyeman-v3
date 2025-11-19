@@ -1,5 +1,5 @@
-import { type ReactNode, useEffect, useState } from 'react';
-import { getUserInfo } from '@/services/auth';
+import { type ReactNode, useEffect, useState } from "react";
+import { getUserInfo } from "@/services/auth";
 
 interface AdminGuardProps {
 	children: ReactNode;
@@ -16,7 +16,7 @@ const AuthGuard = ({ children }: AdminGuardProps) => {
 				setAuthenticated(true);
 			} catch {
 				setAuthenticated(false);
-				window.location.href = '/login';
+				window.location.href = "/login";
 			} finally {
 				setLoading(false);
 			}

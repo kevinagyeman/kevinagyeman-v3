@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import type { BundledLanguage } from '@/components/kibo-ui/code-block';
+import type { BundledLanguage } from "@/components/kibo-ui/code-block";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -10,23 +10,23 @@ import {
 	CodeBlockFiles,
 	CodeBlockHeader,
 	CodeBlockItem,
-} from '@/components/kibo-ui/code-block';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import type { InformationSchema } from '@/schemas/information-schema';
+} from "@/components/kibo-ui/code-block";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import type { InformationSchema } from "@/schemas/information-schema";
 
 export default function CodeViewer({
 	information,
 }: {
 	information: InformationSchema;
 }) {
-	const [selectedLanguage, setSelectedLanguage] = useState('typescript');
+	const [selectedLanguage, setSelectedLanguage] = useState("typescript");
 
 	const sanitizeString = (str: string | null) =>
-		(str ?? '')
-			.replace(/\\/g, '\\\\')
-			.replace(/`/g, '\\`')
-			.replace(/\$/g, '\\$');
+		(str ?? "")
+			.replace(/\\/g, "\\\\")
+			.replace(/`/g, "\\`")
+			.replace(/\$/g, "\\$");
 
 	const tsCode = `// TypeScript object representing a user
 interface User {
@@ -41,12 +41,12 @@ const user: User = {
   lastName: "${sanitizeString(information.last_name)}",
   role: "${sanitizeString(information.role)}",
   skills: [${sanitizeString(
-		(information.skills ?? '')
-			.split(';')
+		(information.skills ?? "")
+			.split(";")
 			.map((s) => `"${s.trim()}"`)
 			.filter(Boolean)
 			.slice(0, 5)
-			.join(', '),
+			.join(", "),
 	)}],
 };
 
@@ -59,12 +59,12 @@ user = {
     "last_name": "${sanitizeString(information.last_name)}",
     "role": "${sanitizeString(information.role)}",
     "skills": [${sanitizeString(
-			(information.skills ?? '')
-				.split(';')
+			(information.skills ?? "")
+				.split(";")
 				.map((s) => `"${s.trim()}"`)
 				.filter(Boolean)
 				.slice(0, 5)
-				.join(', '),
+				.join(", "),
 		)}],
 }
 
@@ -80,31 +80,31 @@ print(user)
 
 	const code = [
 		{
-			language: 'typescript',
-			filename: 'user.ts',
+			language: "typescript",
+			filename: "user.ts",
 			code: tsCode,
 		},
 		{
-			language: 'python',
-			filename: 'user.py',
+			language: "python",
+			filename: "user.py",
 			code: pyCode,
 		},
 	];
 
 	return (
 		<div>
-			<div className='flex w-full flex-col gap-1 overflow-hidden'>
-				<Tabs defaultValue='typescript' onValueChange={setSelectedLanguage}>
-					<TabsList className='h-10 w-full'>
-						<TabsTrigger value='typescript' className='cursor-pointer'>
+			<div className="flex w-full flex-col gap-1 overflow-hidden">
+				<Tabs defaultValue="typescript" onValueChange={setSelectedLanguage}>
+					<TabsList className="h-10 w-full">
+						<TabsTrigger value="typescript" className="cursor-pointer">
 							Typescript
 						</TabsTrigger>
-						<TabsTrigger value='python' className='cursor-pointer'>
+						<TabsTrigger value="python" className="cursor-pointer">
 							Python
 						</TabsTrigger>
 					</TabsList>
 				</Tabs>
-				<CodeBlock data={code} value={selectedLanguage} className='w-full'>
+				<CodeBlock data={code} value={selectedLanguage} className="w-full">
 					<CodeBlockHeader>
 						<CodeBlockFiles>
 							{(item) => (
@@ -114,17 +114,17 @@ print(user)
 							)}
 						</CodeBlockFiles>
 						<CodeBlockCopyButton
-							onCopy={() => console.log('Copied code to clipboard')}
-							onError={() => console.error('Failed to copy code to clipboard')}
+							onCopy={() => console.log("Copied code to clipboard")}
+							onError={() => console.error("Failed to copy code to clipboard")}
 						/>
 					</CodeBlockHeader>
-					<ScrollArea className='w-full'>
+					<ScrollArea className="w-full">
 						<CodeBlockBody>
 							{(item) => (
 								<CodeBlockItem
 									key={item.language}
 									value={item.language}
-									className='max-h-96 w-full'
+									className="max-h-96 w-full"
 								>
 									<CodeBlockContent language={item.language as BundledLanguage}>
 										{item.code}
@@ -132,7 +132,7 @@ print(user)
 								</CodeBlockItem>
 							)}
 						</CodeBlockBody>
-						<ScrollBar orientation='horizontal' />
+						<ScrollBar orientation="horizontal" />
 					</ScrollArea>
 				</CodeBlock>
 			</div>

@@ -3,14 +3,14 @@ import {
 	Controller,
 	type FieldValues,
 	type Path,
-} from 'react-hook-form';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
+} from "react-hook-form";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 type CustomUploadProps<T extends FieldValues = FieldValues> = {
 	preview: string;
-	typeOfFile: 'image' | 'file';
+	typeOfFile: "image" | "file";
 	fieldName: Path<T>;
 	formControl: Control<T>;
 	labelText: string;
@@ -27,8 +27,8 @@ function CustomUpload<T extends FieldValues = FieldValues>({
 	typeOfFile,
 	aspectRatio,
 }: CustomUploadProps<T>) {
-	const accept = typeOfFile === 'file' ? 'application/pdf' : 'image/*';
-	const ratio = aspectRatio ? aspectRatio : '1/1';
+	const accept = typeOfFile === "file" ? "application/pdf" : "image/*";
+	const ratio = aspectRatio ? aspectRatio : "1/1";
 
 	return (
 		<Controller
@@ -36,11 +36,11 @@ function CustomUpload<T extends FieldValues = FieldValues>({
 			control={formControl}
 			render={({ field }) => (
 				<>
-					<Label className='mb-2'>{labelText}</Label>
-					{typeOfFile === 'file'
+					<Label className="mb-2">{labelText}</Label>
+					{typeOfFile === "file"
 						? preview && (
-								<Button className='mb-2' variant={'outline'}>
-									<a href={'/resume'} target='_blank' rel='noopener noreferrer'>
+								<Button className="mb-2" variant={"outline"}>
+									<a href={"/resume"} target="_blank" rel="noopener noreferrer">
 										View current resume
 									</a>
 								</Button>
@@ -48,23 +48,23 @@ function CustomUpload<T extends FieldValues = FieldValues>({
 						: preview && (
 								<img
 									src={preview}
-									alt='Project Preview'
-									className='w-[200px] h-auto object-cover rounded-xl border'
+									alt="Project Preview"
+									className="w-[200px] h-auto object-cover rounded-xl border"
 									style={{ aspectRatio: ratio }}
 									onError={(e) => {
 										const target = e.target as HTMLImageElement;
 										target.onerror = null;
-										target.src = '/placeholder.png';
+										target.src = "/placeholder.png";
 									}}
 								/>
 							)}
 
 					<Input
-						type='file'
+						type="file"
 						accept={accept}
 						onChange={(e) => field.onChange(e.target.files?.[0])}
 					/>
-					{error && <small className='text-xs text-orange-800'>{error}</small>}
+					{error && <small className="text-xs text-orange-800">{error}</small>}
 				</>
 			)}
 		/>

@@ -1,8 +1,8 @@
-import { TrashIcon } from 'lucide-react';
-import { DASHBOARD_URL } from '@/constants';
-import { deleteProject } from '@/services/project';
-import { Button } from './ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import { TrashIcon } from "lucide-react";
+import { DASHBOARD_URL } from "@/constants";
+import { deleteProject } from "@/services/project";
+import { Button } from "./ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 function DeleteProject({ projectId }: { projectId: number }) {
 	const handleDelete = async (id: number) => {
@@ -13,12 +13,12 @@ function DeleteProject({ projectId }: { projectId: number }) {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button variant='destructive' size={'sm'}>
-					<TrashIcon className='size-4' />
+				<Button variant="destructive" size={"sm"}>
+					<TrashIcon className="size-4" />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className='w-fit'>
-				<Button onClick={() => handleDelete(projectId)} variant={'destructive'}>
+			<PopoverContent className="w-fit">
+				<Button onClick={() => handleDelete(projectId)} variant={"destructive"}>
 					Delete
 				</Button>
 			</PopoverContent>

@@ -1,13 +1,13 @@
-import { Disclosure } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { useCallback, useEffect, useState } from 'react';
-import { DASHBOARD_URL } from '@/constants';
-import { cn } from '@/lib/utils';
-import type { InformationSchema } from '@/schemas/information-schema';
-import { fetchInformation } from '@/services/information';
-import Logo from './Logo';
-import { ModeToggle } from './ModeToggle';
-import { Button } from './ui/button';
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useCallback, useEffect, useState } from "react";
+import { DASHBOARD_URL } from "@/constants";
+import { cn } from "@/lib/utils";
+import type { InformationSchema } from "@/schemas/information-schema";
+import { fetchInformation } from "@/services/information";
+import Logo from "./Logo";
+import { ModeToggle } from "./ModeToggle";
+import { Button } from "./ui/button";
 
 function Navbar() {
 	const [_, setInformation] = useState<InformationSchema>();
@@ -63,62 +63,62 @@ function Navbar() {
 			}
 		};
 
-		window.addEventListener('scroll', handleScroll, { passive: true });
-		window.addEventListener('mousemove', handleMouseMove);
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		window.addEventListener("mousemove", handleMouseMove);
 
 		return () => {
-			window.removeEventListener('scroll', handleScroll);
-			window.removeEventListener('mousemove', handleMouseMove);
+			window.removeEventListener("scroll", handleScroll);
+			window.removeEventListener("mousemove", handleMouseMove);
 		};
 	}, [lastScrollY, isCursorAtTop]);
 
 	const navigation = [
-		{ name: `Home`, href: '/' },
-		{ name: `About`, href: '/about' },
-		{ name: `Contact`, href: '/contact' },
-		{ name: `Resume`, href: '/resume' },
+		{ name: `Home`, href: "/" },
+		{ name: `About`, href: "/about" },
+		{ name: `Contact`, href: "/contact" },
+		{ name: `Resume`, href: "/resume" },
 	];
 
 	return (
 		<Disclosure
-			as='nav'
+			as="nav"
 			className={cn(
-				'border-b fixed top-0 left-0 z-50 w-full transition-transform bg-background/80 backdrop-blur-sm duration-300 ease-in-out',
-				isVisible ? 'translate-y-0' : '-translate-y-full',
+				"border-b fixed top-0 left-0 z-50 w-full transition-transform bg-background/80 backdrop-blur-sm duration-300 ease-in-out",
+				isVisible ? "translate-y-0" : "-translate-y-full",
 			)}
 		>
 			{/* sticky top-0 */}
 			{({ open }: { open: boolean }) => (
 				<>
-					<div className='mx-auto container px-4'>
-						<div className='relative flex h-16 items-center justify-between'>
-							<div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
-								<Disclosure.Button className='relative inline-flex items-center justify-center rounded-md pr-2 text-black hover:text-black   dark:text-white  dark:hover:text-white '>
-									<span className='absolute' />
-									<span className='sr-only'>Open main menu</span>
+					<div className="mx-auto container px-4">
+						<div className="relative flex h-16 items-center justify-between">
+							<div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+								<Disclosure.Button className="relative inline-flex items-center justify-center rounded-md pr-2 text-black hover:text-black   dark:text-white  dark:hover:text-white ">
+									<span className="absolute" />
+									<span className="sr-only">Open main menu</span>
 									{open ? (
-										<XMarkIcon className='block h-6 w-6' aria-hidden='true' />
+										<XMarkIcon className="block h-6 w-6" aria-hidden="true" />
 									) : (
-										<Bars3Icon className='block h-6 w-6' aria-hidden='true' />
+										<Bars3Icon className="block h-6 w-6" aria-hidden="true" />
 									)}
 								</Disclosure.Button>
 								<ModeToggle />
 							</div>
-							<div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
-								<div className='flex flex-shrink-0 items-center'>
-									<a href='/'>
+							<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+								<div className="flex flex-shrink-0 items-center">
+									<a href="/">
 										<Logo />
 									</a>
 								</div>
-								<div className='hidden sm:ml-6 sm:block w-full'>
-									<div className='flex space-x-4 flex-wrap'>
+								<div className="hidden sm:ml-6 sm:block w-full">
+									<div className="flex space-x-4 flex-wrap">
 										{/* DESKTOP MENU */}
 										{navigation.map((item) => (
 											<Button
 												asChild
-												variant={'ghost'}
+												variant={"ghost"}
 												key={item.name}
-												className=' uppercase'
+												className=" uppercase"
 											>
 												<a href={item.href}>{item.name}</a>
 											</Button>
@@ -126,8 +126,8 @@ function Navbar() {
 									</div>
 								</div>
 							</div>
-							<div className='absolute inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
-								<div className='hidden sm:block'>
+							<div className="absolute inset-y-0 right-0 flex items-center sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+								<div className="hidden sm:block">
 									<ModeToggle />
 								</div>
 								{/* <img
@@ -138,9 +138,9 @@ function Navbar() {
                     onClick={() => (window.location.href = DASHBOARD_URL)}
                   /> */}
 								<Button
-									size={'icon'}
-									variant={'outline'}
-									className='rounded-full border bg-accent cursor-pointer'
+									size={"icon"}
+									variant={"outline"}
+									className="rounded-full border bg-accent cursor-pointer"
 									onClick={() => {
 										window.location.href = DASHBOARD_URL;
 									}}
@@ -148,18 +148,18 @@ function Navbar() {
 							</div>
 						</div>
 					</div>
-					<Disclosure.Panel className='sm:hidden'>
-						<div className='space-y-1 pb-2 container px-4'>
+					<Disclosure.Panel className="sm:hidden">
+						<div className="space-y-1 pb-2 container px-4">
 							{/* MOBILE MENU */}
 							{navigation.map((item) => (
 								<a
 									href={item.href}
 									key={item.href}
 									className={
-										'text-light hover:text-light block rounded-md py-2 text-base font-medium'
+										"text-light hover:text-light block rounded-md py-2 text-base font-medium"
 									}
 								>
-									<Disclosure.Button className=' uppercase'>
+									<Disclosure.Button className=" uppercase">
 										{item.name}
 									</Disclosure.Button>
 								</a>

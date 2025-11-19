@@ -1,22 +1,22 @@
-import { PROJECT_API_BASE_URL } from '@/constants';
-import type { ProjectSchema } from '@/schemas/project-schema';
+import { PROJECT_API_BASE_URL } from "@/constants";
+import type { ProjectSchema } from "@/schemas/project-schema";
 
 export async function fetchProjects(): Promise<ProjectSchema[]> {
 	const response = await fetch(`${PROJECT_API_BASE_URL}/`, {
-		credentials: 'include',
+		credentials: "include",
 	});
-	if (!response.ok) throw new Error('Failed to fetch projects');
+	if (!response.ok) throw new Error("Failed to fetch projects");
 	return response.json();
 }
 
 export async function fetchProject(id: number): Promise<ProjectSchema | null> {
 	const response = await fetch(`${PROJECT_API_BASE_URL}/${id}/`, {
-		credentials: 'include',
+		credentials: "include",
 	});
 	if (response.status === 404) {
 		return null;
 	}
-	if (!response.ok) throw new Error('Failed to fetch project');
+	if (!response.ok) throw new Error("Failed to fetch project");
 	return response.json();
 }
 
@@ -34,12 +34,12 @@ export async function createProject(
 	}
 
 	const response = await fetch(`${PROJECT_API_BASE_URL}/`, {
-		method: 'POST',
+		method: "POST",
 		body: formData,
-		credentials: 'include',
+		credentials: "include",
 	});
 
-	if (!response.ok) throw new Error('Failed to create project');
+	if (!response.ok) throw new Error("Failed to create project");
 	return response.json();
 }
 export async function updateProject(
@@ -62,30 +62,30 @@ export async function updateProject(
 		}
 
 		fetchOptions = {
-			method: 'PUT',
+			method: "PUT",
 			body: formData,
-			credentials: 'include',
+			credentials: "include",
 		};
 	} else {
 		fetchOptions = {
-			method: 'PUT',
-			headers: { 'Content-Type': 'application/json' },
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(data),
-			credentials: 'include',
+			credentials: "include",
 		};
 	}
 
 	const response = await fetch(`${PROJECT_API_BASE_URL}/${id}/`, fetchOptions);
 
-	if (!response.ok) throw new Error('Failed to update project');
+	if (!response.ok) throw new Error("Failed to update project");
 	return response.json();
 }
 
 export async function deleteProject(id: number) {
 	const response = await fetch(`${PROJECT_API_BASE_URL}/${id}/`, {
-		method: 'DELETE',
-		credentials: 'include',
+		method: "DELETE",
+		credentials: "include",
 	});
-	if (!response.ok) throw new Error('Failed to delete project');
+	if (!response.ok) throw new Error("Failed to delete project");
 	return;
 }

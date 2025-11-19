@@ -1,13 +1,13 @@
 ---
-import Description from '@/components/astro/Description.astro';
-import ShortDescription from '@/components/astro/ShortDescription.astro';
-import Title from '@/components/astro/Title.astro';
-import EditAsAdmin from '@/components/EditAsAdmin';
-import Links from '@/components/Links';
-import Skills from '@/components/Skills';
-import MainLayout from '@/layouts/main.astro';
-import { fetchInformation } from '@/services/information';
-import type { Seo } from '@/types/seo-type';
+import Description from "@/components/astro/Description.astro";
+import ShortDescription from "@/components/astro/ShortDescription.astro";
+import Title from "@/components/astro/Title.astro";
+import EditAsAdmin from "@/components/EditAsAdmin";
+import Links from "@/components/Links";
+import Skills from "@/components/Skills";
+import MainLayout from "@/layouts/main.astro";
+import { fetchInformation } from "@/services/information";
+import type { Seo } from "@/types/seo-type";
 
 const information = await fetchInformation();
 

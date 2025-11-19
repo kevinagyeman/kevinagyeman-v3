@@ -1,7 +1,7 @@
-import { CopyIcon, SendIcon } from 'lucide-react';
-import { useState } from 'react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
+import { CopyIcon, SendIcon } from "lucide-react";
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 const EmailCopy = ({ email }: { email: string }) => {
 	const [copied, setCopied] = useState(false);
@@ -18,26 +18,26 @@ const EmailCopy = ({ email }: { email: string }) => {
 
 	return (
 		<>
-			<div className='flex gap-3 max-w-sm'>
-				<Input value={email} className='w-full' readOnly />
+			<div className="flex gap-3 max-w-sm">
+				<Input value={email} className="w-full" readOnly />
 				<Button
-					variant='outline'
-					size='icon'
+					variant="outline"
+					size="icon"
 					onClick={handleCopy}
-					aria-label='Copy email'
+					aria-label="Copy email"
 				>
 					<CopyIcon />
 				</Button>
 				<Button
-					size='icon'
+					size="icon"
 					onClick={sendEmail}
-					aria-label='Send email'
-					variant={'outline'}
+					aria-label="Send email"
+					variant={"outline"}
 				>
 					<SendIcon />
 				</Button>
 			</div>
-			{copied && <p className='text-sm text-green-600 mt-4'>Email copied!</p>}
+			{copied && <p className="text-sm text-green-600 mt-4">Email copied!</p>}
 		</>
 	);
 };

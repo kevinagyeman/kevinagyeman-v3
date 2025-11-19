@@ -1,5 +1,5 @@
-import AuthGuard from '../AuthGruard';
-import InformationForm from '../InformationForm';
+import AuthGuard from "../AuthGruard";
+import InformationForm from "../InformationForm";
 
 const InformationEdit = () => {
 	return (

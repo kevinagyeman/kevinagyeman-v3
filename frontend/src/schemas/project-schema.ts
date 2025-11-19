@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { dateFormat, fileFormat, textFormat } from './custom-formats';
+import { z } from "zod";
+import { dateFormat, fileFormat, textFormat } from "./custom-formats";
 
 export const projectSchema = z.object({
 	id: z.number().optional(),

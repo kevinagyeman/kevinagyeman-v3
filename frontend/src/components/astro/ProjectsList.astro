@@ -1,21 +1,21 @@
 ---
-import { ArrowRight } from 'lucide-react';
-import Skills from '@/components/Skills';
-import { Button } from '@/components/ui/button';
-import type { ProjectSchema } from '@/schemas/project-schema';
-import { fetchProjects } from '@/services/project';
-import EditAsAdmin from '../EditAsAdmin';
+import { ArrowRight } from "lucide-react";
+import Skills from "@/components/Skills";
+import { Button } from "@/components/ui/button";
+import type { ProjectSchema } from "@/schemas/project-schema";
+import { fetchProjects } from "@/services/project";
+import EditAsAdmin from "../EditAsAdmin";
 
 const projects = await fetchProjects();
 ---
 
 <div class="mb-8">
-  <h1 class="mb-3 mt-2 text-balance text-3xl font-semibold md:text-4xl">
-    Projects
-  </h1>
+	<h1 class="mb-3 mt-2 text-balance text-3xl font-semibold md:text-4xl">
+		Projects
+	</h1>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
-  {
+	{
     projects.map((project: ProjectSchema) => (
       <div>
         <img

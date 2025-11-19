@@ -34,12 +34,6 @@
 	"overrides": [
 		{
 			"includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
-			"javascript": {
-				"formatter": {
-					"quoteStyle": "single",
-					"jsxQuoteStyle": "single"
-				}
-			},
 			"linter": {
 				"rules": {
 					"style": {
@@ -54,22 +48,6 @@
 			}
 		}
 	],
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "single",
-			"jsxQuoteStyle": "single"
-		}
-	},
-	"json": {
-		"formatter": {
-			"enabled": true
-		}
-	},
-	"html": {
-		"formatter": {
-			"enabled": true
-		}
-	},
 	"assist": {
 		"enabled": true,
 		"actions": {

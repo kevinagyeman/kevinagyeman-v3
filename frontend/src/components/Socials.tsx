@@ -1,32 +1,32 @@
-import { File, Github, LinkedinIcon } from 'lucide-react';
-import { Button } from './ui/button';
+import { File, Github, LinkedinIcon } from "lucide-react";
+import { Button } from "./ui/button";
 
 function Socials({ resume = false }: { resume?: boolean }) {
 	return (
 		<>
 			{resume && (
-				<Button variant='secondary' asChild>
-					<a href={'/resume'}>
+				<Button variant="secondary" asChild>
+					<a href={"/resume"}>
 						Resume <File />
 					</a>
 				</Button>
 			)}
-			<Button variant='outline' size='icon' className='rounded-full'>
+			<Button variant="outline" size="icon" className="rounded-full">
 				<a
-					href={'https://www.linkedin.com/in/kevinagyeman/'}
-					target='_blank'
-					rel='noopener'
+					href={"https://www.linkedin.com/in/kevinagyeman/"}
+					target="_blank"
+					rel="noopener"
 				>
-					<LinkedinIcon className='w-4 h-4' />
+					<LinkedinIcon className="w-4 h-4" />
 				</a>
 			</Button>
-			<Button variant='outline' size='icon' className='rounded-full'>
+			<Button variant="outline" size="icon" className="rounded-full">
 				<a
-					href={'https://github.com/kevinagyeman'}
-					target='_blank'
-					rel='noopener'
+					href={"https://github.com/kevinagyeman"}
+					target="_blank"
+					rel="noopener"
 				>
-					<Github className='w-4 h-4' />
+					<Github className="w-4 h-4" />
 				</a>
 			</Button>
 		</>

@@ -1,12 +1,12 @@
 ---
-import Footer from '@/components/astro/Footer.astro';
-import Navbar from '@/components/Navbar';
-import '@/styles/global.css';
-import Analytics from '@vercel/analytics/astro';
-import SpeedInsights from '@vercel/speed-insights/astro';
-import { SEO } from 'astro-seo';
-import { SEO_PLACEHOLDER_IMAGE_URL } from '@/constants';
-import type { Seo } from '@/types/seo-type';
+import Footer from "@/components/astro/Footer.astro";
+import Navbar from "@/components/Navbar";
+import "@/styles/global.css";
+import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
+import { SEO } from "astro-seo";
+import { SEO_PLACEHOLDER_IMAGE_URL } from "@/constants";
+import type { Seo } from "@/types/seo-type";
 
 const props = Astro.props as { content: Seo };
 const { content } = props;
@@ -15,69 +15,77 @@ const seoImage = content.image || SEO_PLACEHOLDER_IMAGE_URL;
 ---
 
 <script is:inline>
-  const getThemePreference = () => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-      return localStorage.getItem('theme');
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
-  };
-  const isDark = getThemePreference() === 'dark';
-  document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+	const getThemePreference = () => {
+		if (
+			typeof localStorage !== "undefined" &&
+			localStorage.getItem("theme")
+		) {
+			return localStorage.getItem("theme");
+		}
+		return window.matchMedia("(prefers-color-scheme: dark)").matches
+			? "dark"
+			: "light";
+	};
+	const isDark = getThemePreference() === "dark";
+	document.documentElement.classList[isDark ? "add" : "remove"]("dark");
 
-  if (typeof localStorage !== 'undefined') {
-    const observer = new MutationObserver(() => {
-      const isDark = document.documentElement.classList.contains('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-  }
+	if (typeof localStorage !== "undefined") {
+		const observer = new MutationObserver(() => {
+			const isDark = document.documentElement.classList.contains("dark");
+			localStorage.setItem("theme", isDark ? "dark" : "light");
+		});
+		observer.observe(document.documentElement, {
+			attributes: true,
+			attributeFilter: ["class"],
+		});
+	}
 </script>
 
-<html lang='en'>
-  <head>
-    <meta charset='utf-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1' />
-    <link rel='sitemap' href='/sitemap-index.xml' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-    <SEO
-      title={content.title}
-      description={content.description}
-      openGraph={{
-        basic: {
-          title: content.title || 'Kevin Agyeman',
-          type: 'website',
-          image: seoImage,
-        },
-        image: {
-          url: seoImage,
-        },
-      }}
-      twitter={{
-        creator: '@kevinagyeman_',
-      }}
-      extend={{
-        link: [{ rel: 'icon', href: '/favicon.svg' }],
-        meta: [
-          {
-            name: 'twitter:image',
-            content: seoImage,
-          },
-          { name: 'twitter:title', content: content.title },
-          { name: 'twitter:description', content: content.description },
-        ],
-      }}
-    />
-  </head>
-  <body>
-    <Navbar client:visible />
-    <div class='container mx-auto px-4 mt-24'><slot /></div>
-    <Footer />
-    <Analytics />
-    <SpeedInsights />
-  </body>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<SEO
+			title={content.title}
+			description={content.description}
+			openGraph={{
+				basic: {
+					title: content.title || "Kevin Agyeman",
+					type: "website",
+					image: seoImage,
+				},
+				image: {
+					url: seoImage,
+				},
+			}}
+			twitter={{
+				creator: "@kevinagyeman_",
+			}}
+			extend={{
+				link: [{ rel: "icon", href: "/favicon.svg" }],
+				meta: [
+					{
+						name: "twitter:image",
+						content: seoImage,
+					},
+					{ name: "twitter:title", content: content.title },
+					{
+						name: "twitter:description",
+						content: content.description,
+					},
+				],
+			}}
+		/>
+	</head>
+	<body>
+		<Navbar client:visible />
+		<div class="container mx-auto px-4 mt-24">
+			<slot />
+		</div>
+		<Footer />
+		<Analytics />
+		<SpeedInsights />
+	</body>
 </html>

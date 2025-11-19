@@ -1,11 +1,11 @@
-import { INFORMATION_API_BASE_URL } from '@/constants';
-import type { InformationSchema } from '@/schemas/information-schema';
+import { INFORMATION_API_BASE_URL } from "@/constants";
+import type { InformationSchema } from "@/schemas/information-schema";
 
 export async function fetchInformation(): Promise<InformationSchema> {
 	const response = await fetch(`${INFORMATION_API_BASE_URL}/`, {
-		credentials: 'include',
+		credentials: "include",
 	});
-	if (!response.ok) throw new Error('Failed to fetch information');
+	if (!response.ok) throw new Error("Failed to fetch information");
 	return response.json();
 }
 
@@ -29,21 +29,21 @@ export async function updateInformation(
 		}
 
 		fetchOptions = {
-			method: 'PUT',
+			method: "PUT",
 			body: formData,
-			credentials: 'include',
+			credentials: "include",
 		};
 	} else {
 		fetchOptions = {
-			method: 'PUT',
-			headers: { 'Content-Type': 'application/json' },
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(data),
-			credentials: 'include',
+			credentials: "include",
 		};
 	}
 
 	const response = await fetch(`${INFORMATION_API_BASE_URL}/`, fetchOptions);
 
-	if (!response.ok) throw new Error('Failed to update information');
+	if (!response.ok) throw new Error("Failed to update information");
 	return response.json();
 }

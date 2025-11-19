@@ -1,5 +1,5 @@
-import type React from 'react';
-import { Label } from '../ui/label';
+import type React from "react";
+import { Label } from "../ui/label";
 
 type CustomCheckboxProps = {
 	inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
@@ -9,8 +9,8 @@ type CustomCheckboxProps = {
 function CustomCheckbox({ inputProps, label }: CustomCheckboxProps) {
 	return (
 		<div>
-			<div className='flex items-center space-x-2'>
-				<input type='checkbox' {...inputProps} />
+			<div className="flex items-center space-x-2">
+				<input type="checkbox" {...inputProps} />
 				<Label>{label}</Label>
 			</div>
 		</div>

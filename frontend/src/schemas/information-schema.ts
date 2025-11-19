@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { fileFormat, textFormat } from './custom-formats';
+import { z } from "zod";
+import { fileFormat, textFormat } from "./custom-formats";
 
 export const informationSchema = z.object({
 	first_name: z.string().min(1),

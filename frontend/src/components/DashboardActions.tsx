@@ -1,25 +1,25 @@
-import { LogOut } from 'lucide-react';
-import { logout } from '@/services/auth';
-import TriggerRedeployButton from './TriggerRedeploy';
-import { Button } from './ui/button';
+import { LogOut } from "lucide-react";
+import { logout } from "@/services/auth";
+import TriggerRedeployButton from "./TriggerRedeploy";
+import { Button } from "./ui/button";
 
 const handleLogout = async () => {
 	await logout();
-	window.location.href = '/';
+	window.location.href = "/";
 };
 
 function DashboardActions() {
 	return (
-		<div className='flex gap-2 mb-5 flex-wrap'>
-			<Button variant={'secondary'}>
-				<a href='/admin/project/new'>New Project</a>
+		<div className="flex gap-2 mb-5 flex-wrap">
+			<Button variant={"secondary"}>
+				<a href="/admin/project/new">New Project</a>
 			</Button>
-			<Button variant={'secondary'}>
-				<a href='/admin/information'>Edit Profile</a>
+			<Button variant={"secondary"}>
+				<a href="/admin/information">Edit Profile</a>
 			</Button>
 
 			<TriggerRedeployButton />
-			<Button variant={'outline'} onClick={handleLogout} className='ml-auto'>
+			<Button variant={"outline"} onClick={handleLogout} className="ml-auto">
 				<LogOut />
 			</Button>
 		</div>

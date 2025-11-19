@@ -1,6 +1,6 @@
-import type React from 'react';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
+import type React from "react";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 type CustomInputProps = {
 	labelText?: string;
@@ -14,7 +14,7 @@ type CustomInputProps = {
 
 function CustomInput({
 	labelText,
-	inputType = 'text',
+	inputType = "text",
 	placeholder,
 	hint,
 	pattern,
@@ -23,16 +23,16 @@ function CustomInput({
 }: CustomInputProps) {
 	return (
 		<div>
-			{labelText && <Label className='mb-2'>{labelText}</Label>}
+			{labelText && <Label className="mb-2">{labelText}</Label>}
 			<Input
 				type={inputType}
 				placeholder={placeholder}
 				pattern={pattern}
 				{...inputProps}
-				autoComplete='true'
+				autoComplete="true"
 			/>
-			{hint && <small className='text-xs text-muted-foreground'>{hint}</small>}
-			{error && <small className='text-xs text-orange-800'>{error}</small>}
+			{hint && <small className="text-xs text-muted-foreground">{hint}</small>}
+			{error && <small className="text-xs text-orange-800">{error}</small>}
 		</div>
 	);
 }

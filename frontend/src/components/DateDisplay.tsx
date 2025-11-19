@@ -1,4 +1,4 @@
-import { formatDate } from '@/utils/utils';
+import { formatDate } from "@/utils/utils";
 
 type DateDisplayProps = {
 	period: {
@@ -10,10 +10,10 @@ type DateDisplayProps = {
 
 function DateDisplay({ period }: DateDisplayProps) {
 	return (
-		<p className='text-sm text-muted-foreground'>
-			{formatDate(period.start_date)} -{' '}
+		<p className="text-sm text-muted-foreground">
+			{formatDate(period.start_date)} -{" "}
 			{period.is_present_date || period.end_date === null
-				? 'Present'
+				? "Present"
 				: formatDate(period.end_date)}
 		</p>
 	);

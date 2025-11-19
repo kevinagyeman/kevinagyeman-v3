@@ -1,14 +1,14 @@
 ---
-import Description from '@/components/astro/Description.astro';
-import ShortDescription from '@/components/astro/ShortDescription.astro';
-import Title from '@/components/astro/Title.astro';
-import DateDisplay from '@/components/DateDisplay';
-import EditAsAdmin from '@/components/EditAsAdmin';
-import Links from '@/components/Links';
-import Skills from '@/components/Skills';
-import MainLayout from '@/layouts/main.astro';
-import { fetchProject, fetchProjects } from '@/services/project';
-import type { Seo } from '@/types/seo-type';
+import Description from "@/components/astro/Description.astro";
+import ShortDescription from "@/components/astro/ShortDescription.astro";
+import Title from "@/components/astro/Title.astro";
+import DateDisplay from "@/components/DateDisplay";
+import EditAsAdmin from "@/components/EditAsAdmin";
+import Links from "@/components/Links";
+import Skills from "@/components/Skills";
+import MainLayout from "@/layouts/main.astro";
+import { fetchProject, fetchProjects } from "@/services/project";
+import type { Seo } from "@/types/seo-type";
 
 export async function getStaticPaths() {
 	const projects = await fetchProjects();
@@ -22,7 +22,7 @@ const { id } = Astro.params;
 const project = await fetchProject(Number(id));
 
 if (!project) {
-	return Astro.redirect('/404');
+	return Astro.redirect("/404");
 }
 
 const content: Seo = {

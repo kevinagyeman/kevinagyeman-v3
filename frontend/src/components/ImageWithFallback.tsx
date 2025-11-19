@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 type ImageWithFallbackProps = {
 	src: string;
@@ -13,7 +13,7 @@ export default function ImageWithFallback({
 	alt,
 	className,
 	style,
-	fallbackSrc = '/placeholder.png',
+	fallbackSrc = "/placeholder.png",
 }: ImageWithFallbackProps) {
 	const [imgSrc, setImgSrc] = useState(src);
 	const [hasError, setHasError] = useState(false);

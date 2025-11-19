@@ -1,9 +1,9 @@
 ---
-import Contact from '@/components/astro/Contact.astro';
-import { SEO_PLACEHOLDER_IMAGE_URL } from '@/constants';
-import MainLayout from '@/layouts/main.astro';
-import { fetchInformation } from '@/services/information';
-import type { Seo } from '@/types/seo-type';
+import Contact from "@/components/astro/Contact.astro";
+import { SEO_PLACEHOLDER_IMAGE_URL } from "@/constants";
+import MainLayout from "@/layouts/main.astro";
+import { fetchInformation } from "@/services/information";
+import type { Seo } from "@/types/seo-type";
 
 const information = await fetchInformation();
 
@@ -15,5 +15,5 @@ const content: Seo = {
 ---
 
 <MainLayout content={content}>
-  <Contact information={information} />
+	<Contact information={information}/>
 </MainLayout>
