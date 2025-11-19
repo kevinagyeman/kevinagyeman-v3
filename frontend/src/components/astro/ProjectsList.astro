@@ -23,6 +23,7 @@ const projects = await fetchProjects();
           alt='project image'
           class='w-full h-auto object-cover rounded-lg'
           style={{ aspectRatio: '16/9' }}
+          onerror="this.onerror=null; this.src='/cover.png';"
         />
 
         <h3 class='line-clamp-1 font-bold mb-1 lg:text-2xl md:text-xl sm:text-lg mt-4'>

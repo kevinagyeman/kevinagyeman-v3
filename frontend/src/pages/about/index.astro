@@ -26,6 +26,7 @@ const content: Seo = {
       alt='profile image'
       class='w-full h-auto object-cover max-w-[80px] rounded-full'
       style={{ aspectRatio: '1/1' }}
+      onerror="this.onerror=null; this.src='/cover.png';"
     />
     <Title content={`${information.first_name} ${information.last_name}`} />
     <ShortDescription content={information.summary} />

@@ -40,6 +40,7 @@ const content: Seo = {
       alt='profile image'
       class='w-full h-auto object-cover rounded-xl'
       style={{ aspectRatio: '16/9' }}
+      onerror="this.onerror=null; this.src='/cover.png';"
     />
     <Title content={project.title} />
     <DateDisplay period={project} />

@@ -1,47 +1,47 @@
 ---
-import { Mail, MapPin } from 'lucide-react';
-import type { Information } from '@/types/information-type';
-import EmailCopy from '../EmailCopy';
 import type { InformationSchema } from '@/schemas/information-schema';
+import { Mail, MapPin } from 'lucide-react';
 import EditAsAdmin from '../EditAsAdmin';
+import EmailCopy from '../EmailCopy';
 
 const props = Astro.props as { information: InformationSchema };
 const { information } = props;
 ---
 
-<section class='bg-background py-12'>
+<section class="bg-background py-12">
   <EditAsAdmin href=`/admin/information` client:load />
-  <div class='mb-8'>
-    <h1 class='mb-3 mt-2 text-balance text-3xl font-semibold md:text-4xl'>
+  <div class="mb-8">
+    <h1 class="mb-3 mt-2 text-balance text-3xl font-semibold md:text-4xl">
       Contact
     </h1>
   </div>
-  <div class='grid gap-6 md:grid-cols-2'>
-    <div class='bg-muted rounded-lg p-6'>
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <div class="bg-muted rounded-lg p-6">
       <span
-        class='bg-card mb-3 flex size-12 flex-col items-center justify-center rounded-full'
+        class="bg-card mb-3 flex size-12 flex-col items-center justify-center rounded-full"
       >
-        <Mail className='h-6 w-auto' />
+        <Mail className="h-6 w-auto" />
       </span>
-      <p class='mb-2 text-lg font-semibold'>Primary Email</p>
-      <p class='text-muted-foreground mb-3'>You can contact me here</p>
+      <p class="mb-2 text-lg font-semibold">Primary Email</p>
+      <p class="text-muted-foreground mb-3">You can contact me here</p>
       {
         information.email && (
           <EmailCopy email={information.email} client:visible />
         )
       }
     </div>
-    <div class='bg-muted rounded-lg p-6'>
+    <div class="bg-muted rounded-lg p-6">
       <span
-        class='bg-card mb-3 flex size-12 flex-col items-center justify-center rounded-full'
+        class="bg-card mb-3 flex size-12 flex-col items-center justify-center rounded-full"
       >
-        <MapPin className='h-6 w-auto' />
+        <MapPin className="h-6 w-auto" />
       </span>
-      <p class='mb-2 text-lg font-semibold'>Location</p>
-      <p class='text-muted-foreground mb-3'>
+      <p class="mb-2 text-lg font-semibold">Location</p>
+      <p class="text-muted-foreground mb-3">
         My primary location but I can work from anywhere
       </p>
-      <p class='font-semibold'>{information.location}</p>
+      <p class="font-semibold">{information.location}</p>
     </div>
   </div>
 </section>

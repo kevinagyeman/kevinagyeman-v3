@@ -51,6 +51,11 @@ function CustomUpload<T extends FieldValues = FieldValues>({
 									alt='Project Preview'
 									className='w-[200px] h-auto object-cover rounded-xl border'
 									style={{ aspectRatio: ratio }}
+									onError={(e) => {
+										const target = e.target as HTMLImageElement;
+										target.onerror = null;
+										target.src = '/cover.png';
+									}}
 								/>
 							)}
 
