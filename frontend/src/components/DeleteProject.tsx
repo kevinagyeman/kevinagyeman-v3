@@ -4,6 +4,7 @@ import { DASHBOARD_URL } from "@/constants";
 import { deleteProject } from "@/services/project";
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import ErrorAlert from "./ui/ErrorAlert";
 
 function DeleteProject({ projectId }: { projectId: number }) {
 	const [error, setError] = useState<string>("");
@@ -32,11 +33,7 @@ function DeleteProject({ projectId }: { projectId: number }) {
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-fit">
-				{error && (
-					<div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 px-3 py-2 rounded text-sm mb-2">
-						{error}
-					</div>
-				)}
+				<ErrorAlert error={error} />
 				<Button
 					onClick={() => handleDelete(projectId)}
 					variant={"destructive"}

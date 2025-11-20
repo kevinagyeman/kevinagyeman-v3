@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import DateDisplay from "./DateDisplay";
 import DeleteProject from "./DeleteProject";
 import { Button } from "./ui/button";
+import ErrorAlert from "./ui/ErrorAlert";
 
 function DashboardProjectsList() {
 	const [projects, setProjects] = useState<ProjectSchema[]>();
@@ -31,11 +32,7 @@ function DashboardProjectsList() {
 	return (
 		<div>
 			<h2 className="text-2xl font-semibold">Projects List</h2>
-			{error && (
-				<div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 px-4 py-3 rounded mt-2">
-					{error}
-				</div>
-			)}
+			<ErrorAlert error={error} />
 			{isLoading ? (
 				<div className="flex justify-center items-center py-8">
 					<Loader2 className="animate-spin h-8 w-8" />

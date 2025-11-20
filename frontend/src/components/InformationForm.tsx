@@ -1,7 +1,3 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { type SubmitHandler, useForm } from "react-hook-form";
 import { DASHBOARD_URL } from "@/constants";
 import {
 	type InformationSchema,
@@ -9,10 +5,15 @@ import {
 } from "@/schemas/information-schema";
 import { fetchInformation, updateInformation } from "@/services/information";
 import { filterInformationtData } from "@/utils/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "./form/CustomInput";
 import CustomTextArea from "./form/CustomTextArea";
 import CustomUpload from "./form/CustomUpload";
 import { Button } from "./ui/button";
+import ErrorAlert from "./ui/ErrorAlert";
 
 export default function InformationForm() {
 	const [imagePreview, setImagePreview] = useState<string>("");
@@ -34,7 +35,6 @@ export default function InformationForm() {
 		};
 
 		loadInformation();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const submitInformation: SubmitHandler<InformationSchema> = async (data) => {
@@ -63,11 +63,7 @@ export default function InformationForm() {
 				className="space-y-6"
 				encType="multipart/form-data"
 			>
-				{error && (
-					<div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 px-4 py-3 rounded">
-						{error}
-					</div>
-				)}
+				<ErrorAlert error={error} />
 				<CustomUpload
 					preview={imagePreview}
 					typeOfFile={"image"}

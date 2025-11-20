@@ -1,11 +1,38 @@
 import { PROJECT_API_BASE_URL } from "@/constants";
 import type { ProjectSchema } from "@/schemas/project-schema";
 
+async function getErrorMessage(
+	response: Response,
+	fallback: string,
+): Promise<string> {
+	try {
+		const data = await response.json();
+		if (data.detail) return data.detail;
+		if (typeof data === "object") {
+			const errors = Object.entries(data)
+				.map(([field, messages]) => {
+					if (Array.isArray(messages)) {
+						return `${field}: ${messages.join(", ")}`;
+					}
+					return `${field}: ${messages}`;
+				})
+				.join("; ");
+			if (errors) return errors;
+		}
+		return JSON.stringify(data);
+	} catch {
+		return fallback;
+	}
+}
+
 export async function fetchProjects(): Promise<ProjectSchema[]> {
 	const response = await fetch(`${PROJECT_API_BASE_URL}/`, {
 		credentials: "include",
 	});
-	if (!response.ok) throw new Error("Failed to fetch projects");
+	if (!response.ok) {
+		const message = await getErrorMessage(response, "Failed to fetch projects");
+		throw new Error(message);
+	}
 	return response.json();
 }
 
@@ -16,7 +43,10 @@ export async function fetchProject(id: number): Promise<ProjectSchema | null> {
 	if (response.status === 404) {
 		return null;
 	}
-	if (!response.ok) throw new Error("Failed to fetch project");
+	if (!response.ok) {
+		const message = await getErrorMessage(response, "Failed to fetch project");
+		throw new Error(message);
+	}
 	return response.json();
 }
 
@@ -39,7 +69,10 @@ export async function createProject(
 		credentials: "include",
 	});
 
-	if (!response.ok) throw new Error("Failed to create project");
+	if (!response.ok) {
+		const message = await getErrorMessage(response, "Failed to create project");
+		throw new Error(message);
+	}
 	return response.json();
 }
 export async function updateProject(
@@ -77,7 +110,10 @@ export async function updateProject(
 
 	const response = await fetch(`${PROJECT_API_BASE_URL}/${id}/`, fetchOptions);
 
-	if (!response.ok) throw new Error("Failed to update project");
+	if (!response.ok) {
+		const message = await getErrorMessage(response, "Failed to update project");
+		throw new Error(message);
+	}
 	return response.json();
 }
 
@@ -86,6 +122,9 @@ export async function deleteProject(id: number) {
 		method: "DELETE",
 		credentials: "include",
 	});
-	if (!response.ok) throw new Error("Failed to delete project");
+	if (!response.ok) {
+		const message = await getErrorMessage(response, "Failed to delete project");
+		throw new Error(message);
+	}
 	return;
 }

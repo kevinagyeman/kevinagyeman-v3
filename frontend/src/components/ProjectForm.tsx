@@ -1,17 +1,18 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { type SubmitHandler, useForm } from "react-hook-form";
 import { DASHBOARD_URL } from "@/constants";
 import { type ProjectSchema, projectSchema } from "@/schemas/project-schema";
 import { createProject, fetchProject, updateProject } from "@/services/project";
 import { filterProjectData } from "@/utils/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import DeleteProject from "./DeleteProject";
 import CustomCheckbox from "./form/CustomCheckbox";
 import CustomInput from "./form/CustomInput";
 import CustomTextArea from "./form/CustomTextArea";
 import CustomUpload from "./form/CustomUpload";
 import { Button } from "./ui/button";
+import ErrorAlert from "./ui/ErrorAlert";
 
 interface ProjectFormProps {
 	projectId?: string;
@@ -38,7 +39,6 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 		};
 
 		loadProject();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [projectId]);
 
 	const submitProject: SubmitHandler<ProjectSchema> = async (data) => {
@@ -72,11 +72,7 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 				className="space-y-6"
 				encType="multipart/form-data"
 			>
-				{error && (
-					<div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 px-4 py-3 rounded">
-						{error}
-					</div>
-				)}
+				<ErrorAlert error={error} />
 				<CustomCheckbox
 					inputProps={form.register("is_published")}
 					label="Published"

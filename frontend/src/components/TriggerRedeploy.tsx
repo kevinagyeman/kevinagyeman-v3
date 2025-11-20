@@ -2,6 +2,7 @@ import { Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { triggerRedeploy } from "@/services/vercel";
 import { Button } from "./ui/button";
+import ErrorAlert from "./ui/ErrorAlert";
 
 function TriggerRedeployButton() {
 	const [isLoading, setIsLoading] = useState(false);
@@ -40,9 +41,7 @@ function TriggerRedeployButton() {
 			<Button onClick={redeploy} className="bg-yellow-500" disabled={isLoading}>
 				{isLoading ? <Loader2 className="animate-spin" /> : "Redeploy"}
 			</Button>
-			{error && (
-				<p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-			)}
+			<ErrorAlert error={error} />
 			{success && (
 				<p className="text-sm text-green-600 dark:text-green-400">
 					Redeployment triggered successfully!

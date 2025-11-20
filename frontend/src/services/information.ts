@@ -1,11 +1,41 @@
 import { INFORMATION_API_BASE_URL } from "@/constants";
 import type { InformationSchema } from "@/schemas/information-schema";
 
+async function getErrorMessage(
+	response: Response,
+	fallback: string,
+): Promise<string> {
+	try {
+		const data = await response.json();
+		if (data.detail) return data.detail;
+		if (typeof data === "object") {
+			const errors = Object.entries(data)
+				.map(([field, messages]) => {
+					if (Array.isArray(messages)) {
+						return `${field}: ${messages.join(", ")}`;
+					}
+					return `${field}: ${messages}`;
+				})
+				.join("; ");
+			if (errors) return errors;
+		}
+		return JSON.stringify(data);
+	} catch {
+		return fallback;
+	}
+}
+
 export async function fetchInformation(): Promise<InformationSchema> {
 	const response = await fetch(`${INFORMATION_API_BASE_URL}/`, {
 		credentials: "include",
 	});
-	if (!response.ok) throw new Error("Failed to fetch information");
+	if (!response.ok) {
+		const message = await getErrorMessage(
+			response,
+			"Failed to fetch information",
+		);
+		throw new Error(message);
+	}
 	return response.json();
 }
 
@@ -44,6 +74,12 @@ export async function updateInformation(
 
 	const response = await fetch(`${INFORMATION_API_BASE_URL}/`, fetchOptions);
 
-	if (!response.ok) throw new Error("Failed to update information");
+	if (!response.ok) {
+		const message = await getErrorMessage(
+			response,
+			"Failed to update information",
+		);
+		throw new Error(message);
+	}
 	return response.json();
 }

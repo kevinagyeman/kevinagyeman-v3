@@ -7,6 +7,7 @@ import { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "./form/CustomInput";
 import { Button } from "./ui/button";
+import ErrorAlert from "./ui/ErrorAlert";
 
 export default function Auth() {
 	const [error, setError] = useState<string>("");
@@ -31,11 +32,7 @@ export default function Auth() {
 
 	return (
 		<form onSubmit={form.handleSubmit(submitAuth)} className="space-y-6">
-			{error && (
-				<div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 px-4 py-3 rounded">
-					{error}
-				</div>
-			)}
+			<ErrorAlert error={error} />
 			<CustomInput
 				labelText="Username"
 				inputType="text"

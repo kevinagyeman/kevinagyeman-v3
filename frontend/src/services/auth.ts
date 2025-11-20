@@ -1,5 +1,29 @@
 import { AUTH_API_BASE_URL } from "@/constants";
 
+async function getErrorMessage(
+	response: Response,
+	fallback: string,
+): Promise<string> {
+	try {
+		const data = await response.json();
+		if (data.detail) return data.detail;
+		if (typeof data === "object") {
+			const errors = Object.entries(data)
+				.map(([field, messages]) => {
+					if (Array.isArray(messages)) {
+						return `${field}: ${messages.join(", ")}`;
+					}
+					return `${field}: ${messages}`;
+				})
+				.join("; ");
+			if (errors) return errors;
+		}
+		return JSON.stringify(data);
+	} catch {
+		return fallback;
+	}
+}
+
 export async function login(username: string, password: string) {
 	const response = await fetch(`${AUTH_API_BASE_URL}/login`, {
 		method: "POST",
@@ -7,7 +31,10 @@ export async function login(username: string, password: string) {
 		body: JSON.stringify({ username, password }),
 		credentials: "include",
 	});
-	if (!response.ok) throw new Error("Login failed");
+	if (!response.ok) {
+		const message = await getErrorMessage(response, "Login failed");
+		throw new Error(message);
+	}
 	const data = await response.json();
 	return data;
 }
@@ -31,7 +58,11 @@ export async function getUserInfo() {
 	}
 
 	if (!response.ok) {
-		throw new Error(`Fetch failed with status ${response.status}`);
+		const message = await getErrorMessage(
+			response,
+			"Failed to fetch user info",
+		);
+		throw new Error(message);
 	}
 
 	const data = await response.json();
