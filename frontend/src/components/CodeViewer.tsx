@@ -113,10 +113,7 @@ print(user)
 								</CodeBlockFilename>
 							)}
 						</CodeBlockFiles>
-						<CodeBlockCopyButton
-							onCopy={() => console.log("Copied code to clipboard")}
-							onError={() => console.error("Failed to copy code to clipboard")}
-						/>
+						<CodeBlockCopyButton />
 					</CodeBlockHeader>
 					<ScrollArea className="w-full">
 						<CodeBlockBody>

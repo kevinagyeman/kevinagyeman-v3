@@ -5,6 +5,7 @@ import { Input } from "./ui/input";
 
 const EmailCopy = ({ email }: { email: string }) => {
 	const [copied, setCopied] = useState(false);
+	const [error, setError] = useState(false);
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
 	useEffect(() => {
@@ -15,13 +16,22 @@ const EmailCopy = ({ email }: { email: string }) => {
 		};
 	}, []);
 
-	const handleCopy = () => {
-		navigator.clipboard.writeText(email);
-		setCopied(true);
-		if (timeoutRef.current) {
-			clearTimeout(timeoutRef.current);
+	const handleCopy = async () => {
+		try {
+			setError(false);
+			await navigator.clipboard.writeText(email);
+			setCopied(true);
+			if (timeoutRef.current) {
+				clearTimeout(timeoutRef.current);
+			}
+			timeoutRef.current = setTimeout(() => setCopied(false), 1000);
+		} catch (err) {
+			setError(true);
+			if (timeoutRef.current) {
+				clearTimeout(timeoutRef.current);
+			}
+			timeoutRef.current = setTimeout(() => setError(false), 3000);
 		}
-		timeoutRef.current = setTimeout(() => setCopied(false), 1000);
 	};
 
 	const sendEmail = () => {
@@ -49,7 +59,12 @@ const EmailCopy = ({ email }: { email: string }) => {
 					<SendIcon />
 				</Button>
 			</div>
-			{copied && <p className="text-sm text-green-600 mt-4">Email copied!</p>}
+			{copied && <p className="text-sm text-green-600 mt-2">Email copied!</p>}
+			{error && (
+				<p className="text-sm text-red-600 dark:text-red-400 mt-2">
+					Failed to copy. Please try again or copy manually.
+				</p>
+			)}
 		</>
 	);
 };
