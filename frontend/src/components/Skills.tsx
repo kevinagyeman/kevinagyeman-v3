@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import { Badge } from "./ui/badge";
 
 export default function Skills({
@@ -27,8 +26,8 @@ export default function Skills({
 
 	return (
 		<div className="flex flex-wrap gap-2">
-			{displayedSkills.map((skill: string) => (
-				<Badge key={uuidv4()} variant={variant}>
+			{displayedSkills.map((skill: string, index: number) => (
+				<Badge key={`${skill}-${index}`} variant={variant}>
 					{skill}
 				</Badge>
 			))}

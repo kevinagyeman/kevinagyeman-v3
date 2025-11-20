@@ -1,15 +1,27 @@
 import { CopyIcon, SendIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
 const EmailCopy = ({ email }: { email: string }) => {
 	const [copied, setCopied] = useState(false);
+	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+	useEffect(() => {
+		return () => {
+			if (timeoutRef.current) {
+				clearTimeout(timeoutRef.current);
+			}
+		};
+	}, []);
 
 	const handleCopy = () => {
 		navigator.clipboard.writeText(email);
 		setCopied(true);
-		setTimeout(() => setCopied(false), 1000);
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+		}
+		timeoutRef.current = setTimeout(() => setCopied(false), 1000);
 	};
 
 	const sendEmail = () => {

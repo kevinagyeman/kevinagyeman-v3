@@ -1,10 +1,10 @@
+import { DASHBOARD_URL } from "@/constants";
+import { type AuthSchema, authSchema } from "@/schemas/auth-schema";
+import { login } from "@/services/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
-import { DASHBOARD_URL } from "@/constants";
-import { type AuthSchema, authSchema } from "@/schemas/auth-schema";
-import { login } from "@/services/auth";
 import CustomInput from "./form/CustomInput";
 import { Button } from "./ui/button";
 
@@ -21,7 +21,6 @@ export default function Auth() {
 		try {
 			setError("");
 			await login(data.username, data.password);
-			localStorage.setItem("isAuthenticated", "true");
 			window.location.href = DASHBOARD_URL;
 		} catch (err) {
 			setError(

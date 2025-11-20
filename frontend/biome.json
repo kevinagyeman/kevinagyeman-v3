@@ -16,17 +16,17 @@
 		]
 	},
 	"formatter": {
-		"enabled": true,
 		"indentStyle": "tab"
 	},
 	"linter": {
-		"enabled": true,
 		"rules": {
-			"recommended": true,
 			"correctness": {
 				"noUnusedImports": "off",
 				"useExhaustiveDependencies": "off",
 				"noUnusedVariables": "off"
+			},
+			"suspicious": {
+				"noArrayIndexKey": "off"
 			},
 			"a11y": {
 				"recommended": true
