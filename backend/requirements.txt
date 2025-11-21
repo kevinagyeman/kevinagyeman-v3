@@ -36,6 +36,7 @@ pytz==2025.2
 PyYAML==6.0.3
 requests==2.32.5
 resend==2.16.0
+ruff==0.14.6
 s3transfer==0.14.0
 simplejson==3.20.2
 six==1.17.0
@@ -43,3 +44,4 @@ sqlparse==0.5.3
 typing_extensions==4.15.0
 uritemplate==4.2.0
 urllib3==2.5.0
+uv==0.9.10

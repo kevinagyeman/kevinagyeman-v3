@@ -4,19 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('project', '0001_initial'),
+        ("project", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='project',
-            name='image_link',
+            model_name="project",
+            name="image_link",
         ),
         migrations.AddField(
-            model_name='project',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='projects/'),
+            model_name="project",
+            name="image",
+            field=models.ImageField(blank=True, null=True, upload_to="projects/"),
         ),
     ]
