@@ -6,14 +6,13 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-from .authentication import Login, RefreshToken
 from .views import VercelRedeployView
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="API Documentation",
+        title="Portfolio API Documentation",
         default_version="v1",
-        description="Test description",
+        description="RESTful API for Kevin Agyeman's portfolio website",
     ),
     public=True,
     permission_classes=[permissions.AllowAny],
@@ -23,10 +22,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/projects/", include("project.urls")),
     path("api/information/", include("information.urls")),
-    # path("api/auth/login/", Login.as_view(), name="custom_login"),
-    # path(
-    #     "api/auth/token/refresh/", RefreshToken.as_view(), name="custom_token_refresh"
-    # ),
     path("api/auth/", include("dj_rest_auth.urls")),
     path("api/redeploy/", VercelRedeployView.as_view(), name="vercel_redeploy"),
 ]
