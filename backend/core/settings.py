@@ -14,6 +14,7 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = config("ALLOWED_ORIGINS", cast=Csv())
+CSRF_TRUSTED_ORIGINS = config("ALLOWED_ORIGINS", cast=Csv())
 
 VERCEL_WEBHOOK_URL = config("VERCEL_WEBHOOK_URL", default=None)
 
@@ -54,8 +55,10 @@ REST_AUTH = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=12),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
 }
 
 REST_FRAMEWORK = {
