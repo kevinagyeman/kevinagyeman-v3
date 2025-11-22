@@ -16,15 +16,4 @@ class ProjectAdmin(admin.ModelAdmin):
     search_fields = ("title", "description", "skills")
     date_hierarchy = "start_date"
     ordering = ("-start_date",)
-
-    fieldsets = (
-        (
-            "Basic Information",
-            {"fields": ("title", "short_description", "description")},
-        ),
-        ("Timeline", {"fields": ("start_date", "end_date", "is_present_date")}),
-        ("Technical Details", {"fields": ("skills", "links", "image")}),
-        ("Publishing", {"fields": ("is_published",)}),
-    )
-
     list_editable = ("is_published",)

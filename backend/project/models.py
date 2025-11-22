@@ -8,7 +8,7 @@ class Project(models.Model):
     is_present_date = models.BooleanField(null=True, blank=True)
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
-    short_description = models.CharField(max_length=160, null=True, blank=True)
+    short_description = models.TextField(max_length=255, null=True, blank=True)
     skills = models.TextField(null=True, blank=True)
     links = models.TextField(null=True, blank=True)
     image = models.ImageField(
