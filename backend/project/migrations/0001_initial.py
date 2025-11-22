@@ -4,27 +4,36 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Project',
+            name="Project",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_published', models.BooleanField(default=False)),
-                ('start_date', models.DateField()),
-                ('end_date', models.DateField(blank=True, null=True)),
-                ('is_present_date', models.BooleanField(blank=True, null=True)),
-                ('title', models.CharField(max_length=255)),
-                ('description', models.TextField(blank=True, null=True)),
-                ('short_description', models.CharField(blank=True, max_length=160, null=True)),
-                ('image_link', models.URLField(blank=True, editable=False, null=True)),
-                ('skills', models.TextField(blank=True, null=True)),
-                ('links', models.TextField(blank=True, null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("is_published", models.BooleanField(default=False)),
+                ("start_date", models.DateField()),
+                ("end_date", models.DateField(blank=True, null=True)),
+                ("is_present_date", models.BooleanField(blank=True, null=True)),
+                ("title", models.CharField(max_length=255)),
+                ("description", models.TextField(blank=True, null=True)),
+                (
+                    "short_description",
+                    models.CharField(blank=True, max_length=160, null=True),
+                ),
+                ("image_link", models.URLField(blank=True, editable=False, null=True)),
+                ("skills", models.TextField(blank=True, null=True)),
+                ("links", models.TextField(blank=True, null=True)),
             ],
         ),
     ]

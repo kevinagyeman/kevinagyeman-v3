@@ -4,28 +4,40 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Information',
+            name="Information",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=255)),
-                ('last_name', models.CharField(blank=True, max_length=255, null=True)),
-                ('role', models.CharField(blank=True, max_length=255, null=True)),
-                ('main_link', models.CharField(blank=True, max_length=255, null=True)),
-                ('email', models.EmailField(blank=True, max_length=254, null=True)),
-                ('summary', models.TextField(blank=True, null=True)),
-                ('about', models.CharField(blank=True, max_length=160, null=True)),
-                ('skills', models.TextField(blank=True, null=True)),
-                ('links', models.TextField(blank=True, null=True)),
-                ('image', models.ImageField(blank=True, null=True, upload_to='information/')),
-                ('resume', models.FileField(blank=True, null=True, upload_to='resumes/')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("first_name", models.CharField(max_length=255)),
+                ("last_name", models.CharField(blank=True, max_length=255, null=True)),
+                ("role", models.CharField(blank=True, max_length=255, null=True)),
+                ("main_link", models.CharField(blank=True, max_length=255, null=True)),
+                ("email", models.EmailField(blank=True, max_length=254, null=True)),
+                ("summary", models.TextField(blank=True, null=True)),
+                ("about", models.CharField(blank=True, max_length=160, null=True)),
+                ("skills", models.TextField(blank=True, null=True)),
+                ("links", models.TextField(blank=True, null=True)),
+                (
+                    "image",
+                    models.ImageField(blank=True, null=True, upload_to="information/"),
+                ),
+                (
+                    "resume",
+                    models.FileField(blank=True, null=True, upload_to="resumes/"),
+                ),
             ],
         ),
     ]
