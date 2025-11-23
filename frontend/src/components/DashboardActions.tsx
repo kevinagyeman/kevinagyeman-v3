@@ -11,10 +11,10 @@ const handleLogout = async () => {
 function DashboardActions() {
 	return (
 		<div className="flex gap-2 mb-5 flex-wrap">
-			<Button variant={"secondary"}>
+			<Button variant={"secondary"} asChild>
 				<a href="/admin/project/new">New Project</a>
 			</Button>
-			<Button variant={"secondary"}>
+			<Button variant={"secondary"} asChild>
 				<a href="/admin/information">Edit Profile</a>
 			</Button>
 

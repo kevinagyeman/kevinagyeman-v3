@@ -60,7 +60,7 @@ function DashboardProjectsList() {
 								</div>
 							</div>
 							<div className="flex gap-2">
-								<Button size={"sm"} variant={"outline"}>
+								<Button size={"sm"} variant={"outline"} asChild>
 									<a href={`/admin/project/${project.id}`}>Edit</a>
 								</Button>
 								{project.id && <DeleteProject projectId={project.id} />}

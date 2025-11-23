@@ -62,7 +62,7 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 	return (
 		<>
 			<div className="flex gap-2 mb-5 justify-between">
-				<Button size={"sm"} variant={"outline"}>
+				<Button size={"sm"} variant={"outline"} asChild>
 					<a href={DASHBOARD_URL}>Dashboard</a>
 				</Button>
 				{projectId && <DeleteProject projectId={Number(projectId)} />}
