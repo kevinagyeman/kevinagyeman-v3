@@ -29,7 +29,8 @@
 				"noArrayIndexKey": "off"
 			},
 			"a11y": {
-				"recommended": true
+				"recommended": true,
+				"noLabelWithoutControl": "off"
 			}
 		}
 	},

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import DeleteProject from "./DeleteProject";
 import CustomCheckbox from "./form/CustomCheckbox";
+import CustomDatePicker from "./form/CustomDatePicker";
 import CustomInput from "./form/CustomInput";
 import CustomTextArea from "./form/CustomTextArea";
 import CustomUpload from "./form/CustomUpload";
@@ -21,6 +22,8 @@ interface ProjectFormProps {
 export default function ProjectForm({ projectId }: ProjectFormProps) {
 	const [imagePreview, setImagePreview] = useState<string>("");
 	const [error, setError] = useState<string>("");
+	const [startDate, setStartDate] = useState<Date>();
+	const [endDate, setEndDate] = useState<Date>();
 
 	const form = useForm<ProjectSchema>({
 		resolver: zodResolver(projectSchema),
@@ -35,6 +38,14 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 			const data = await fetchProject(Number(projectId));
 			if (!data) return;
 			setImagePreview(`${data.image}`);
+
+			if (data.start_date) {
+				setStartDate(new Date(data.start_date));
+			}
+			if (data.end_date) {
+				setEndDate(new Date(data.end_date));
+			}
+
 			form.reset(data);
 		};
 
@@ -57,6 +68,16 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 					: "Failed to save project. Please try again.",
 			);
 		}
+	};
+
+	const handleStartDateChange = (dateString: string) => {
+		setStartDate(new Date(dateString));
+		form.setValue("start_date", dateString);
+	};
+
+	const handleEndDateChange = (dateString: string) => {
+		setEndDate(new Date(dateString));
+		form.setValue("end_date", dateString);
 	};
 
 	return (
@@ -97,20 +118,18 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 						/>
 					</div>
 					<div className="w-full sm:w-auto">
-						<CustomInput
-							inputType="date"
+						<CustomDatePicker
 							labelText="Start Date"
-							placeholder="Start Date"
-							inputProps={form.register("start_date")}
+							initialDate={startDate}
+							onChange={handleStartDateChange}
 							error={errors.start_date?.message}
 						/>
 					</div>
 					<div className="w-full sm:w-auto">
-						<CustomInput
-							inputType="date"
+						<CustomDatePicker
 							labelText="End Date"
-							placeholder="End Date"
-							inputProps={form.register("end_date")}
+							initialDate={endDate}
+							onChange={handleEndDateChange}
 							error={errors.end_date?.message}
 						/>
 					</div>
