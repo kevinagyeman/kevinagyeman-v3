@@ -1,4 +1,5 @@
 import EasyPicker from "@kevinagyeman/easy-picker";
+import "@kevinagyeman/easy-picker/style.css";
 import { useEffect, useRef } from "react";
 
 interface CustomDatePickerProps {
@@ -22,6 +23,7 @@ export default function CustomDatePicker({
 			pickerRef.current = new EasyPicker({
 				container: containerRef.current,
 				format: "date",
+
 				initialDate: initialDate || new Date(),
 				returnFormat: "date-string",
 				onChange: (dateString) => {

@@ -117,30 +117,23 @@ export default function ProjectForm({ projectId }: ProjectFormProps) {
 							error={errors.title?.message}
 						/>
 					</div>
-					<div className="w-full sm:w-auto">
-						<CustomDatePicker
-							labelText="Start Date"
-							initialDate={startDate}
-							onChange={handleStartDateChange}
-							error={errors.start_date?.message}
-						/>
-					</div>
-					<div className="w-full sm:w-auto">
-						<CustomDatePicker
-							labelText="End Date"
-							initialDate={endDate}
-							onChange={handleEndDateChange}
-							error={errors.end_date?.message}
-						/>
-					</div>
-					<div className="w-full sm:w-auto">
-						<CustomCheckbox
-							inputProps={form.register("is_present_date")}
-							label="Present"
-						/>
-					</div>
 				</div>
-
+				<CustomDatePicker
+					labelText="Start Date"
+					initialDate={startDate}
+					onChange={handleStartDateChange}
+					error={errors.start_date?.message}
+				/>
+				<CustomDatePicker
+					labelText="End Date"
+					initialDate={endDate}
+					onChange={handleEndDateChange}
+					error={errors.end_date?.message}
+				/>
+				<CustomCheckbox
+					inputProps={form.register("is_present_date")}
+					label="Present"
+				/>
 				<CustomTextArea
 					labelText="Short Description"
 					placeholder="Short Description"

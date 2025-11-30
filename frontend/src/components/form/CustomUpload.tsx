@@ -46,17 +46,22 @@ function CustomUpload<T extends FieldValues = FieldValues>({
 								</Button>
 							)
 						: preview && (
-								<img
-									src={preview}
-									alt="Project Preview"
-									className="w-[200px] h-auto object-cover rounded-xl border"
-									style={{ aspectRatio: ratio }}
-									onError={(e) => {
-										const target = e.target as HTMLImageElement;
-										target.onerror = null;
-										target.src = "/placeholder.png";
-									}}
-								/>
+								<>
+									<img
+										src={preview}
+										alt="Project Preview"
+										className="w-full lg:w-[400px] h-auto object-cover rounded-xl border"
+										style={{ aspectRatio: ratio }}
+										onError={(e) => {
+											const target = e.target as HTMLImageElement;
+											target.onerror = null;
+											target.src = "/placeholder.png";
+										}}
+									/>
+									<Button asChild variant={"outline"}>
+										<a href={preview}>Image Full Screen</a>
+									</Button>
+								</>
 							)}
 
 					<Input
