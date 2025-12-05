@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { fileFormat, textFormat } from "./custom-formats";
+import { fileFormat, shortTextFormat, textFormat } from "./custom-formats";
 
 export const informationSchema = z.object({
 	first_name: z.string().min(1),
@@ -7,7 +7,7 @@ export const informationSchema = z.object({
 	role: textFormat,
 	main_link: textFormat,
 	email: textFormat,
-	summary: textFormat,
+	summary: shortTextFormat,
 	about: textFormat,
 	skills: textFormat,
 	links: textFormat,

@@ -1,7 +1,8 @@
-import z from "zod";
 import { MAX_FILE_SIZE } from "@/constants";
+import z from "zod";
 
 export const textFormat = z.string().nullable();
+export const shortTextFormat = z.string().max(255).nullable();
 export const fileFormat = z
 	.union([
 		z.instanceof(File).refine((file) => file.size <= MAX_FILE_SIZE, {

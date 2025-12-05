@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { dateFormat, fileFormat, textFormat } from "./custom-formats";
+import {
+	dateFormat,
+	fileFormat,
+	shortTextFormat,
+	textFormat,
+} from "./custom-formats";
 
 export const projectSchema = z.object({
 	id: z.number().optional(),
@@ -12,7 +17,7 @@ export const projectSchema = z.object({
 
 	title: z.string().min(1),
 	description: textFormat,
-	short_description: textFormat,
+	short_description: shortTextFormat,
 	skills: textFormat,
 	links: textFormat,
 	image: fileFormat,
