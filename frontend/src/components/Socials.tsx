@@ -13,7 +13,7 @@ function Socials({ resume = false }: { resume?: boolean }) {
 			)}
 			<Button variant="outline" size="icon" className="rounded-full">
 				<a
-					href={"https://www.linkedin.com/in/kevinagyeman/"}
+					href="https://www.linkedin.com/in/kevinagyeman/"
 					target="_blank"
 					rel="noopener"
 				>
