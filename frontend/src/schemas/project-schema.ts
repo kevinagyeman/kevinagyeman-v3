@@ -13,7 +13,7 @@ export const projectSchema = z.object({
 	is_published: z.boolean(),
 
 	start_date: dateFormat,
-	end_date: textFormat,
+	end_date: dateFormat.optional(),
 
 	title: z.string().min(1),
 	description: textFormat,

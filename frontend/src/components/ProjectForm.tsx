@@ -22,11 +22,17 @@ interface ProjectFormProps {
 export default function ProjectForm({ projectId }: ProjectFormProps) {
 	const [imagePreview, setImagePreview] = useState<string>("");
 	const [error, setError] = useState<string>("");
-	const [startDate, setStartDate] = useState<Date>();
-	const [endDate, setEndDate] = useState<Date>();
+	const today = new Date();
+	const todayString = today.toISOString().split("T")[0];
+	const [startDate, setStartDate] = useState<Date>(today);
+	const [endDate, setEndDate] = useState<Date>(today);
 
 	const form = useForm<ProjectSchema>({
 		resolver: zodResolver(projectSchema),
+		defaultValues: {
+			start_date: todayString,
+			end_date: todayString,
+		},
 	});
 
 	const errors = form.formState.errors;
