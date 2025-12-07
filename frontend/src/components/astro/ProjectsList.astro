@@ -4,6 +4,7 @@ import Skills from "@/components/Skills";
 import { Button } from "@/components/ui/button";
 import type { ProjectSchema } from "@/schemas/project-schema";
 import { fetchProjects } from "@/services/project";
+import { generateSlug } from "@/utils/utils";
 import EditAsAdmin from "../EditAsAdmin";
 
 const projects = await fetchProjects();
@@ -41,7 +42,7 @@ const projects = await fetchProjects();
             />
           )}
         </div>
-        <a href={`/project/${project.id}`}>
+        <a href={`/project/${generateSlug(project.title)}`}>
           <Button
             variant="outline"
             client:visible

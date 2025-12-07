@@ -7,19 +7,21 @@ import EditAsAdmin from "@/components/EditAsAdmin";
 import Links from "@/components/Links";
 import Skills from "@/components/Skills";
 import MainLayout from "@/layouts/main.astro";
-import { fetchProject, fetchProjects } from "@/services/project";
+import { fetchProjects } from "@/services/project";
 import type { Seo } from "@/types/seo-type";
+import { generateSlug } from "@/utils/utils";
 
 export async function getStaticPaths() {
 	const projects = await fetchProjects();
 
 	return projects.map((project) => ({
-		params: { id: String(project.id) },
+		params: { slug: generateSlug(project.title) },
+		props: { project },
 	}));
 }
 
-const { id } = Astro.params;
-const project = await fetchProject(Number(id));
+const { slug } = Astro.params;
+const { project } = Astro.props;
 
 if (!project) {
 	return Astro.redirect("/404");
@@ -34,7 +36,7 @@ const content: Seo = {
 
 <MainLayout content={content}>
   <div class="space-y-6 max-w-2xl mx-auto">
-    <EditAsAdmin href=`/admin/project/${id}` client:load />
+    <EditAsAdmin href=`/admin/project/${project.id}` client:load />
     <img
       src={`${project.image}`}
       alt="profile image"
