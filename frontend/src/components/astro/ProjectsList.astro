@@ -11,18 +11,18 @@ const projects = await fetchProjects();
 ---
 
 <div class="mb-8">
-	<h1 class="mb-3 mt-2 text-balance text-3xl font-semibold md:text-4xl">
-		Projects
-	</h1>
+  <h1 class="mb-3 mt-2 text-balance text-3xl font-semibold md:text-4xl">
+    Projects
+  </h1>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
-	{
+  {
     projects.map((project: ProjectSchema) => (
       <div>
         <img
           src={`${project.image}`}
           alt="project image"
-          class="w-full h-auto object-cover rounded-lg"
+          class="w-full h-auto object-cover rounded-lg border"
           style={{ aspectRatio: "16/9" }}
           onerror="this.onerror=null; this.src='/placeholder.png';"
         />

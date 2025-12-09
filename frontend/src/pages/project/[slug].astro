@@ -40,7 +40,7 @@ const content: Seo = {
     <img
       src={`${project.image}`}
       alt="profile image"
-      class="w-full h-auto object-cover rounded-xl"
+      class="w-full h-auto object-cover rounded-xl border"
       style={{ aspectRatio: "16/9" }}
       onerror="this.onerror=null; this.src='/placeholder.png';"
     />
@@ -52,7 +52,7 @@ const content: Seo = {
         <Skills skillsString={project.skills} variant={"secondary"} />
       )
     }
-    <Description content={project.description} />
     {project.links && <Links linksString={project.links} />}
+    <Description content={project.description} />
   </div>
 </MainLayout>
