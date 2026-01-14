@@ -25,7 +25,7 @@ A modern, full-stack personal portfolio website showcasing projects, skills, and
 - **Styling**: Tailwind CSS 4.x
 - **Forms**: React Hook Form + Zod validation
 - **Code Quality**: Biome (Linting & Formatting)
-- **Deployment**: Vercel
+- **Deployment**: Vercel.
 
 ### Backend
 - **Framework**: Django 5.x + Django REST Framework
