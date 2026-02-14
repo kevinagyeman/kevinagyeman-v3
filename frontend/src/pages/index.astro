@@ -2,7 +2,6 @@
 import Contact from "@/components/astro/Contact.astro";
 import Hero from "@/components/astro/Hero.astro";
 import ProjectsList from "@/components/astro/ProjectsList.astro";
-import Section from "@/components/astro/Section.astro";
 import { SEO_PLACEHOLDER_IMAGE_URL } from "@/constants";
 import MainLayout from "@/layouts/main.astro";
 import { fetchInformation } from "@/services/information";
@@ -11,14 +10,14 @@ import type { Seo } from "@/types/seo-type";
 const information = await fetchInformation();
 
 const content: Seo = {
-	title: `${information.first_name} ${information.last_name} - ${information.role}`,
+	title: `${information.first_name} ${information.last_name} | ${information.role}`,
 	description: `${information.summary}`,
 	image: SEO_PLACEHOLDER_IMAGE_URL,
 };
 ---
 
 <MainLayout content={content}>
-	<Hero information={information}/>
-	<ProjectsList/>
-	<Contact information={information}/>
+	<Hero information={information} />
+	<ProjectsList />
+	<Contact information={information} />
 </MainLayout>
