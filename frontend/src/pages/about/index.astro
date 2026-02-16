@@ -12,27 +12,27 @@ import type { Seo } from "@/types/seo-type";
 const information = await fetchInformation();
 
 const content: Seo = {
-	title: `About - ${information.first_name} ${information.last_name}`,
-	description: `${information.summary}`,
-	image: `${information.image}`,
+  title: `About | ${information.first_name} ${information.last_name}`,
+  description: `${information.summary}`,
+  image: `${information.image}`,
 };
 ---
 
 <MainLayout content={content}>
-  <div class='space-y-6 max-w-2xl mx-auto'>
+  <div class="space-y-6 max-w-2xl mx-auto">
     <EditAsAdmin href=`/admin/information` client:load />
     <img
       src={`${information.image}`}
-      alt='profile image'
-      class='w-full h-auto object-cover max-w-[80px] rounded-full'
-      style={{ aspectRatio: '1/1' }}
+      alt="profile image"
+      class="w-full h-auto object-cover max-w-[80px] rounded-full"
+      style={{ aspectRatio: "1/1" }}
       onerror="this.onerror=null; this.src='/cover.png';"
     />
     <Title content={`${information.first_name} ${information.last_name}`} />
     <ShortDescription content={information.summary} />
     {
       information.skills && (
-        <Skills skillsString={information.skills} variant={'secondary'} />
+        <Skills skillsString={information.skills} variant={"secondary"} />
       )
     }
     <Description content={information.about} />

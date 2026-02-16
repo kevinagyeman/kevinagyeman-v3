@@ -8,12 +8,12 @@ import type { Seo } from "@/types/seo-type";
 const information = await fetchInformation();
 
 const content: Seo = {
-	title: `Contact - ${information.first_name} ${information.last_name}`,
+	title: `Contact | ${information.first_name} ${information.last_name}`,
 	description: `${information.summary}`,
 	image: SEO_PLACEHOLDER_IMAGE_URL,
 };
 ---
 
 <MainLayout content={content}>
-	<Contact information={information}/>
+	<Contact information={information} />
 </MainLayout>
