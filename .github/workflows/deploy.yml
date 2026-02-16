@@ -12,8 +12,8 @@ jobs:
     - name: Deploy to VPS
       uses: appleboy/ssh-action@v1.0.0
       with:
-        host: ${{ secrets.VPS_HOST }}  # 51.210.105.182
-        username: ${{ secrets.VPS_USER }}  # kevinagyeman
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
         key: ${{ secrets.VPS_SSH_KEY }}
         script: |
           cd /home/kevinagyeman/kevinagyeman-website/kevinagyeman-v3
@@ -27,7 +27,7 @@ jobs:
         echo "Waiting for backend to be healthy..."
         max_attempts=30
         attempt=0
-        until curl -f -s https://api.kevinagyeman.com/api/information || [ $attempt -eq $max_attempts ]; do
+        until curl -f -s http://${{ secrets.VPS_HOST }}/api/information || [ $attempt -eq $max_attempts ]; do
           attempt=$((attempt + 1))
           echo "Attempt $attempt/$max_attempts - Backend not ready yet..."
           sleep 10
@@ -38,5 +38,9 @@ jobs:
           exit 1
         fi
         
-        echo "Backend is healthy! Vercel can now deploy."
-        sleep 5  # Extra buffer to be safe
+        echo "Backend is healthy! Triggering Vercel deployment..."
+        sleep 5
+
+    - name: Trigger Vercel Deployment
+      run: |
+        curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK }}
