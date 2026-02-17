@@ -27,7 +27,7 @@ jobs:
         echo "Waiting for backend to be healthy..."
         max_attempts=30
         attempt=0
-        until curl -f -s https://api.kevinagyeman.com/api/information || [ $attempt -eq $max_attempts ]; do
+        until curl -f -s ${{ secrets.BACKEND_HEALTH_CHECK_URL }} || [ $attempt -eq $max_attempts ]; do
           attempt=$((attempt + 1))
           echo "Attempt $attempt/$max_attempts - Backend not ready yet..."
           sleep 10
