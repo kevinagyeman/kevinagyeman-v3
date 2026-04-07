@@ -21,7 +21,7 @@ A modern, full-stack personal portfolio website showcasing projects, skills, and
 
 ### Frontend
 - **Framework**: Astro 5.x (Static Site Generation)
-- **UI Library**: React 19 (Islands Architecture)
+- **UI Library**: React 19 (Islands Architecture).
 - **Styling**: Tailwind CSS 4.x
 - **Forms**: React Hook Form + Zod validation
 - **Code Quality**: Biome (Linting & Formatting)
