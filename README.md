@@ -32,7 +32,7 @@ A modern, full-stack personal portfolio website showcasing projects, skills, and
 - **Database**: PostgreSQL
 - **Authentication**: JWT with httpOnly cookies
 - **Media Storage**: CDN integration
-- **API**: RESTful endpoints with CORS support
+- **API**: RESTful endpoints with CORS support.
 
 ---
 
