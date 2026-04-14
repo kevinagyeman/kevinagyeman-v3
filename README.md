@@ -59,7 +59,7 @@ This project follows a **decoupled architecture** with a clear separation betwee
 ## 📝 License
 
 This project is for personal use and portfolio demonstration.
-Feel free to use the code structure as inspiration for your own projects.
+Feel free to use the code structure as inspiration for your own projects
 
 ---
 
