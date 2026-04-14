@@ -52,7 +52,7 @@ This project follows a **decoupled architecture** with a clear separation betwee
 - **Type Safety**: TypeScript + Zod ensure runtime validation
 - **Error Handling**: Comprehensive try-catch blocks with user-friendly messages
 - **Accessibility**: ARIA labels, keyboard navigation, semantic HTML
-- **Performance**: Lazy loading, code splitting, optimized assets
+- **Performance**: Lazy loading, code splitting, optimized assets.
 
 ---
 
