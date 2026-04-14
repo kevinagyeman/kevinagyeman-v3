@@ -6,7 +6,7 @@ A modern, full-stack personal portfolio website showcasing projects, skills, and
 
 ## ✨ Features
 
-- **Dynamic Project Showcase** - Display projects with detailed descriptions, tech stacks, and live links
+- **Dynamic Project Showcase** - Display projects with detailed descriptions, tech stacks, and live links.
 - **Admin Dashboard** - Full-featured CMS for managing content without code changes
 - **Interactive Code Viewer** - Visualize profile data in multiple programming languages
 - **Responsive Design** - Optimized for all devices with Tailwind CSS.
