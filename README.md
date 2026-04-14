@@ -15,7 +15,7 @@ A modern, full-stack personal portfolio website showcasing projects, skills, and
 - **Contact Form** - Easy way for visitors to get in touch.
 - **CDN Fallback** - Automatic local fallbacks when CDN is blocked.
 - **Type-Safe** - Full TypeScript + Zod validation for reliability
-- **SEO Optimized** - Built-in sitemap generation and meta tags
+- **SEO Optimized** - Built-in sitemap generation and meta tags.
 
 ## 🛠️ Tech Stack
 
