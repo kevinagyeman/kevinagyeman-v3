@@ -10,7 +10,7 @@ A modern, full-stack personal portfolio website showcasing projects, skills, and
 - **Admin Dashboard** - Full-featured CMS for managing content without code changes
 - **Interactive Code Viewer** - Visualize profile data in multiple programming languages
 - **Responsive Design** - Optimized for all devices with Tailwind CSS.
-- **Dark Mode** - Automatic theme switching with user preference persistence
+- **Dark Mode** - Automatic theme switching with user preference persistence.
 - **PDF Resume Viewer** - Embedded resume with fallback support.
 - **Contact Form** - Easy way for visitors to get in touch.
 - **CDN Fallback** - Automatic local fallbacks when CDN is blocked.
