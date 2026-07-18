@@ -6,22 +6,22 @@ A modern, full-stack personal portfolio website showcasing projects, skills, and
 
 ## ✨ Features
 
-- **Dynamic Project Showcase** - Display projects with detailed descriptions, tech stacks, and live links
+- **Dynamic Project Showcase** - Display projects with detailed descriptions, tech stacks, and live links.
 - **Admin Dashboard** - Full-featured CMS for managing content without code changes
 - **Interactive Code Viewer** - Visualize profile data in multiple programming languages
-- **Responsive Design** - Optimized for all devices with Tailwind CSS
-- **Dark Mode** - Automatic theme switching with user preference persistence
-- **PDF Resume Viewer** - Embedded resume with fallback support
-- **Contact Form** - Easy way for visitors to get in touch
-- **CDN Fallback** - Automatic local fallbacks when CDN is blocked
-- **Type-Safe** - Full TypeScript + Zod validation for reliability
-- **SEO Optimized** - Built-in sitemap generation and meta tags
+- **Responsive Design** - Optimized for all devices with Tailwind CSS.
+- **Dark Mode** - Automatic theme switching with user preference persistence.
+- **PDF Resume Viewer** - Embedded resume with fallback support.
+- **Contact Form** - Easy way for visitors to get in touch.
+- **CDN Fallback** - Automatic local fallbacks when CDN is blocked.
+- **Type-Safe** - Full TypeScript + Zod validation for reliability.
+- **SEO Optimized** - Built-in sitemap generation and meta tags.
 
 ## 🛠️ Tech Stack
 
 ### Frontend
 - **Framework**: Astro 5.x (Static Site Generation)
-- **UI Library**: React 19 (Islands Architecture)
+- **UI Library**: React 19 (Islands Architecture).
 - **Styling**: Tailwind CSS 4.x
 - **Forms**: React Hook Form + Zod validation
 - **Code Quality**: Biome (Linting & Formatting)
@@ -32,7 +32,7 @@ A modern, full-stack personal portfolio website showcasing projects, skills, and
 - **Database**: PostgreSQL
 - **Authentication**: JWT with httpOnly cookies
 - **Media Storage**: CDN integration
-- **API**: RESTful endpoints with CORS support
+- **API**: RESTful endpoints with CORS support.
 
 ---
 
@@ -52,14 +52,14 @@ This project follows a **decoupled architecture** with a clear separation betwee
 - **Type Safety**: TypeScript + Zod ensure runtime validation
 - **Error Handling**: Comprehensive try-catch blocks with user-friendly messages
 - **Accessibility**: ARIA labels, keyboard navigation, semantic HTML
-- **Performance**: Lazy loading, code splitting, optimized assets
+- **Performance**: Lazy loading, code splitting, optimized assets.
 
 ---
 
 ## 📝 License
 
 This project is for personal use and portfolio demonstration.
-Feel free to use the code structure as inspiration for your own projects.
+Feel free to use the code structure as inspiration for your own projects
 
 ---
 
