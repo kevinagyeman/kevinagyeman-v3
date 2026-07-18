@@ -10,6 +10,9 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  build: {
+    inlineStylesheets: 'always',
+  },
   output: 'static',
   adapter: vercel({
     webAnalytics: {

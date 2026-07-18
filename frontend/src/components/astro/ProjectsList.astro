@@ -24,6 +24,10 @@ const projects = await fetchProjects();
           alt="project image"
           class="w-full h-auto object-cover rounded-lg border"
           style={{ aspectRatio: "16/9" }}
+          width="640"
+          height="360"
+          loading="lazy"
+          decoding="async"
           onerror="this.onerror=null; this.src='/placeholder.png';"
         />
 

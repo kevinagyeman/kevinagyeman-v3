@@ -18,6 +18,10 @@ const { information } = props;
 				src={`${information.image}`}
 				alt="profile image"
 				class="object-cover aspect-square w-[80px] md:h-[80px] md:w-[80px] rounded-full"
+				width="80"
+				height="80"
+				decoding="async"
+				fetchpriority="high"
 				onerror="this.onerror=null; this.src='/cover.png';"
 			>
 			<h1 class="text-3xl font-bold lg:text-6xl">
@@ -47,6 +51,6 @@ const { information } = props;
 				<EditAsAdmin href="/admin/information" client:load/>
 			</div>
 		</div>
-		<CodeViewer client:visible information={information}/>
+		<CodeViewer client:idle information={information}/>
 	</div>
 </section>

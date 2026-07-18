@@ -96,10 +96,18 @@ print(user)
 			<div className="flex w-full flex-col gap-1 overflow-hidden">
 				<Tabs defaultValue="typescript" onValueChange={setSelectedLanguage}>
 					<TabsList className="h-10 w-full">
-						<TabsTrigger value="typescript" className="cursor-pointer">
+						<TabsTrigger
+							value="typescript"
+							className="cursor-pointer"
+							aria-controls={undefined}
+						>
 							Typescript
 						</TabsTrigger>
-						<TabsTrigger value="python" className="cursor-pointer">
+						<TabsTrigger
+							value="python"
+							className="cursor-pointer"
+							aria-controls={undefined}
+						>
 							Python
 						</TabsTrigger>
 					</TabsList>
@@ -113,7 +121,7 @@ print(user)
 								</CodeBlockFilename>
 							)}
 						</CodeBlockFiles>
-						<CodeBlockCopyButton />
+						<CodeBlockCopyButton aria-label="Copy code" />
 					</CodeBlockHeader>
 					<ScrollArea className="w-full">
 						<CodeBlockBody>

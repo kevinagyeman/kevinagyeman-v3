@@ -16,7 +16,6 @@ export default function Auth() {
 		resolver: zodResolver(authSchema),
 	});
 
-	
 	const errors = form.formState.errors;
 
 	const submitAuth: SubmitHandler<AuthSchema> = async (data) => {

@@ -128,6 +128,7 @@ function Navbar() {
 									size={"icon"}
 									variant={"outline"}
 									className="rounded-full border bg-accent cursor-pointer"
+									aria-label="Go to dashboard"
 									onClick={() => {
 										window.location.href = DASHBOARD_URL;
 									}}

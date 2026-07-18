@@ -11,20 +11,22 @@ function Socials({ resume = false }: { resume?: boolean }) {
 					</a>
 				</Button>
 			)}
-			<Button variant="outline" size="icon" className="rounded-full">
+			<Button variant="outline" size="icon" className="rounded-full" asChild>
 				<a
 					href="https://www.linkedin.com/in/kevinagyeman/"
 					target="_blank"
 					rel="noopener"
+					aria-label="LinkedIn"
 				>
 					<LinkedinIcon className="w-4 h-4" />
 				</a>
 			</Button>
-			<Button variant="outline" size="icon" className="rounded-full">
+			<Button variant="outline" size="icon" className="rounded-full" asChild>
 				<a
 					href={"https://github.com/kevinagyeman"}
 					target="_blank"
 					rel="noopener"
+					aria-label="GitHub"
 				>
 					<Github className="w-4 h-4" />
 				</a>
